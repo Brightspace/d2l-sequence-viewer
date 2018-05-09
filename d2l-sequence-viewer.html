@@ -4,8 +4,9 @@
 <link rel="import" href="../d2l-navigation-menu/d2l-root-navigation-menu.html">
 <link rel="import" href="../d2l-typography/d2l-typography.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
-<link ref="import" href="../d2l-organization/components/d2l-organization-name.html">
+<link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
 <link rel="import" href="../d2l-sequences/components/d2l-sequences-viewer-header.html">
+<link rel="import" href="./components/siren-entity.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -22,15 +23,22 @@
 					z-index: 100;
 					background: gray;
 				}
+				d2l-sequences-viewer-header {
+					border-top-color: #006fbf;
+					border-top-style: solid;
+					border-top-width: 4px;
+					padding: 12px 0;
+				}
 			</style>
 		</custom-style>
+		<d2l-siren-entity href="[[_intermediateOraganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
 		<d2l-sequences-viewer-header
 			href="{{currentActivity}}"
 			token="[[token]]">
-			<span class="uppercase" slot="d2l-course-name">
+			<span slot="d2l-course-name">
 					- [
 					<d2l-organization-name
-						href="{{currentActivity}}"
+						href="[[organizationHref]]"
 						token="[[token]]"
 					></d2l-organization-name>
 					]
@@ -54,7 +62,7 @@
 		/*
 			@mixes SirenEntityMixin
 			@demo demos/index.html
-	    */
+		*/
 		class D2LSequenceViewer extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
 			static get is() {
 				return 'd2l-sequence-viewer';
@@ -71,20 +79,42 @@
 					getToken: {
 						type: Object,
 						computed: '_getToken(token)'
+					},
+					_intermediateOraganizationHref: {
+						type: String
+					},
+					organizationEntity: {
+						type: Object
+					},
+					organizationHref: {
+						type: String,
+						computed: '_getOrganizationHref(organizationEntity)'
 					}
 				};
 			}
-
-			ready() {
-				super.ready();
-				this.currentActivity = this.href;
+			static get observers() {
+				return ['_initialize(href)'];
 			}
-
+			_initialize(href) {
+				this.currentActivity = this.href;
+				this._intermediateOraganizationHref = href;
+			}
 			_getTitle(entity) {
 				return entity && entity.properties && entity.properties.title || '';
 			}
 			_getToken(token) {
 				return () => { return Promise.resolve(token); };
+			}
+			_getOrganizationHref(entity) {
+				const upLink = entity.getLinkByRel( 'up' );
+				if ( !upLink ) {
+					return '';
+				}
+				if ( upLink.rel.indexOf( 'https://api.brightspace.com/rels/organization' ) >= 0 ) {
+					return upLink.href;
+				}
+				this._intermediateOraganizationHref = upLink.href;
+				return '';
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
