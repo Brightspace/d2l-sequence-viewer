@@ -5,7 +5,7 @@
 <link rel="import" href="../d2l-typography/d2l-typography.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
-<link rel="import" href="../d2l-sequences/components/d2l-sequences-viewer-header.html">
+<link rel="import" href="./components/sequence-viewer-header.html">
 <link rel="import" href="./components/siren-entity.html">
 
 <dom-module id="d2l-sequence-viewer">
@@ -23,26 +23,24 @@
 					z-index: 100;
 					background: gray;
 				}
-				d2l-sequences-viewer-header {
-					border-bottom: 1px solid var(--d2l-color-gypsum);
-					border-top: 4px solid var(--d2l-color-celestine);
-					padding: 12px 0;
-				}
 			</style>
 		</custom-style>
 		<d2l-siren-entity href="[[_intermediateOraganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
-		<d2l-sequences-viewer-header
+		<d2l-sequence-viewer-header
 			href="{{currentActivity}}"
 			token="[[token]]">
-			<span slot="d2l-course-name">
-					- [
-					<d2l-organization-name
-						href="[[organizationHref]]"
-						token="[[token]]"
-					></d2l-organization-name>
-					]
+			<span slot="d2l-flyout-menu">
+				<d2l-icon-button icon="d2l-tier2:glossary"></d2l-icon-button>
 			</span>
-		</d2l-sequences-viewer-header>
+			<span slot="d2l-course-name">
+				- [
+				<d2l-organization-name
+					href="[[organizationHref]]"
+					token="[[token]]"
+				></d2l-organization-name>
+				]
+			</span>
+		</d2l-sequence-viewer-header>
 		<div class="column">
 			<d2l-root-navigation-menu href="[[href]]" token="[[token]]" current-activity="{{currentActivity}}">
 			</d2l-root-navigation-menu>

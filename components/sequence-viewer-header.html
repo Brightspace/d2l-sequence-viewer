@@ -1,0 +1,121 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../../d2l-colors/d2l-colors.html">
+<link rel="import" href="../../d2l-icons/d2l-icons.html">
+<link rel="import" href="../../d2l-icons/tier2-icons.html">
+<link rel="import" href="../../d2l-icons/tier3-icons.html">
+<link rel="import" href="../../d2l-typography/d2l-typography.html">
+<link rel="import" href="../../d2l-sequences/components/d2l-sequences-topic-name.html">
+<link rel="import" href="../../d2l-sequences/components/d2l-sequences-module-name.html">
+<link rel="import" href="../../d2l-sequences/components/d2l-sequences-iterator.html">
+
+<dom-module id="d2l-sequence-viewer-header">
+    <template>
+        <style>
+            :host {
+                display: grid;
+                grid-template-columns: 30px 30px 62px 31px 1fr 2fr 30px 62px 30px 30px;
+                width: 100%;
+                line-height: 30px;
+                border-bottom: 1px solid var(--d2l-color-gypsum);
+				border-top: 4px solid var(--d2l-color-celestine);
+				padding: 12px 0;
+            }
+            .iterator-icon {
+                border-radius: 50%;
+                border: .1rem solid var(--d2l-color-ferrite);
+                padding: .1rem;
+            }
+            ::slotted([slot=d2l-flyout-menu]) {
+                grid-column: 2;
+            }
+            .flyout-divider {
+                padding: 0 16px;
+                color: var(--d2l-color-corundum);
+            }
+            .icon {
+                width: 30px;
+                height: 30px;
+            }
+            .back-to-module {
+                grid-column: 5;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                line-height: 30px;
+            }
+            @media(max-width: 720px) {
+                :host {
+                    grid-template-columns: 15px 30px 22px 0 0 1fr 22px 32px 30px 15px;
+                }
+                .hidden-small {
+                    visibility: hidden;
+                }
+                .flyout-divider {
+                    padding: 0 8px;
+                }
+            }
+        </style>
+            <slot name="d2l-flyout-menu" d2l-flyout-menu></slot>
+            <d2l-icon class="flyout-divider icon hidden-small" icon="d2l-tier2:divider"></d2l-icon>
+            <d2l-sequences-iterator
+                class="icon hidden-small"
+                href="{{href}}"
+                token="[[token]]"
+                icon="d2l-tier3:chevron-left"
+                up
+            ></d2l-sequences-iterator>
+            <div class="back-to-module hidden-small">
+                BACK TO [<d2l-sequences-module-name
+                    href="[[moduleHref]]"
+                    token="[[token]]"
+                ></d2l-sequences-module-name>]
+                <slot name="d2l-course-name"></slot>
+            </div>
+            <d2l-sequences-topic-name
+                href="[[href]]"
+                token="[[token]]"
+            ></d2l-sequences-topic-name>
+            <d2l-sequences-iterator
+                class="iterator-icon icon"
+                href="{{href}}"
+                token="[[token]]"
+                icon="d2l-tier2:chevron-left"
+                previous
+            ></d2l-sequences-iterator>
+            <d2l-icon class="flyout-divider icon" icon="d2l-tier2:divider"></d2l-icon>
+            <d2l-sequences-iterator
+                class="iterator-icon icon"
+                href="{{href}}"
+                token="[[token]]"
+                icon="d2l-tier2:chevron-right"
+                next
+            ></d2l-sequences-iterator>
+    </template>
+
+    <script>
+		/*
+			@mixes SirenEntityMixin
+			@demo demos/index.html
+        */
+        class D2LSequenceViewerHeader extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+            static get is() {
+                return 'd2l-sequence-viewer-header';
+            }
+            static get properties() {
+                return {
+                    moduleHref: {
+                        type: Object,
+                        computed: '_getHrefByRel(entity, "up")'
+                    }
+                };
+            }
+
+            _getHrefByRel(entity, relation) {
+                const link = entity.getLinkByRel(relation);
+                return link && link.href || '';
+            }
+        }
+        customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
+    </script>
+</dom-module>
