@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../d2l-activity-details-ui/src/d2l-activity-details.html">
-<link rel="import" href="../d2l-navigation-menu/d2l-root-navigation-menu.html">
+<link rel="import" href="../d2l-navigation-menu/d2l-navigation-panel.html">
 <link rel="import" href="../d2l-typography/d2l-typography.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
@@ -16,16 +16,16 @@
 					display: block;
 				}
 				.column {
-					width: 25%;
+					width: 330px;
 					position: fixed;
 					left: 0px;
-					top: 150px;
+					top: 56px;
 					z-index: 100;
 					background: gray;
 				}
 			</style>
 		</custom-style>
-		<d2l-siren-entity href="[[_intermediateOraganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
+		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
 		<d2l-sequence-viewer-header
 			href="{{currentActivity}}"
 			token="[[token]]">
@@ -42,8 +42,11 @@
 			</span>
 		</d2l-sequence-viewer-header>
 		<div class="column">
-			<d2l-root-navigation-menu href="[[href]]" token="[[token]]" current-activity="{{currentActivity}}">
-			</d2l-root-navigation-menu>
+			<d2l-navigation-panel
+				current-activity="{{currentActivity}}"
+				href="[[href]]"
+				token="[[token]]"
+			></d2l-navigation-panel>
 		</div>
 		<div>
 		<d2l-activity-details
@@ -77,7 +80,7 @@
 						type: Object,
 						computed: '_getToken(token)'
 					},
-					_intermediateOraganizationHref: {
+					_intermediateOrganizationHref: {
 						type: String
 					},
 					organizationEntity: {
@@ -93,8 +96,7 @@
 				return ['_initialize(href)'];
 			}
 			_initialize(href) {
-				this.currentActivity = this.href;
-				this._intermediateOraganizationHref = href;
+				this._intermediateOrganizationHref = href;
 			}
 			_getTitle(entity) {
 				return entity && entity.properties && entity.properties.title || '';
@@ -110,7 +112,7 @@
 				if ( upLink.rel.indexOf( 'https://api.brightspace.com/rels/organization' ) >= 0 ) {
 					return upLink.href;
 				}
-				this._intermediateOraganizationHref = upLink.href;
+				this._intermediateOrganizationHref = upLink.href;
 				return '';
 			}
 		}
