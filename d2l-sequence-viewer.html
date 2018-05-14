@@ -11,7 +11,7 @@
 <dom-module id="d2l-sequence-viewer">
 	<template>
 		<custom-style include="d2l-typography">
-			<style is="custom-style" include="d2l-typography d2l-sequences-viewer-header">
+			<style is="custom-style" include="d2l-typography">
 				:host {
 					display: block;
 				}
@@ -23,6 +23,9 @@
 					z-index: 100;
 					background: gray;
 				}
+				.hidden {
+					visibility: hidden;
+				}
 			</style>
 		</custom-style>
 		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
@@ -30,7 +33,7 @@
 			href="{{currentActivity}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu"></d2l-icon-button>
+				<d2l-icon-button icon="d2l-tier3:menu" on-click="_togglePanelVisibility"></d2l-icon-button>
 			</span>
 			<span slot="d2l-course-name">
 				- [
@@ -41,7 +44,7 @@
 				]
 			</span>
 		</d2l-sequence-viewer-header>
-		<div class="column">
+		<div class="column" id="navPanel">
 			<d2l-navigation-panel
 				current-activity="{{currentActivity}}"
 				href="[[href]]"
@@ -89,6 +92,10 @@
 					organizationHref: {
 						type: String,
 						computed: '_getOrganizationHref(organizationEntity)'
+					},
+					panelVisible: {
+						type: Boolean,
+						value: true
 					}
 				};
 			}
@@ -114,6 +121,14 @@
 				}
 				this._intermediateOrganizationHref = upLink.href;
 				return '';
+			}
+			_togglePanelVisibility() {
+				if ( this.panelVisible ) {
+					this.$.navPanel.classList.add('hidden');
+				} else {
+					this.$.navPanel.classList.remove('hidden');
+				}
+				this.panelVisible = !this.panelVisible;
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
