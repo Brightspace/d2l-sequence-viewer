@@ -66,11 +66,7 @@
                 up
             ></d2l-sequences-iterator>
             <div class="back-to-module hidden-small">
-                BACK TO [<d2l-sequences-module-name
-                    href="[[moduleHref]]"
-                    token="[[token]]"
-                ></d2l-sequences-module-name>]
-                <slot name="d2l-course-name"></slot>
+                <slot name="d2l-back-to-module"></slot>
             </div>
             <d2l-sequences-topic-name
                 href="[[href]]"
@@ -101,19 +97,6 @@
         class D2LSequenceViewerHeader extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
             static get is() {
                 return 'd2l-sequence-viewer-header';
-            }
-            static get properties() {
-                return {
-                    moduleHref: {
-                        type: Object,
-                        computed: '_getHrefByRel(entity, "up")'
-                    }
-                };
-            }
-
-            _getHrefByRel(entity, relation) {
-                const link = entity.getLinkByRel(relation);
-                return link && link.href || '';
             }
         }
         customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
