@@ -1,0 +1,62 @@
+{
+	"properties": {
+		"title": "Google"
+	},
+	"rel": ["item"],
+	"entities": [{
+		"links": [{
+			"rel": ["about"],
+			"href": "https://www.google.ca/"
+		}, {
+			"rel": ["alternate"],
+			"class": ["view"],
+			"href": "https://qa108111243g.bspc.com/d2l/le/content/123187/viewContent/104502/View"
+		}],
+		"class": ["activity", "link-activity", "link-plain", "external"],
+		"properties": {
+			"title": "Google"
+		},
+		"rel": ["about", "item"],
+		"entities": [{
+			"rel": ["item"],
+			"class": ["last-viewed", "date"],
+			"properties": {
+				"date": "2016-10-28T20:25:51.287Z"
+			}
+		}, {
+			"rel": ["item"],
+			"links": [{
+				"rel": ["alternate"],
+				"href": "123187/activity/104502/completion"
+			}],
+			"entities": [{
+				"class": ["auto", "completion", "date"],
+				"properties": {
+					"date": "2016-10-28T20:25:51.693Z"
+				},
+				"rel": ["item"]
+			}],
+			"class": ["completion", "completed"]
+		}],
+		"actions": [{
+			"name": "view-activity",
+			"method": "POST",
+			"href": "123187/activity/104502/view"
+		}, {
+			"name": "view-activity-duration",
+			"method": "PUT",
+			"href": "123187/activity/104502/view"
+		}]
+	}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/m2-activity5.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/m2-activity4.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/l1-module2.json"
+	}],
+	"class": ["sequenced-activity"]
+}
