@@ -6,7 +6,9 @@
     "postinstall": "polymer install",
     "lint:html": "eslint *.html demo/*.html test/*.html",
     "lint": "npm run lint:html && polymer lint",
-    "test": "npm run lint && polymer test --skip-plugin sauce"
+    "test": "npm run lint && polymer test --skip-plugin sauce",
+    "prestart": "gulp build-locales",
+    "start": "polymer serve"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,8 @@
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.3.1",
     "eslint-plugin-html": "^3.1.0",
+    "gulp": "^3.9.1",
+    "gulp-merge-json": "^1.3.1",
     "polymer-cli": "^1.3.1"
   }
 }

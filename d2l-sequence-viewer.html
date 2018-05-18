@@ -7,6 +7,7 @@
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
 <link rel="import" href="./components/sequence-viewer-header.html">
 <link rel="import" href="./components/siren-entity.html">
+<link rel="import" href="../d2l-localize-behavior/d2l-localize-behavior.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -26,23 +27,21 @@
 				.hidden {
 					visibility: hidden;
 				}
+				.hide {
+					display: none;
+				}
 			</style>
 		</custom-style>
 		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
+		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
+		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
 		<d2l-sequence-viewer-header
 			href="{{currentActivity}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
 				<d2l-icon-button icon="d2l-tier3:menu" on-click="_togglePanelVisibility"></d2l-icon-button>
 			</span>
-			<span slot="d2l-course-name">
-				- [
-				<d2l-organization-name
-					href="[[organizationHref]]"
-					token="[[token]]"
-				></d2l-organization-name>
-				]
-			</span>
+			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
 		<div class="column" id="navPanel">
 			<d2l-navigation-panel
@@ -66,7 +65,7 @@
 			@mixes SirenEntityMixin
 			@demo demos/index.html
 		*/
-		class D2LSequenceViewer extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+		class D2LSequenceViewer extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
 			static get is() {
 				return 'd2l-sequence-viewer';
 			}
@@ -83,8 +82,9 @@
 						type: Object,
 						computed: '_getToken(token)'
 					},
-					_intermediateOrganizationHref: {
-						type: String
+					moduleHref: {
+						type: Object,
+						computed: '_getHrefByRel(entity, "up")'
 					},
 					organizationEntity: {
 						type: Object
@@ -96,7 +96,16 @@
 					panelVisible: {
 						type: Boolean,
 						value: true
-					}
+					},
+					_courseName: {
+						type: String,
+					},
+					_intermediateOrganizationHref: {
+						type: String
+					},
+					_moduleName: {
+						type: String
+					},
 				};
 			}
 			static get observers() {
@@ -104,6 +113,14 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
+			}
+			connectedCallback() {
+				super.connectedCallback();
+				this.loadResources(this.resolveUrl('./locales.json'));
+			}
+			_getHrefByRel(entity, relation) {
+				const link = entity.getLinkByRel(relation);
+				return link && link.href || '';
 			}
 			_getTitle(entity) {
 				return entity && entity.properties && entity.properties.title || '';
