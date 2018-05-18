@@ -15,5 +15,8 @@
 	"links": [{
 		"rel": ["self", "describes"],
 		"href": "data/sample2.json"
+	}, {
+		"rel": ["up", "https://api.brightspace.com/rels/organization"],
+		"href": ""
 	}]
 }

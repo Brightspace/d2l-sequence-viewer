@@ -1,6 +1,6 @@
 {
 	"properties": {
-		"title": "Google"
+		"title": "Google Optional Topic"
 	},
 	"rel": ["item"],
 	"entities": [{
@@ -23,20 +23,6 @@
 			"properties": {
 				"date": "2016-10-28T20:25:51.287Z"
 			}
-		}, {
-			"rel": ["item"],
-			"links": [{
-				"rel": ["alternate"],
-				"href": "123187/activity/104502/completion"
-			}],
-			"entities": [{
-				"class": ["auto", "completion", "date"],
-				"properties": {
-					"date": "2016-10-28T20:25:51.693Z"
-				},
-				"rel": ["item"]
-			}],
-			"class": ["completion", "completed"]
 		}],
 		"actions": [{
 			"name": "view-activity",

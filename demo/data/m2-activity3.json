@@ -17,27 +17,7 @@
 			"title": "Wikipedia Log"
 		},
 		"rel": ["about", "item"],
-		"entities": [{
-			"rel": ["item"],
-			"class": ["last-viewed", "date"],
-			"properties": {
-				"date": "2017-05-10T17:09:39.800Z"
-			}
-		}, {
-			"rel": ["item"],
-			"links": [{
-				"rel": ["alternate"],
-				"href": "123187/activity/104500/completion"
-			}],
-			"entities": [{
-				"class": ["auto", "completion", "date"],
-				"properties": {
-					"date": "2016-10-28T20:22:36.137Z"
-				},
-				"rel": ["item"]
-			}],
-			"class": ["completion", "completed"]
-		}],
+		"entities": [],
 		"actions": [{
 			"name": "view-activity",
 			"method": "POST",

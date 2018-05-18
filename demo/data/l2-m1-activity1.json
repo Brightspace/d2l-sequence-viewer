@@ -53,13 +53,13 @@
 					"href": "123187/activity/104507/completion"
 				}],
 				"entities": [{
-					"class": ["auto", "completion", "date"],
+					"class": ["auto", "incomplete", "date"],
 					"properties": {
 						"date": "2016-10-28T17:51:57.530Z"
 					},
 					"rel": ["item"]
 				}],
-				"class": ["completion", "completed"]
+				"class": ["completion", "incomplete"]
 			}],
 			"actions": [{
 				"name": "view-activity",

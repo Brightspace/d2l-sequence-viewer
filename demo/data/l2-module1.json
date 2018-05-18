@@ -13,9 +13,9 @@
 	"links": [{
 		"rel": ["self", "describes"],
 		"href": "data/l2-module1.json"
-	},{
-		"rel": ["https://api.brightspace.com/rels/organization"],
-		"href": "../bower_components/d2l-organization/demo/data/course.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/lesson2.json"
 	}],
 	"class": ["sequence", "sequence-description"]
 }
