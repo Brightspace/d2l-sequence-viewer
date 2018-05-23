@@ -6,7 +6,8 @@
     "postinstall": "polymer install",
     "lint:html": "eslint *.html demo/*.html test/*.html",
     "lint": "npm run lint:html && polymer lint",
-    "test": "npm run lint && polymer test --skip-plugin sauce"
+    "test": "npm run lint && polymer test --skip-plugin sauce",
+    "serve": "polymer analyze > analysis.json && polymer serve"
   },
   "repository": {
     "type": "git",
