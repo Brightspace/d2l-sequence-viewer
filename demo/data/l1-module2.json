@@ -1,0 +1,44 @@
+{
+	"properties": {
+		"title": "Module 2"
+	},
+	"entities": [
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity1.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity2.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity3.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity4.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity5.json"
+		}
+
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/l1-module2.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/l1-module1.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/lesson1.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

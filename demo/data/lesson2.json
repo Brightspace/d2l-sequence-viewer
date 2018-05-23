@@ -1,0 +1,29 @@
+{
+	"properties": {
+		"title": "Lesson 2"
+	},
+	"rel": ["item"],
+	"entities": [{
+		"class": ["sequence", "sequence-description"],
+		"rel": ["https://api.brightspace.com/rels/sequence-description"],
+		"href": "data/l2-module1.json"
+	}, {
+		"class": ["sequence", "sequence-description"],
+		"rel": ["https://api.brightspace.com/rels/sequence-description"],
+		"href": "data/l2-module2.json"
+	}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/lesson2.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/lesson1.json"
+	}, {
+		"rel": ["next"],
+		"href": "data/lesson3.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/unit1.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

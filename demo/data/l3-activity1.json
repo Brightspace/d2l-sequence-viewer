@@ -1,0 +1,60 @@
+{
+	"properties": {
+		"title": "Hand & Wrist DLM: Plate Fixation"
+	},
+	"rel": ["item"],
+	"entities": [
+		{
+			"links": [{
+				"rel": ["about"],
+				"href": "https://prodqa.proddev.d2l/d2l/lor/viewer/view.d2l?ou=%7BorgUnitId%7D&loIdentId=20"
+			}, {
+				"rel": ["alternate"],
+				"class": ["view"],
+				"href": "https://qa108111243g.bspc.com/d2l/le/content/123187/viewContent/105281/View"
+			}],
+			"class": ["activity", "link-activity", "link-scorm-1-2", "external"],
+			"properties": {
+				"title": "Hand & Wrist DLM: Plate Fixation"
+			},
+			"rel": ["about", "item"],
+			"entities": [{
+				"rel": ["item"],
+				"class": ["last-viewed", "date"],
+				"properties": {
+					"date": "2017-02-02T21:07:36.483Z"
+				}
+			}, {
+				"rel": ["item"],
+				"links": [{
+					"rel": ["alternate"],
+					"href": "123187/activity/105281/completion"
+				}],
+				"entities": [{
+					"class": ["auto", "completion", "date"],
+					"properties": {
+						"date": "2016-07-26T15:18:30.520Z"
+					},
+					"rel": ["item"]
+				}],
+				"class": ["completion", "completed"]
+			}],
+			"actions": [{
+				"name": "view-activity",
+				"method": "POST",
+				"href": "123187/activity/105281/view"
+			}, {
+				"name": "view-activity-duration",
+				"method": "PUT",
+				"href": "123187/activity/105281/view"
+			}]
+		}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/l3-activity1.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/lesson3.json"
+	}],
+	"class": ["sequenced-activity"]
+}
