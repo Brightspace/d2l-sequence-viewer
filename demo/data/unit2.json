@@ -1,0 +1,21 @@
+{
+	"properties": {
+		"title": "Unit 2"
+	},
+	"rel": ["item"],
+	"entities": [
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/unit2-activity1.json"
+		}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/unit2.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/sample2.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

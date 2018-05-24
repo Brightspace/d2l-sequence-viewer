@@ -1,0 +1,22 @@
+{
+	"class": ["sequence", "sequence-description"],
+	"properties": {
+		"title": "[UXD] K12 - Lesson Viewer"
+	},
+	"entities": [ {
+		"class": ["sequence", "sequence-description"],
+		"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+		"href": "data/unit1.json"
+	},{
+		"class": ["sequence", "sequence-description"],
+		"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+		"href": "data/unit2.json"
+	}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/sample2.json"
+	}, {
+		"rel": ["up", "https://api.brightspace.com/rels/organization"],
+		"href": ""
+	}]
+}

@@ -7,17 +7,19 @@
 		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../d2l-typography/d2l-typography.html">
 		<link rel="import" href="../d2l-sequence-viewer.html">
-		<custom-style>
-			<style is="custom-style" include="demo-pages-shared-styles"></style>
-		</custom-style>
+		<style>
+			body {
+				margin: 0px;
+			}
+		</style>
 	</head>
-	<body>
-
+	<body class="d2l-typography">
 		<d2l-sequence-viewer
-			href="data/example.json"
-			token="foo">
+			current-activity="data/m2-activity2.json"
+			href="data/lesson1.json"
+			token="foozleberries">
 		</d2l-sequence-viewer>
-
 	</body>
 </html>
