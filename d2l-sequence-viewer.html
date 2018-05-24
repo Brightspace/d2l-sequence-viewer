@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../d2l-activity-details-ui/src/d2l-activity-details.html">
-<link rel="import" href="../d2l-navigation-menu/d2l-navigation-panel.html">
+<link rel="import" href="../d2l-sequence-navigator/d2l-sequence-navigator-panel.html">
 <link rel="import" href="../d2l-typography/d2l-typography.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
@@ -44,11 +44,11 @@
 			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
 		<div class="column" id="navPanel">
-			<d2l-navigation-panel
+			<d2l-sequence-navigator-panel
 				current-activity="{{currentActivity}}"
 				href="[[href]]"
 				token="[[token]]"
-			></d2l-navigation-panel>
+			></d2l-sequence-navigator-panel>
 		</div>
 		<div>
 		<d2l-activity-details
