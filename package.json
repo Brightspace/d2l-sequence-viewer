@@ -7,7 +7,7 @@
     "lint:html": "eslint *.html demo/*.html test/*.html",
     "lint": "npm run lint:html && polymer lint",
     "test": "npm run lint && polymer test --skip-plugin sauce",
-    "prestart": "gulp build-locales",
+    "prestart": "gulp build-locales && polymer analyze > analysis.json",
     "start": "polymer serve"
   },
   "repository": {
