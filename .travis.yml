@@ -1,5 +1,15 @@
 language: node_js
-node_js: node
+node_js: 9
+addons:
+  chrome: stable
+sudo: required
 script:
 - npm run lint
-- polymer test --skip-plugin local
+- npm run test
+before_install:
+  - echo -e "machine github.com\n  login $GITHUB_RELEASE_TOKEN" >> ~/.netrc
+env:
+  global:
+  - REPO_NAME=d2l-sequence-viewer
+  #GITHUB_RELEASE_TOKEN
+  - secure: QZCFlbxTSDnR7M1Td7PG7Fwayz4+8B9MSwP84v2IR/Pwz7xIXczal+Qm6VBf2UijAqSgECNeYQOy5TtDJUjzJ66TZgVWiXLNO+Y0+A9PGwaAHP8JEA1P1X1es/k1m3Ev60HIpSiUMwa3bY2liGUNG+1S+uk6SoWXkpICQRHiGz62hRr8KwXfRpyPKXxqtI5zm2WGp5YAUUmS8UnZrCzTJvVTH0f3rYN2P8Efw1JtMkN1hFx2X9H2CltYfmJjteuaX/aw+G+ThmpFWFoHeNAid+kSH6Ix1kIx0lKXWQ8aB7gCWyC8sN9WB7c+ZpTyu6/r6vbpbyc77lV/V7RjFkUuL0uNI9SRi3OA+Rk510engGMrNISii6nbve1FHEEbXA/1cURCc7xgPK7E1Gj8IKgnYO7SBCD37iLc2d5+bpjw5x1PJpyJON0FcwWics3c3kZ/agYOs4kw8QhXgcBSzS8cSSIFJQcca+A3WxlLNfXbqY1Hf4dmWzHrGxS6/72tPuplr1v3sIKOT/L77vMMezqTHABDKJUYsZMYJwR4+jZdScWvUe8q2Uht2NSNZSPMJb+MPwgsMji8Oxlahaw2AkWmSwe4nvDSQT1CG/TC6KZ2K6W5MteMblTolHs0GvwsPq98YtPdMeowDpHjv5gXf5z3rmsu2plJsSv/ZRqT/mV4Zvc=

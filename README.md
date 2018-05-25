@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Brightspace/d2l-sequence-viewer.svg?token=s5DqGXfBESukCURszFfU&branch=master)](https://travis-ci.com/Brightspace/d2l-sequence-viewer)
+
 # d2l-sequence-viewer
 
 [Polymer](https://www.polymer-project.org)-based web component for D2L sequence-viewer.
