@@ -11,7 +11,7 @@
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<d2l-sequence-viewer></d2l-sequence-viewer>
+				<d2l-sequence-viewer href="http://example.com" token="foo"></d2l-sequence-viewer>
 			</template>
 		</test-fixture>
 
@@ -21,7 +21,8 @@
 				describe('basic', function() {
 					it('should instantiate the element', function() {
 						elem = fixture('basic');
-						expect(elem.is).to.equal('d2l-sequence-viewer');
+						expect(elem.href).to.equal('http://example.com');
+						expect(elem.token).to.equal('foo');
 					});
 				});
 			});
