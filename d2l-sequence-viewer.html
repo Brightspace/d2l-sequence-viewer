@@ -24,12 +24,33 @@
 					z-index: 100;
 					background: gray;
 				}
-				.hidden {
-					visibility: hidden;
-				}
 				.hide {
 					display: none;
 				}
+				.sidebar-container {
+					width: 330px;
+					position: fixed;
+					z-index: 1;
+					background-color: white;
+					top: 56px;
+					bottom: 0px;
+					padding: 0px;
+				}
+				.sidebar {
+					height: 100%;
+					position: relative;
+					overflow-y: auto;
+					background: linear-gradient(to right, #F9FAFC, #FFFFFF);
+					box-shadow: 0px 2px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
+				}
+				#navPanel {
+					margin-left: 0px;
+					transition: margin-left 0.5s;
+				}
+				#navMenu {
+					padding: 40px 30px 40px 30px;
+				}
+
 			</style>
 		</custom-style>
 		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
@@ -39,10 +60,21 @@
 			href="{{currentActivity}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_togglePanelVisibility"></d2l-icon-button>
+				<d2l-icon-button icon="d2l-tier3:menu" on-click="_slideNavPanel"></d2l-icon-button>
 			</span>
 			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
+		<div class="sidebar-container" id="navPanel">
+				<div class="sidebar">
+						<d2l-navigation-menu id="navMenu"
+							current-activity="{{currentActivity}}"
+							href="[[href]]"
+							token="[[token]]"
+						></d2l-navigation-menu>
+				</div>
+			</div>
+		</div>
+		<!--
 		<div class="column" id="navPanel">
 			<d2l-sequence-navigator-panel
 				current-activity="{{currentActivity}}"
@@ -50,6 +82,7 @@
 				token="[[token]]"
 			></d2l-sequence-navigator-panel>
 		</div>
+	-->
 		<div>
 		<d2l-activity-details
 			user-url="[[currentActivity]]"
@@ -93,10 +126,6 @@
 						type: String,
 						computed: '_getOrganizationHref(organizationEntity)'
 					},
-					panelVisible: {
-						type: Boolean,
-						value: true
-					},
 					_courseName: {
 						type: String,
 					},
@@ -139,13 +168,12 @@
 				this._intermediateOrganizationHref = upLink.href;
 				return '';
 			}
-			_togglePanelVisibility() {
-				if ( this.panelVisible ) {
-					this.$.navPanel.classList.add('hidden');
+			_slideNavPanel() {
+				if ( getComputedStyle(this.$.navPanel).marginLeft === "0px" ) {
+					this.$.navPanel.style.marginLeft = "-330px";
 				} else {
-					this.$.navPanel.classList.remove('hidden');
+					this.$.navPanel.style.marginLeft = "0px";
 				}
-				this.panelVisible = !this.panelVisible;
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
