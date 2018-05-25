@@ -17,8 +17,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "polymer-siren-mixins": "Brightspace/polymer-siren-mixins",
-    "d2l-sequence-navigator": "^0.0.1",
-    "d2l-activity-details-ui": "^2.1.1",
+    "d2l-navigation-menu": "Brightspace/d2l-navigation-menu",
+    "d2l-activity-details-ui": "Brightspace/d2l-activity-details-ui",
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences",
     "d2l-organizations": "BrightspaceHypermediaComponents/organizations",
     "d2l-icons": "^4.13.0",
