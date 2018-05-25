@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../d2l-activity-details-ui/src/d2l-activity-details.html">
-<link rel="import" href="../d2l-sequence-navigator/d2l-sequence-navigator-panel.html">
+<link rel="import" href="../d2l-sequence-navigator/d2l-sequence-navigator.html">
 <link rel="import" href="../d2l-typography/d2l-typography.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
@@ -16,16 +16,34 @@
 				:host {
 					display: block;
 				}
-				.column {
+				#topbar {
+					position: fixed;
+					top: 0px;
+					height: 30px;
+					z-index: 2;
+					box-shadow: 2px 0px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
+				}
+				#sidebar {
 					width: 330px;
 					position: fixed;
-					left: 0px;
+					z-index: 1;
 					top: 56px;
-					z-index: 100;
-					background: gray;
+					bottom: 0px;
+					padding: 0px;
+					background: linear-gradient(to right, #F9FAFC, #FFFFFF);
+					box-shadow: 0px 2px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
+					margin-left: 0px;
+					transition: margin-left 0.5s;
 				}
-				.hidden {
-					visibility: hidden;
+				#navMenu {
+					padding: 40px 30px 40px 30px;
+				}
+				#viewer {
+					position: fixed;
+					top: 56px;
+					bottom: 0px;
+					width: 100%;
+					overflow-y: scroll;
 				}
 				.hide {
 					display: none;
@@ -35,23 +53,23 @@
 		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
 		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
 		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
-		<d2l-sequence-viewer-header
+		<d2l-sequence-viewer-header id="topbar"
 			href="{{currentActivity}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_togglePanelVisibility"></d2l-icon-button>
+				<d2l-icon-button icon="d2l-tier3:menu" on-click="_slideSidebar"></d2l-icon-button>
 			</span>
 			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
-		<div class="column" id="navPanel">
-			<d2l-sequence-navigator-panel
+		<div id="sidebar">
+			<d2l-sequence-navigator id="navMenu"
 				current-activity="{{currentActivity}}"
 				href="[[href]]"
 				token="[[token]]"
-			></d2l-sequence-navigator-panel>
+			></d2l-sequence-navigator>
 		</div>
 		<div>
-		<d2l-activity-details
+		<d2l-activity-details id="viewer"
 			user-url="[[currentActivity]]"
 			get-token="[[getToken]]"
 			assignment-details-enabled="false"
@@ -92,10 +110,6 @@
 					organizationHref: {
 						type: String,
 						computed: '_getOrganizationHref(organizationEntity)'
-					},
-					panelVisible: {
-						type: Boolean,
-						value: true
 					},
 					_courseName: {
 						type: String,
@@ -139,13 +153,12 @@
 				this._intermediateOrganizationHref = upLink.href;
 				return '';
 			}
-			_togglePanelVisibility() {
-				if ( this.panelVisible ) {
-					this.$.navPanel.classList.add('hidden');
+			_slideSidebar() {
+				if ( getComputedStyle(this.$.sidebar).marginLeft === "0px" ) {
+					this.$.sidebar.style.marginLeft = "-330px";
 				} else {
-					this.$.navPanel.classList.remove('hidden');
+					this.$.sidebar.style.marginLeft = "0px";
 				}
-				this.panelVisible = !this.panelVisible;
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
