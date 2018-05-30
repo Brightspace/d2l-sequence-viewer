@@ -16,7 +16,7 @@
 				:host {
 					display: block;
 				}
-				#topbar {
+				.topbar {
 					position: fixed;
 					top: 0px;
 					height: 30px;
@@ -35,10 +35,7 @@
 					margin-left: 0px;
 					transition: margin-left 0.5s;
 				}
-				#navMenu {
-					padding: 40px 30px 40px 30px;
-				}
-				#viewer {
+				.viewer {
 					position: fixed;
 					top: 56px;
 					bottom: 0px;
@@ -53,7 +50,7 @@
 		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
 		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
 		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
-		<d2l-sequence-viewer-header id="topbar"
+		<d2l-sequence-viewer-header class="topbar"
 			href="{{currentActivity}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
@@ -62,14 +59,15 @@
 			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
 		<div id="sidebar">
-			<d2l-sequence-navigator id="navMenu"
+			<d2l-sequence-navigator
 				current-activity="{{currentActivity}}"
 				href="[[href]]"
 				token="[[token]]"
+				is-lesson
 			></d2l-sequence-navigator>
 		</div>
 		<div>
-		<d2l-activity-details id="viewer"
+		<d2l-activity-details class="viewer"
 			user-url="[[currentActivity]]"
 			get-token="[[getToken]]"
 			assignment-details-enabled="false"
