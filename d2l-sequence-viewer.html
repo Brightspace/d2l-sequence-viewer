@@ -60,7 +60,7 @@
 		<div id="sidebar">
 			<d2l-sequence-navigator
 				current-activity="{{currentActivity}}"
-				href="[[currentActivity]]"
+				href="[[activityHref]]"
 				token="[[token]]"
 				is-lesson
 			></d2l-sequence-navigator>
@@ -117,6 +117,9 @@
 					_moduleName: {
 						type: String
 					},
+					activityHref: {
+						type: String
+					}
 				};
 			}
 			static get observers() {
@@ -124,6 +127,7 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
+				this.activityHref = this.currentActivity;
 			}
 			connectedCallback() {
 				super.connectedCallback();
