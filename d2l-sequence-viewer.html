@@ -115,9 +115,6 @@
 					},
 					_moduleName: {
 						type: String
-					},
-					activityHref: {
-						type: String
 					}
 				};
 			}
@@ -126,7 +123,6 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
-				this.activityHref = this.currentActivity;
 			}
 			connectedCallback() {
 				super.connectedCallback();
