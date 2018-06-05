@@ -1,0 +1,62 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+
+<dom-module id="d2l-sequence-content-file">
+    <template>
+        <style>
+            iframe {
+                height: 200vh; /* TODO: add iframe resize handler */
+                width: calc(100vw - 21px);
+                overflow: hidden;
+            }
+        </style>
+        <iframe scrolling="no" src$="[[_fileLocation]]"></iframe>
+    </template>
+    <script>
+		/*
+			@mixes SirenEntityMixin
+        */
+        class D2LSequenceContentFile extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+            static get is() {
+                return 'd2l-sequence-content-file';
+            }
+            static get contentClass() {
+                return 'file-activity';
+            }
+            static get properties() {
+                return {
+                    _isReady: {
+                        type: Boolean
+                    },
+                    _fileLocation: {
+                        type: String,
+                        computed: '_getFileLocation(entity, _isReady)'
+                    }
+                }
+            }
+            ready() {
+                super.ready();
+                this._isReady = true;
+            }
+            _getFileLocation(entity, isReady) {
+                if (!isReady) {
+                    return '';
+                }
+
+                const fileActivity = this._getSubEntityByClass(entity, "file-activity");
+                if (!fileActivity) {
+                    return '';
+                }
+
+                const file = this._getSubEntityByClass(fileActivity, "file");
+                if (!file) {
+                    return '';
+                }
+
+                // TODO: use download link for non text/html content?
+                const link = this._getLinkByRel(file, "alternate");
+                return link ? link.href : '';
+            }
+        }
+        customElements.define(D2LSequenceContentFile.is, D2LSequenceContentFile);
+    </script>
+</dom-module>

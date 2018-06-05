@@ -1,0 +1,63 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="sequence-content-file.html">
+<link rel="import" href="sequence-content-unknown.html">
+
+<dom-module id="d2l-sequence-content-router">
+    <template></template>
+    <script>
+		/*
+			@mixes SirenEntityMixin
+        */
+        class D2LSequenceContentRouter extends Polymer.TemplateStamp(D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+            static get is() {
+                return 'd2l-sequence-content-router';
+            }
+            static get map() {
+                return new Map([
+                    [D2LSequenceContentFile.contentClass, D2LSequenceContentFile.is],
+                ]);
+            }
+            static get observers() {
+				return ['_render(entityType)']
+			}
+            static get properties() {
+                return {
+					entityType: {
+                        type: String,
+                        computed: '_getEntityType(entity)'
+                    },
+                    _contentElement: {
+                        type: Object
+                    }
+                }
+            }
+            _getEntityType(entity) {
+                for (let i = 0; i < entity.entities.length; i++) {
+                    // hypermedia classes tend to be more specific at the end of the array
+                    for(let j = entity.entities[i].class.length - 1; j >= 0; --j) {
+                        const mappedType = D2LSequenceContentRouter.map.get(entity.entities[i].class[j]);
+                        if (mappedType) {
+                            return mappedType;
+                        }
+                    }
+                }
+                return D2LSequenceContentUnknown.is;
+            }
+            _render(entityType) {
+                const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
+                const contentElement = document.createElement(entityType);
+                contentElement.href = this.href;
+                contentElement.token = this.token;
+                contentElement.appendChild(this._stampTemplate(nodeTemplate));
+
+                if (this._contentElement) {
+                    this.shadowRoot.removeChild(this._contentElement);
+                }
+
+                this._contentElement = contentElement;
+                this.shadowRoot.appendChild(this._contentElement);
+            }
+        }
+        customElements.define(D2LSequenceContentRouter.is, D2LSequenceContentRouter);
+    </script>
+</dom-module>

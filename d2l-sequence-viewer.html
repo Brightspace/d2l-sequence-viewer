@@ -6,6 +6,7 @@
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
 <link rel="import" href="./components/sequence-viewer-header.html">
+<link rel="import" href="./components/sequence-content-router.html">
 <link rel="import" href="../d2l-localize-behavior/d2l-localize-behavior.html">
 
 <dom-module id="d2l-sequence-viewer">
@@ -64,12 +65,10 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div>
-		<d2l-activity-details class="viewer"
-			user-url="[[currentActivity]]"
-			get-token="[[getToken]]"
-			assignment-details-enabled="false"
-			user-activity-usage-href=""
-		></d2l-activity-details>
+		<d2l-sequence-content-router class="viewer"
+			href="[[currentActivity]]"
+			token="[[token]]"
+		></d2l-sequence-content-router>
 		</div>
 	</template>
 
