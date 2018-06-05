@@ -22,39 +22,41 @@
             static get contentClass() {
                 return 'file-activity';
             }
+            static get observers() {
+                return ['_setFileLocation(entity)']
+            }
             static get properties() {
                 return {
-                    _isReady: {
-                        type: Boolean
+                    _debouncer: {
+                        type: Object
                     },
                     _fileLocation: {
-                        type: String,
-                        computed: '_getFileLocation(entity, _isReady)'
+                        type: String
                     }
                 }
             }
-            ready() {
-                super.ready();
-                this._isReady = true;
-            }
-            _getFileLocation(entity, isReady) {
-                if (!isReady) {
-                    return '';
-                }
+            _setFileLocation(entity) {
+                this._debouncer = Polymer.Debouncer.debounce(
+                    this._debouncer,
+                    Polymer.Async.timeOut.after(20),
+                    () => {
+                        const fileActivity = this._getSubEntityByClass(entity, "file-activity");
+                        if (!fileActivity) {
+                            return '';
+                        }
 
-                const fileActivity = this._getSubEntityByClass(entity, "file-activity");
-                if (!fileActivity) {
-                    return '';
-                }
+                        const file = this._getSubEntityByClass(fileActivity, "file");
+                        if (!file) {
+                            return '';
+                        }
 
-                const file = this._getSubEntityByClass(fileActivity, "file");
-                if (!file) {
-                    return '';
-                }
+                        // TODO: use download link for non text/html content?
+                        const link = this._getLinkByRel(file, "alternate");
+                        const href = link ? link.href : '';
 
-                // TODO: use download link for non text/html content?
-                const link = this._getLinkByRel(file, "alternate");
-                return link ? link.href : '';
+                        this._fileLocation = href;
+                    }
+                );
             }
         }
         customElements.define(D2LSequenceContentFile.is, D2LSequenceContentFile);

@@ -18,16 +18,15 @@
                 ]);
             }
             static get observers() {
-				return ['_render(entityType)']
+				return ['_render(entity)']
 			}
             static get properties() {
                 return {
-					entityType: {
-                        type: String,
-                        computed: '_getEntityType(entity)'
-                    },
                     _contentElement: {
                         type: Object
+                    },
+                    _contentType: {
+                        type: String
                     }
                 }
             }
@@ -43,19 +42,27 @@
                 }
                 return D2LSequenceContentUnknown.is;
             }
-            _render(entityType) {
-                const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
-                const contentElement = document.createElement(entityType);
-                contentElement.href = this.href;
-                contentElement.token = this.token;
-                contentElement.appendChild(this._stampTemplate(nodeTemplate));
+            _render(entity) {
+                const entityType = this._getEntityType(entity);
 
-                if (this._contentElement) {
-                    this.shadowRoot.removeChild(this._contentElement);
+                // Check if we should reuse the existing renderer
+                if (entityType !== this._contentType) {
+                    const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
+                    const contentElement = document.createElement(entityType);
+                    contentElement.appendChild(this._stampTemplate(nodeTemplate));
+
+                    if (this._contentElement) {
+                        this.shadowRoot.removeChild(this._contentElement);
+                    }
+
+                    this._contentElement = contentElement;
+                    this._contentType = entityType;
+
+                    this.shadowRoot.appendChild(this._contentElement);
                 }
 
-                this._contentElement = contentElement;
-                this.shadowRoot.appendChild(this._contentElement);
+                this._contentElement.href = this.href;
+                this._contentElement.token = this.token;
             }
         }
         customElements.define(D2LSequenceContentRouter.is, D2LSequenceContentRouter);
