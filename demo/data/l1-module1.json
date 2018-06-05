@@ -12,7 +12,20 @@
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
 			"href": "data/activity2.json"
-		}],
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 1,
+			  "total": 2,
+			  "optionalViewed": 0,
+			  "optionalTotal": 0
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		  }],
 	"links": [{
 		"rel": ["self", "describes"],
 		"href": "data/l1-module1.json"

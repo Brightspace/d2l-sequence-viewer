@@ -1,0 +1,41 @@
+{
+	"properties": {
+		"title": "Lesson 4"
+	},
+	"rel": ["item"],
+	"entities": [
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l4-optional-completion-module.json"
+		},
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l4-required-completion-module.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 0,
+			  "total": 2,
+			  "optionalViewed": 0,
+			  "optionalTotal": 2
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/lesson4.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/lesson3.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/unit1.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

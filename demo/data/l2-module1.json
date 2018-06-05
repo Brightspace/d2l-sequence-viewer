@@ -8,6 +8,19 @@
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
 			"href": "data/l2-m1-activity1.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 0,
+			  "total": 1,
+			  "optionalViewed": 0,
+			  "optionalTotal": 0
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
 		}
 	],
 	"links": [{

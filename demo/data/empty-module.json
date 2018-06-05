@@ -1,0 +1,13 @@
+{
+	"properties": {
+		"title": "Module 1"
+	},
+	"rel": ["item"],
+	"entities": [
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/empty-module.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}
