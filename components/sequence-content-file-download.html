@@ -1,0 +1,22 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+
+<dom-module id="d2l-sequence-content-file-download">
+    <template>
+        This file is being downloaded...
+    </template>
+    <script>
+		/*
+			@mixes SirenEntityMixin
+        */
+        class D2LSequenceContentFileDownload extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+            static get is() {
+                return 'd2l-sequence-content-file-download';
+            }
+            static get properties() {
+                return {
+                }
+            }
+        }
+        customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);
+    </script>
+</dom-module>

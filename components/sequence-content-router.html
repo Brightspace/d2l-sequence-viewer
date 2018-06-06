@@ -1,5 +1,5 @@
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
-<link rel="import" href="sequence-content-file.html">
+<link rel="import" href="sequence-content-file-router.html">
 <link rel="import" href="sequence-content-unknown.html">
 
 <dom-module id="d2l-sequence-content-router">
@@ -14,7 +14,7 @@
             }
             static get map() {
                 return new Map([
-                    [D2LSequenceContentFile.contentClass, D2LSequenceContentFile.is],
+                    [D2LSequenceContentFileRouter.contentClass, D2LSequenceContentFileRouter.is],
                 ]);
             }
             static get observers() {

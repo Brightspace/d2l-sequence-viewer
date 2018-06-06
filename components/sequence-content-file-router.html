@@ -1,0 +1,94 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="sequence-content-file-html.html">
+<link rel="import" href="sequence-content-file-download.html">
+
+<dom-module id="d2l-sequence-content-file-router">
+	<template></template>
+	<script>
+		/*
+            @mixes SirenEntityMixin
+        */
+		class D2LSequenceContentFileRouter extends Polymer.TemplateStamp(D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+            static get is() {
+                return 'd2l-sequence-content-file-router';
+            }
+            
+            static get map() {
+                return new Map([
+                    ['text/html', D2LSequenceContentFileHtml.is],
+                    ['image/bmp', D2LSequenceContentFileHtml.is],
+                    ['image/gif', D2LSequenceContentFileHtml.is],
+                    ['image/jpeg', D2LSequenceContentFileHtml.is],
+                    ['image/png', D2LSequenceContentFileHtml.is],
+                    ['image/svg+xml', D2LSequenceContentFileHtml.is]
+                ]);
+            }
+            
+            static get contentClass() {
+                return 'file-activity';
+            }
+            
+            static get properties() {
+                return {
+                    _contentType: {
+                        type: String
+                    },
+                    _contentElement: {
+                        type: Object
+                    },
+                    _debouncer: {
+                        type: Object
+                    }
+                }
+            }
+
+            static get observers() {
+                return ['_render(entity)']
+            }
+
+            _getElementByMimeType(entity) {
+                const unknownMimeType = 'd2l-sequence-content-file-download';
+                try {
+                    const fileActivity = this._getSubEntityByClass(entity, 'file-activity');
+                    const file = this._getSubEntityByClass(fileActivity, 'file');
+
+                    return D2LSequenceContentFileRouter.map.get(file.properties.type) || unknownMimeType;
+                } catch(e) {
+                    return unknownMimeType;
+                }
+            }
+
+            _render(entity) {
+                this._debouncer = Polymer.Debouncer.debounce(
+                    this._debouncer,
+                    Polymer.Async.timeOut.after(20),
+                    () => {
+                        const entityType = this._getElementByMimeType(entity);
+
+                        console.log('_render: ', entityType, entity);
+                        // Check if we should reuse the existing renderer
+                        if (entityType !== this._contentType) {
+                            const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
+                            const contentElement = document.createElement(entityType);
+                            contentElement.appendChild(this._stampTemplate(nodeTemplate));
+
+                            if (this._contentElement) {
+                                this.shadowRoot.removeChild(this._contentElement);
+                            }
+
+                            this._contentElement = contentElement;
+                            this._contentType = entityType;
+
+                            this.shadowRoot.appendChild(this._contentElement);
+                        }
+
+                        this._contentElement.href = this.href;
+                        this._contentElement.token = this.token;
+                    }
+                );
+            }
+        }
+
+        customElements.define(D2LSequenceContentFileRouter.is, D2LSequenceContentFileRouter);
+    </script>
+</dom-module>
