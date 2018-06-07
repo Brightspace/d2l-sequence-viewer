@@ -16,6 +16,7 @@
             static get map() {
                 return new Map([
                     ['text/html', D2LSequenceContentFileHtml.is],
+                    ['application/pdf', D2LSequenceContentFileHtml.is],
                     ['image/bmp', D2LSequenceContentFileHtml.is],
                     ['image/gif', D2LSequenceContentFileHtml.is],
                     ['image/jpeg', D2LSequenceContentFileHtml.is],
@@ -65,7 +66,6 @@
                     () => {
                         const entityType = this._getElementByMimeType(entity);
 
-                        console.log('_render: ', entityType, entity);
                         // Check if we should reuse the existing renderer
                         if (entityType !== this._contentType) {
                             const nodeTemplate = Polymer.DomModule.import(entityType, 'template');

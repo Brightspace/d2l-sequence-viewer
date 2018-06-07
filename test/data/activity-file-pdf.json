@@ -1,0 +1,94 @@
+{
+	"properties": {
+		"title": "test"
+	},
+	"rel": ["item"],
+	"entities": [{
+		"class": ["activity", "file-activity"],
+		"rel": ["about"],
+		"properties": {
+			"name": "test.pdf",
+			"title": "test.pdf"
+		},
+		"entities": [{
+			"class": ["file"],
+			"rel": ["about"],
+			"properties": {
+				"name": "test.pdf",
+				"title": "test.pdf",
+				"type": "application/pdf"
+			},
+			"links": [{
+				"rel": ["alternate"],
+				"type": "application/pdf",
+				"href": "data/test.pdf"
+			}, {
+				"rel": ["alternate"],
+				"class": ["view"],
+				"type": "application/pdf",
+				"href": "data/test.pdf"
+			}, {
+				"rel": ["alternate"],
+				"class": ["download"],
+				"type": "application/pdf",
+				"href": "data/test.pdf"
+			}],
+			"entities": [{
+				"rel": ["item"],
+				"class": ["last-modified", "date"],
+				"properties": {
+					"date": "2018-06-05T12:58:28.427Z"
+				}
+			}]
+		}, {
+			"rel": ["item"],
+			"class": ["last-viewed", "date"],
+			"properties": {
+				"date": "2018-06-06T19:27:06.733Z"
+			}
+		}, {
+			"rel": ["item", "https://api.brightspace.com/rels/completion"],
+			"links": [{
+				"rel": ["alternate"],
+				"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97676/completion"
+			}],
+			"entities": [{
+				"class": ["auto", "completion", "date"],
+				"properties": {
+					"date": "2018-06-06T19:27:06.750Z"
+				},
+				"rel": ["item"]
+			}],
+			"class": ["completion", "completed"]
+		}],
+		"actions": [{
+			"name": "view-activity",
+			"method": "POST",
+			"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97676/view"
+		}, {
+			"name": "view-activity-duration",
+			"method": "PUT",
+			"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97676/view"
+		}]
+	}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97676"
+	}, {
+		"rel": ["prev"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97675"
+	}, {
+		"rel": ["next"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97677"
+	}, {
+		"rel": ["prev-activity"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97675"
+	}, {
+		"rel": ["next-activity"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97677"
+	}, {
+		"rel": ["up"],
+		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97670"
+	}],
+	"class": ["sequenced-activity"]
+}

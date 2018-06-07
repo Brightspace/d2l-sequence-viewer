@@ -4,12 +4,12 @@
     <template>
         <style>
             iframe {
-                height: 200vh; /* TODO: add iframe resize handler */
-                width: calc(100vw - 21px);
+                width: 100%;
+                height: calc(100% - 12px);
                 overflow: hidden;
             }
         </style>
-        <iframe scrolling="no" src$="[[_fileLocation]]"></iframe>
+        <iframe frameBorder="0" src$="[[_fileLocation]]"></iframe>
     </template>
     <script>
 		/*

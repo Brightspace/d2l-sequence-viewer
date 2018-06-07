@@ -2,8 +2,14 @@
 
 <dom-module id="d2l-sequence-content-file-download">
     <template>
-        This file is being downloaded...
+        Download your file...
+        <template is="dom-if" if="[[_fileLocation]]">
+            <form method="get" action$="[[_fileLocation]]">
+                <button type="submit">Download</button>
+            </form>
+        </template>
     </template>
+    
     <script>
 		/*
 			@mixes SirenEntityMixin
@@ -14,6 +20,20 @@
             }
             static get properties() {
                 return {
+                    _fileLocation: {
+                        type: String,
+                        computed: '_getFileLocation(entity)'
+                    }
+                }
+            }
+            _getFileLocation(entity) {
+                try {
+                    const fileActivity = this._getSubEntityByClass(entity, "file-activity");
+                    const file = this._getSubEntityByClass(fileActivity, "file");
+                    const link = this._getLinkByClass(file, "download");
+                    return link.href;
+                } catch(e) {
+                    return '';
                 }
             }
         }

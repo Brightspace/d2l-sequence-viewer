@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-content-file-download test</title>
+        <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+        <script src="../../web-component-tester/browser.js"></script>
+        <script src="common.js"></script>
+        <link rel="import" href="../../polymer/polymer.html">
+		<link rel="import" href="../components/sequence-content-file-download.html">
+	</head>
+	<body>
+		<test-fixture id="FileFixture">
+			<template>
+				<d2l-sequence-content-file-download></d2l-sequence-content-file-download>
+			</template>
+		</test-fixture>
+		<script>
+            describe('d2l-sequence-content-file-download', () => {
+                it('should have a form action matching the link href', async () => {
+                    const element = await loadEntityForFixture('data/activity-file-zip.json', 'FileFixture');
+                    const form = element.shadowRoot.querySelector('form');
+                    expect(form.getAttribute('action')).to.equal('data/test.zip');
+                });
+            });
+		</script>
+	</body>
+</html>
