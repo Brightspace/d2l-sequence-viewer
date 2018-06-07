@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequence-content-file-router test</title>
-        <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-        <script src="../../web-component-tester/browser.js"></script>
-        <script src="common.js"></script>
-        <link rel="import" href="../../polymer/polymer.html">
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<script src="common.js"></script>
+		<link rel="import" href="../../polymer/polymer.html">
 		<link rel="import" href="../components/sequence-content-file-router.html">
 	</head>
 	<body>
@@ -17,49 +17,50 @@
 			</template>
 		</test-fixture>
 		<script>
-            describe('d2l-sequence-content-file-router must create a d2l-sequence-content-file-html for registered mimetypes:', () => {
-                it('should handle text/html', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-html.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+			/* global loadEntityForFixture */
+			describe('d2l-sequence-content-file-router must create a d2l-sequence-content-file-html for registered mimetypes:', () => {
+				it('should handle text/html', async() => {
+					const element = await loadEntityForFixture('data/activity-file-html.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle application/pdf', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-pdf.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+				it('should handle application/pdf', async() => {
+					const element = await loadEntityForFixture('data/activity-file-pdf.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle image/bmp', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-bmp.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+				it('should handle image/bmp', async() => {
+					const element = await loadEntityForFixture('data/activity-file-bmp.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle image/gif', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-gif.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+				it('should handle image/gif', async() => {
+					const element = await loadEntityForFixture('data/activity-file-gif.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle image/jpeg', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-jpeg.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+				it('should handle image/jpeg', async() => {
+					const element = await loadEntityForFixture('data/activity-file-jpeg.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle image/png', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-png.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
+				it('should handle image/png', async() => {
+					const element = await loadEntityForFixture('data/activity-file-png.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
 
-                it('should handle image/svg+xml', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-svg.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
-                });
-            });
+				it('should handle image/svg+xml', async() => {
+					const element = await loadEntityForFixture('data/activity-file-svg.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-html');
+				});
+			});
 
-            describe('d2l-sequence-content-file-router must create a d2l-sequence-content-file-download for unregistered mimetypes:', () => {
-                it('such as application/zip', async () => {
-                    const element = await loadEntityForFixture('data/activity-file-zip.json', 'RouterFixture', 25);
-                    expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-download');
-                });
-            });
+			describe('d2l-sequence-content-file-router must create a d2l-sequence-content-file-download for unregistered mimetypes:', () => {
+				it('such as application/zip', async() => {
+					const element = await loadEntityForFixture('data/activity-file-zip.json', 'RouterFixture', 25);
+					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-download');
+				});
+			});
 		</script>
 	</body>
 </html>
