@@ -1,0 +1,45 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<dom-module id="d2l-sequence-content-link">
+    <template>
+        <style>
+            iframe {
+                width: 100%;
+                height: calc(100% - 12px);
+                overflow: hidden;
+            }
+        </style>
+        <!-- Brightspace looks for d2l-suppress-nav and hides the navigation bar -->
+        <iframe class="d2l-suppress-nav" frameBorder="0" src$="[[_fileLocation]]"></iframe>
+    </template>
+    <script>
+		/*
+			@mixes SirenEntityMixin
+        */
+        class D2LSequenceContentLink extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+            static get is() {
+                return 'd2l-sequence-content-link';
+            }
+            static get contentClass() {
+                return 'link-activity';
+            }
+            static get properties() {
+                return {
+                    _fileLocation: {
+                        type: String,
+                        computed: '_getFileLocation(entity)'
+                    }
+                }
+            }
+            _getFileLocation(entity) {
+                try {
+                    const linkActivity = this._getSubEntityByClass(entity, D2LSequenceContentLink.contentClass);
+                    const link = this._getLinkByRel(linkActivity, 'about');
+                    return link.href;
+                } catch(e) {
+                    return '';
+                }
+            }
+        }
+        customElements.define(D2LSequenceContentLink.is, D2LSequenceContentLink);
+    </script>
+</dom-module>

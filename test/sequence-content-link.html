@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-content-link test</title>
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+		<link rel="import" href="../../polymer/polymer.html">
+		<link rel="import" href="../components/sequence-content-link.html">
+	</head>
+	<body>
+		<test-fixture id="LinkFixture">
+			<template>
+				<d2l-sequence-content-link></d2l-sequence-content-link>
+			</template>
+		</test-fixture>
+		<script>
+			/* global SirenFixture */
+			describe('d2l-sequence-content-link', () => {
+				it('iframe src must match the link-activity src', async() => {
+					const element = await SirenFixture.load('data/activity-link.json', fixture('LinkFixture'));
+					const src = element.shadowRoot.querySelector('iframe').getAttribute('src');
+					expect(src).to.equal('http://example.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=6614&type=dropbox&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-5418');
+				});
+			});
+		</script>
+	</body>
+</html>
