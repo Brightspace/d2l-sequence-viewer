@@ -18,7 +18,7 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "polymer-siren-mixins": "Brightspace/polymer-siren-mixins",
     "siren-entity": "BrightspaceHypermediaComponents/siren-entity",
-    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#use_siren_entity_plus_tests",
+    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator",
     "d2l-activity-details-ui": "Brightspace/d2l-activity-details-ui",
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences",
     "d2l-organizations": "BrightspaceHypermediaComponents/organizations",

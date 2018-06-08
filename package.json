@@ -34,7 +34,7 @@
       "loader": "iframe"
     },
     "frauLocalAppResolver": {
-      "appClass": "urn:d2l:fra:class:sequence-viewer"
+      "appClass": "urn:d2l:fra:class:enhanced-sequence-viewer"
     },
     "frauPublisher": {
       "files": "./dist/**",
