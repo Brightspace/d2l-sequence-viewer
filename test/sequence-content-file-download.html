@@ -6,7 +6,7 @@
 		<title>d2l-sequence-content-file-download test</title>
 		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 		<script src="../../web-component-tester/browser.js"></script>
-		<script src="common.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 		<link rel="import" href="../../polymer/polymer.html">
 		<link rel="import" href="../components/sequence-content-file-download.html">
 	</head>
@@ -17,10 +17,10 @@
 			</template>
 		</test-fixture>
 		<script>
-			/* global loadEntityForFixture */
+			/* global SirenFixture */
 			describe('d2l-sequence-content-file-download', () => {
 				it('should have a form action matching the link href', async() => {
-					const element = await loadEntityForFixture('data/activity-file-zip.json', 'FileFixture');
+					const element = await SirenFixture.load('data/activity-file-zip.json', fixture('FileFixture'));
 					const form = element.shadowRoot.querySelector('form');
 					expect(form.getAttribute('action')).to.equal('data/test.zip');
 				});
