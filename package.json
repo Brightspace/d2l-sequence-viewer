@@ -28,7 +28,7 @@
   },
   "config": {
     "frauAppConfigBuilder": {
-      "appFile": "index.html",
+      "appFile": "d2l-sequence-viewer.html",
       "dist": "./dist",
       "envVar": "TRAVIS",
       "loader": "iframe"
