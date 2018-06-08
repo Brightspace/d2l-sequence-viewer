@@ -17,15 +17,48 @@
 
 		<script>
 			describe('d2l-sequence-viewer', function() {
-				var elem;
+
+				let elem;
+
 				describe('basic', function() {
-					it('should instantiate the element', function() {
+
+					beforeEach( function() {
 						elem = fixture('basic');
+					});
+
+					it('should instantiate the element', function() {
 						expect(elem.href).to.equal('http://example.com');
 						expect(elem.token).to.equal('foo');
 					});
+
+					describe('sidebar tests', () => {
+
+						let sidebar;
+
+						beforeEach( function() {
+							sidebar = elem.shadowRoot.querySelector('#sidebar');
+						});
+
+						it('should create sidebar element containing d2l-sequence-navigator', function() {
+							expect( sidebar ).to.exist;
+							expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
+						});
+
+						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', function() {
+							const button = elem.shadowRoot.querySelector('d2l-icon-button');
+							expect( button ).to.exist;
+							expect( sidebar.classList.contains('offscreen') ).to.be.false;
+							button.click();
+							expect( sidebar.classList.contains('offscreen') ).to.be.true;
+							button.click();
+							expect( sidebar.classList.contains('offscreen') ).to.be.false;
+						});
+					});
+
 				});
+
 			});
+
 		</script>
 	</body>
 </html>

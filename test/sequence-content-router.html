@@ -6,7 +6,7 @@
 		<title>d2l-sequence-content-router test</title>
 		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 		<script src="../../web-component-tester/browser.js"></script>
-		<script src="common.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 		<link rel="import" href="../../polymer/polymer.html">
 		<link rel="import" href="../components/sequence-content-router.html">
 	</head>
@@ -17,15 +17,15 @@
 			</template>
 		</test-fixture>
 		<script>
-			/* global loadEntityForFixture */
+			/* global SirenFixture */
 			describe('d2l-sequence-content-router', () => {
 				it('should create a d2l-sequence-content-file-router for file-activity types', async() => {
-					const element = await loadEntityForFixture('data/activity-file-html.json', 'RouterFixture');
+					const element = await SirenFixture.load('data/activity-file-html.json', fixture('RouterFixture'));
 					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-file-router');
 				});
 
 				it('should create a d2l-sequence-content-unknown for unknown activity types', async() => {
-					const element = await loadEntityForFixture('data/activity-file-unknown.json', 'RouterFixture');
+					const element = await SirenFixture.load('data/activity-file-unknown.json', fixture('RouterFixture'));
 					expect(element.shadowRoot.childNodes[0].tagName.toLowerCase()).to.equal('d2l-sequence-content-unknown');
 				});
 			});
