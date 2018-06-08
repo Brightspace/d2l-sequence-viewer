@@ -1,0 +1,14 @@
+{
+    "properties": {
+        "title": "Module 2"
+    },
+    "rel": ["item"],
+    "links": [{
+        "rel": ["self", "describes"],
+        "href": "data/l2-module2.json"
+    }, {
+        "rel": ["up"],
+        "href": "data/lesson2.json"
+    }],
+    "class": ["sequence", "sequence-description"]
+}

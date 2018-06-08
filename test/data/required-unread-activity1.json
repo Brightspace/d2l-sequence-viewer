@@ -1,0 +1,63 @@
+{
+	"properties": {
+		"title": "Req Unread 1"
+	},
+	"entities": [
+		{
+		"links": [{
+			"rel": ["about"],
+			"href": "https://qa108111243g.bspc.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=123187&type=quiz&rCode=Dev-4011"
+		}, {
+			"rel": ["alternate"],
+			"class": ["view"],
+			"href": "https://qa108111243g.bspc.com/d2l/le/content/123187/viewContent/104498/View"
+		}],
+		"class": ["activity", "link-activity", "link-plain"],
+		"properties": {
+			"title": "Req Unread 1"
+		},
+		"rel": ["about", "item"],
+		"entities": [{
+			"rel": ["item"],
+			"links": [{
+				"rel": ["alternate"],
+				"href": "123187/activity/104498/completion"
+			}],
+			"entities": [{
+				"class": ["due", "date", "overdue"],
+				"properties": {
+					"date": "2016-02-23T15:00:00.000Z"
+				},
+				"rel": ["item"]
+			}, {
+				"class": ["start", "date"],
+				"properties": {
+					"date": "2016-02-22T15:00:00.000Z"
+				},
+				"rel": ["item"]
+			}],
+			"class": ["completion", "incomplete", "manual"]
+		}],
+		"actions": [{
+			"name": "view-activity",
+			"method": "POST",
+			"href": "123187/activity/104498/view"
+		}, {
+			"name": "view-activity-duration",
+			"method": "PUT",
+			"href": "123187/activity/104498/view"
+		}]
+	}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/required-unread-activity1.json"
+	}, {
+		"rel": ["next"],
+		"href": "data/required-unread-activity2.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/l4-required-completion-module.json"
+	}],
+	"class": ["sequenced-activity"]
+}
