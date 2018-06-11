@@ -1,12 +1,12 @@
-<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
-<link rel="import" href="../../d2l-colors/d2l-colors.html">
-<link rel="import" href="../../d2l-icons/d2l-icons.html">
-<link rel="import" href="../../d2l-icons/tier2-icons.html">
-<link rel="import" href="../../d2l-icons/tier3-icons.html">
-<link rel="import" href="../../d2l-typography/d2l-typography.html">
-<link rel="import" href="../../d2l-sequences/components/d2l-sequences-topic-name.html">
-<link rel="import" href="../../d2l-sequences/components/d2l-sequences-module-name.html">
-<link rel="import" href="../../d2l-sequences/components/d2l-sequences-iterator.html">
+<link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/d2l-colors/d2l-colors.html">
+<link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
+<link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
+<link rel="import" href="../bower_components/d2l-icons/tier3-icons.html">
+<link rel="import" href="../bower_components/d2l-typography/d2l-typography.html">
+<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-topic-name.html">
+<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-module-name.html">
+<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-iterator.html">
 
 <dom-module id="d2l-sequence-viewer-header">
 	<template>
@@ -23,7 +23,7 @@
 				padding-bottom: 10px;
 			}
 			.back-icon {
-				padding-bottom: 2px;				
+				padding-bottom: 2px;
 			}
 			.iterator-icon {
 				width: 28px;
@@ -42,7 +42,7 @@
 				/* Small Body Text - Lato Regular 14, Tungsten */
 				font-size: 14px;
 				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;				
+				letter-spacing: 0.2px;
 			}
 			.topic-name {
 				text-align: center;
@@ -161,7 +161,7 @@
 			></d2l-sequences-topic-name>
 			<div class="col9"></div>
 			<d2l-sequences-iterator
-				class="iterator-icon col10"
+				class="iterator-icon prev-button col10"
 				href="{{href}}"
 				token="[[token]]"
 				icon="d2l-tier3:chevron-left-circle"
@@ -171,7 +171,7 @@
 			<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
 			<div class="col13"></div>
 			<d2l-sequences-iterator
-				class="iterator-icon col14"
+				class="iterator-icon next-button col14"
 				href="{{href}}"
 				token="[[token]]"
 				icon="d2l-tier3:chevron-right-circle"

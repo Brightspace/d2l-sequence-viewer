@@ -3,13 +3,17 @@ node_js: 9
 addons:
   chrome: stable
 sudo: required
+after_success:
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:cdn'
 script:
 - npm run lint
+- npm run build
 - npm run test
 before_install:
-  - echo -e "machine github.com\n  login $GITHUB_RELEASE_TOKEN" >> ~/.netrc
+- echo -e "machine github.com\n  login $GITHUB_RELEASE_TOKEN" >> ~/.netrc
 env:
   global:
   - REPO_NAME=d2l-sequence-viewer
-  #GITHUB_RELEASE_TOKEN
   - secure: QZCFlbxTSDnR7M1Td7PG7Fwayz4+8B9MSwP84v2IR/Pwz7xIXczal+Qm6VBf2UijAqSgECNeYQOy5TtDJUjzJ66TZgVWiXLNO+Y0+A9PGwaAHP8JEA1P1X1es/k1m3Ev60HIpSiUMwa3bY2liGUNG+1S+uk6SoWXkpICQRHiGz62hRr8KwXfRpyPKXxqtI5zm2WGp5YAUUmS8UnZrCzTJvVTH0f3rYN2P8Efw1JtMkN1hFx2X9H2CltYfmJjteuaX/aw+G+ThmpFWFoHeNAid+kSH6Ix1kIx0lKXWQ8aB7gCWyC8sN9WB7c+ZpTyu6/r6vbpbyc77lV/V7RjFkUuL0uNI9SRi3OA+Rk510engGMrNISii6nbve1FHEEbXA/1cURCc7xgPK7E1Gj8IKgnYO7SBCD37iLc2d5+bpjw5x1PJpyJON0FcwWics3c3kZ/agYOs4kw8QhXgcBSzS8cSSIFJQcca+A3WxlLNfXbqY1Hf4dmWzHrGxS6/72tPuplr1v3sIKOT/L77vMMezqTHABDKJUYsZMYJwR4+jZdScWvUe8q2Uht2NSNZSPMJb+MPwgsMji8Oxlahaw2AkWmSwe4nvDSQT1CG/TC6KZ2K6W5MteMblTolHs0GvwsPq98YtPdMeowDpHjv5gXf5z3rmsu2plJsSv/ZRqT/mV4Zvc=
+# CDN_SECRET
+  - secure: k46HJXxE3Uw57l+QSDguxcrP5ryr+w/WUSKV4vuo5CTQXiSFcjnPXgWSYBM4eFbYgf5pmkR3VCFsSLSJNFU0np5eQrFuHX8vdpdo4kaiFVA54kGaMWeLOTxfCAJQD7ePo6UHmkVQliB39MT0D4toMiiJUOW78rrJImiIjwwLsrVB3PynY+x/N6jYkeZPGf3Fhs69ssY13dEoVOajZXO9mJqbPoA4VmmRII8QeCUsWI6zZ9XuiSjbCNODzW4WjAE/kdpCrdUC1Fl03HYgGFMI0wolvTiazjijHHaOi391kjpsWlNoBdDPzex3WZq7UNRMxeREITeSMy9P9Vz2TBxF1u2T/O2f9s2KStT+LLXmHN/yXgWUsVdoElii4flI/WTP4R3vWJMyFBRAa/6GsdwA1dGGU1dThWaVM4AE5nVI3M7V1HyTOSePIOT2XUwkTw8U2cUQ/chsSz1VDdTfxTM4Jgo5DVZWGN7pqq7lQWrY+z4qIWd9IYEDFnY54nXqC60TKSTUtq0XG5wOJwwGCbGIWDy4MK3Est3bX2prWMUr1lt60XC6vo2GQ0iM9ynggS7LHpOx/Oe9rJPxcej4BrEZ5aVa4RpUA9/H0kwMruGI1moObiw6I9PwIYdonhj2DMnC5L6OQEp5FtmQwuHG/4tr+ad15ZyvsJArLCFUQW8dsnE=

@@ -1,4 +1,4 @@
-<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="sequence-content-file-html.html">
 <link rel="import" href="sequence-content-file-download.html">
 
@@ -12,7 +12,7 @@
             static get is() {
                 return 'd2l-sequence-content-file-router';
             }
-            
+
             static get map() {
                 return new Map([
                     ['text/html', D2LSequenceContentFileHtml.is],
@@ -24,11 +24,11 @@
                     ['image/svg+xml', D2LSequenceContentFileHtml.is]
                 ]);
             }
-            
+
             static get contentClass() {
                 return 'file-activity';
             }
-            
+
             static get properties() {
                 return {
                     _contentType: {

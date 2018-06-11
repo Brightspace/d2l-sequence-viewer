@@ -1,0 +1,40 @@
+{
+	"properties": {
+		"title": "Introduction and Module One Pretest"
+	},
+	"entities": [
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/activity1.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/activity2.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 1,
+			  "total": 2,
+			  "optionalViewed": 0,
+			  "optionalTotal": 0
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		  }],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/l1-module1.json"
+	}, {
+		"rel": ["next"],
+		"href": "data/l1-module2.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/lesson1.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

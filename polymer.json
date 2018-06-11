@@ -1,5 +1,22 @@
 {
   "lint": {
     "rules": ["polymer-2"]
-  }
+  },
+  "entrypoint": "index.html",
+  "shell": "d2l-sequence-viewer.html",
+  "fragments": [
+    "components/sequence-viewer-header.html",
+    "components/sequence-content-file-html.html",
+    "components/sequence-content-file-download.html",
+    "components/sequence-content-file-router.html",
+    "components/sequence-content-router.html",
+    "components/sequence-content-unknown.html"
+  ],
+  "sources": [
+    "bower.json",
+    "locales.json"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.js"
+  ]
 }

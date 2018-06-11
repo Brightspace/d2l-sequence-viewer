@@ -3,3 +3,5 @@ node_modules
 bower-*.json
 analysis.json
 .idea
+dist/*
+build/*

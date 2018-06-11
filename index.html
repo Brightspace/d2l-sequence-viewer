@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-		<title>d2l-sequence-viewer</title>
-		<script src="../webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="../iron-component-page/iron-component-page.html">
-	</head>
-	<body>
-		<iron-component-page></iron-component-page>
-	</body>
+<head>
+	<title>Activity Sequence Viewer</title>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="./d2l-sequence-viewer.html">
+</head>
+<body>
+<d2l-sequence-viewer id="sqv"></d2l-sequence-viewer>
+</body>
+<script src="https://s.brightspace.com/lib/systemjs/0.19.22/system.js"></script>
+<script src="https://s.brightspace.com/lib/systemjs/0.19.22/system-polyfills.js"></script>
+<script src="app.js"></script>
 </html>

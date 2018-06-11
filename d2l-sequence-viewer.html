@@ -1,13 +1,12 @@
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../polymer-siren-mixins/siren-entity-mixin.html">
-<link rel="import" href="../d2l-activity-details-ui/src/d2l-activity-details.html">
-<link rel="import" href="../d2l-sequence-navigator/d2l-sequence-navigator.html">
-<link rel="import" href="../d2l-typography/d2l-typography.html">
-<link rel="import" href="../d2l-colors/d2l-colors.html">
-<link rel="import" href="../d2l-organizations/components/d2l-organization-name.html">
+<link rel="import" href="./bower_components/d2l-sequence-navigator/d2l-sequence-navigator.html">
+<link rel="import" href="./bower_components/d2l-typography/d2l-typography.html">
+<link rel="import" href="./bower_components/d2l-colors/d2l-colors.html">
+<link rel="import" href="./bower_components/d2l-organizations/components/d2l-organization-name.html">
 <link rel="import" href="./components/sequence-viewer-header.html">
+<link rel="import" href="./bower_components/d2l-localize-behavior/d2l-localize-behavior.html">
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="./components/sequence-content-router.html">
-<link rel="import" href="../d2l-localize-behavior/d2l-localize-behavior.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -39,18 +38,22 @@
 					margin-left: -330px;
 				}
 				.viewer {
-					position: fixed;
+					position: relative;
+
 					top: 56px;
 					bottom: 0px;
 					width: 100%;
 					overflow-y: auto;
+				}
+				.viewframe{
+					height: 100vw;
 				}
 				.hide {
 					display: none;
 				}
 			</style>
 		</custom-style>
-		<d2l-siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></d2l-siren-entity>
+		<siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></siren-entity>
 		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
 		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
 		<d2l-sequence-viewer-header class="topbar"
@@ -64,10 +67,11 @@
 		<div id="sidebar">
 			<d2l-sequence-navigator
 				href="{{currentActivity}}"
+				entity="[[entity]]"
 				token="[[token]]"
 			></d2l-sequence-navigator>
 		</div>
-		<div>
+		<div class="viewframe">
 		<d2l-sequence-content-router class="viewer"
 			href="[[currentActivity]]"
 			token="[[token]]"
