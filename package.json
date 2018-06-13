@@ -12,6 +12,7 @@
     "clean": "rimraf build && rimraf dist",
     "prestart": "gulp build-locales && polymer analyze > analysis.json",
     "build:polymer": "polymer build",
+    "resolver": "frau-local-appresolver",
     "build:app": "npm run build:polymer && npm run build:appjs && npm run build:indexfra && npm run build:vulcanize",
     "build:appjs": "browserify -t [ babelify ] app.js | uglifyjs > build/default/app.js",
     "build:indexfra": "ncp index.html build/default/index.html",
