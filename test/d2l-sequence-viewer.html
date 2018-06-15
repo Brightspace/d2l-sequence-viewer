@@ -21,7 +21,7 @@
 
 				let elem;
 
-				describe('basic', () => {
+				describe('render', () => {
 
 					beforeEach( () => {
 						elem = fixture('basic');
@@ -56,6 +56,11 @@
 						});
 					});
 
+					it('should show the content router component', () => {
+						let contentRouter = elem.shadowRoot.querySelector('.viewer');
+						expect(contentRouter).to.exist;
+
+					});
 				});
 
 			});
