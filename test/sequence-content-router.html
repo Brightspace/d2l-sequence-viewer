@@ -22,7 +22,6 @@
 			describe('d2l-sequence-content-router', () => {
 				it('should create a d2l-sequence-content-file-router for file-activity types', async() => {
 					const element = await  loadFileWithDelay('data/activity-file-html.json', fixture('RouterFixture'));
-					console.log('element is', element);
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-file-router')).to.exist;
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-unknown')).not.to.exist;
 				});
