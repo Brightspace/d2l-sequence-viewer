@@ -2,71 +2,39 @@
 <link rel="import" href="sequence-content-file-router.html">
 <link rel="import" href="sequence-content-link.html">
 <link rel="import" href="sequence-content-unknown.html">
+<link rel="import" href="../mixins/RouterMixin.html">
 
 <dom-module id="d2l-sequence-content-router">
-    <template></template>
-    <script>
+	<template></template>
+	<script>
 		/*
-			@mixes SirenEntityMixin
-        */
-        class D2LSequenceContentRouter extends Polymer.TemplateStamp(D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
-            static get is() {
-                return 'd2l-sequence-content-router';
-            }
-            static get map() {
-                return new Map([
-                    [D2LSequenceContentFileRouter.contentClass, D2LSequenceContentFileRouter.is],
-                    [D2LSequenceContentLink.contentClass, D2LSequenceContentLink.is],
-                ]);
-            }
-            static get observers() {
-				return ['_render(entity)']
+					@mixes SirenEntityMixin
+		        */
+		class D2LSequenceContentRouter extends D2L.Polymer.Mixins.SirenEntityMixin(D2L.Polymer.Mixins.RouterMixin(Polymer.Element, getEntityType)) {
+			static get is() {
+				return 'd2l-sequence-content-router';
 			}
-            static get properties() {
-                return {
-                    _contentElement: {
-                        type: Object
-                    },
-                    _contentType: {
-                        type: String
-                    }
-                }
-            }
-            _getEntityType(entity) {
-                for (let i = 0; i < entity.entities.length; i++) {
-                    // hypermedia classes tend to be more specific at the end of the array
-                    for(let j = entity.entities[i].class.length - 1; j >= 0; --j) {
-                        const mappedType = D2LSequenceContentRouter.map.get(entity.entities[i].class[j]);
-                        if (mappedType) {
-                            return mappedType;
-                        }
-                    }
-                }
-                return D2LSequenceContentUnknown.is;
-            }
-            _render(entity) {
-                const entityType = this._getEntityType(entity);
+			static get map() {
+				return new Map([
+					[D2LSequenceContentFileRouter.contentClass, D2LSequenceContentFileRouter.is],
+					[D2LSequenceContentLink.contentClass, D2LSequenceContentLink.is],
+				]);
+			}
+		}
+		customElements.define(D2LSequenceContentRouter.is, D2LSequenceContentRouter);
 
-                // Check if we should reuse the existing renderer
-                if (entityType !== this._contentType) {
-                    const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
-                    const contentElement = document.createElement(entityType);
-                    contentElement.appendChild(this._stampTemplate(nodeTemplate));
+		function getEntityType(entity) {
+			for (let i = 0; i < entity.entities.length; i++) {
+				// hypermedia classes tend to be more specific at the end of the array
+				for (let j = entity.entities[i].class.length - 1; j >= 0; --j) {
+					const mappedType = D2LSequenceContentRouter.map.get(entity.entities[i].class[j]);
+					if (mappedType) {
+						return mappedType;
+					}
+				}
+			}
+			return D2LSequenceContentUnknown.is;
+		}
 
-                    if (this._contentElement) {
-                        this.shadowRoot.removeChild(this._contentElement);
-                    }
-
-                    this._contentElement = contentElement;
-                    this._contentType = entityType;
-
-                    this.shadowRoot.appendChild(this._contentElement);
-                }
-
-                this._contentElement.href = this.href;
-                this._contentElement.token = this.token;
-            }
-        }
-        customElements.define(D2LSequenceContentRouter.is, D2LSequenceContentRouter);
-    </script>
+	</script>
 </dom-module>

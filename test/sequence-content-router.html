@@ -21,17 +21,32 @@
 			/* global SirenFixture */
 			describe('d2l-sequence-content-router', () => {
 				it('should create a d2l-sequence-content-file-router for file-activity types', async() => {
-					const element = await SirenFixture.load('data/activity-file-html.json', fixture('RouterFixture'));
+					const element = await  loadFileWithDelay('data/activity-file-html.json', fixture('RouterFixture'));
+					console.log('element is', element);
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-file-router')).to.exist;
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-unknown')).not.to.exist;
 				});
 
 				it('should create a d2l-sequence-content-unknown for unknown activity types', async() => {
-					const element = await SirenFixture.load('data/activity-file-unknown.json', fixture('RouterFixture'));
+					const element = await loadFileWithDelay('data/activity-file-unknown.json', fixture('RouterFixture'));
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-file-router')).not.to.exist;
 					expect(element.shadowRoot.querySelector('d2l-sequence-content-unknown')).to.exist;
 				});
 			});
+
+			async function delay( time ) {
+				return new Promise( resolve => {
+					setTimeout(resolve, time);
+				});
+			}
+
+			async function loadFileWithDelay(filename) {
+				const element = await SirenFixture.load(filename, fixture('RouterFixture'));
+
+				await delay( 25 );
+
+				return element;
+			}
 		</script>
 	</body>
 </html>

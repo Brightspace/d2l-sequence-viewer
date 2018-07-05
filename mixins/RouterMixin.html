@@ -1,0 +1,60 @@
+<script>
+    (function() {
+        function RouterMixin(superClass, getEntityType) {
+            return class extends Polymer.TemplateStamp(superClass) {
+                static get properties() {
+                    return {
+                        _contentType: {
+                            type: String
+                        },
+                        _contentElement: {
+                            type: Object
+                        },
+                        _debouncer: {
+                            type: Object
+                        }
+                    }
+                }
+
+                static get observers() {
+                    return ['_render(entity)']
+                }
+
+                _render(entity) {
+                    getEntityType = getEntityType.bind(this);
+                    this._debouncer = Polymer.Debouncer.debounce(
+                        this._debouncer,
+                        Polymer.Async.timeOut.after(20),
+                        () => {
+                            const entityType = getEntityType(entity);
+
+                            // Check if we should reuse the existing content element
+                            if (entityType !== this._contentType) {
+                                const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
+                                const contentElement = document.createElement(entityType);
+                                contentElement.appendChild(this._stampTemplate(nodeTemplate));
+
+                                if (this._contentElement) {
+                                    this.shadowRoot.removeChild(this._contentElement);
+                                }
+
+                                this._contentElement = contentElement;
+                                this._contentType = entityType;
+
+                                this.shadowRoot.appendChild(this._contentElement);
+                            }
+
+                            this._contentElement.href = this.href;
+                            this._contentElement.token = this.token;
+                        }
+                    );
+                }
+            }
+        }
+
+        window.D2L = window.D2L || {};
+        window.D2L.Polymer = window.D2L.Polymer || {};
+        window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
+        window.D2L.Polymer.Mixins.RouterMixin = RouterMixin;
+    })()
+</script>
