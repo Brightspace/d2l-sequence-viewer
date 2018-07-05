@@ -6,7 +6,7 @@
 	"entities": [{
 		"links": [{
 			"rel": ["about"],
-			"href": "http://example.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=6614&type=dropbox&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-5418"
+			"href": "data/quicklink.html"
 		}, {
 			"rel": ["alternate"],
 			"class": ["view"],

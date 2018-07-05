@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/d2l-loading-spinner/d2l-loading-spinner.html">
 
 <dom-module id="d2l-sequence-content-link">
     <template>
@@ -8,13 +9,24 @@
                 height: calc(100% - 12px);
                 overflow: hidden;
             }
+            .hide {
+                display: none;
+            }
+            d2l-loading-spinner {
+                position: fixed;
+                top: 33%;
+                left: 50%;
+                background-color: rgba(255, 255, 255, 0.4);
+                z-index: 9999;
+                --d2l-loading-spinner-size: 75px;
+            }
         </style>
-        <!-- Brightspace looks for d2l-suppress-nav and hides the navigation bar -->
-        <iframe class="d2l-suppress-nav" frameBorder="0" src$="[[_fileLocation]]"></iframe>
+        <d2l-loading-spinner id="spinner" class="spinner"></d2l-loading-spinner>
+        <iframe id="content" class="hide" frameBorder="0" src$="[[_linkLocation]]"></iframe>
     </template>
     <script>
-		/*
-			@mixes SirenEntityMixin
+        /*
+            @mixes SirenEntityMixin
         */
         class D2LSequenceContentLink extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
             static get is() {
@@ -25,19 +37,42 @@
             }
             static get properties() {
                 return {
-                    _fileLocation: {
+                    _linkLocation: {
                         type: String,
-                        computed: '_getFileLocation(entity)'
+                        computed: '_getLinkLocation(entity)'
                     }
                 }
             }
-            _getFileLocation(entity) {
+            static get observers() {
+                return ['_render(entity)']
+            }
+            _getLinkLocation(entity) {
                 try {
                     const linkActivity = this._getSubEntityByClass(entity, D2LSequenceContentLink.contentClass);
                     const link = this._getLinkByRel(linkActivity, 'about');
                     return link.href;
                 } catch(e) {
                     return '';
+                }
+            }
+            _render(entity) {
+                const content = this.shadowRoot.getElementById('content');
+                const spinner = this.shadowRoot.getElementById('spinner');
+
+                // initially hide the content, show the spinner
+                content.classList.add('hide');
+                spinner.classList.remove('hide');
+
+                // Suppress the LMS nav header for the content
+                content.onload = function() {
+                    const message = JSON.stringify({ eventType: 'd2l-suppress-nav' });
+                    content.contentWindow.postMessage(message, '*');
+
+                    // give the LMS a short amount of time to suppress the nav header...
+                    setTimeout(() => {
+                        content.classList.remove('hide');
+                        spinner.classList.add('hide')
+                    }, 0);
                 }
             }
         }

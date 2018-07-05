@@ -7,7 +7,7 @@
 		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 		<script src="../../web-component-tester/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
-		<link rel="import" href="../../polymer/polymer.html">
+		<script src="../node_modules/chai-dom/chai-dom.js"></script>
 		<link rel="import" href="../components/sequence-content-link.html">
 	</head>
 	<body>
@@ -22,7 +22,17 @@
 				it('iframe src must match the link-activity src', async() => {
 					const element = await SirenFixture.load('data/activity-link.json', fixture('LinkFixture'));
 					const src = element.shadowRoot.querySelector('iframe').getAttribute('src');
-					expect(src).to.equal('http://example.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=6614&type=dropbox&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-5418');
+					expect(src).to.equal('data/quicklink.html');
+				});
+
+				it('iframe content is displayed once spinner is hidden', done => {
+					SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then( element => {
+						const iframe = element.shadowRoot.querySelector('iframe');
+						setTimeout(() => {
+							expect(iframe).not.to.have.class('hide');
+							done();
+						}, 300);
+					});
 				});
 			});
 		</script>
