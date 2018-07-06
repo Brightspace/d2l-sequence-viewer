@@ -6,28 +6,6 @@
 			:host {
 				display: block;
 				font-family: 'Lato', sans-serif;
-				font-size: 20px;
-				line-height: 1.5;
-				letter-spacing: 0.6px;
-			}
-
-			.container {
-				padding-top: 100px;
-				text-align: center;
-			}
-
-			.cannot-open-text {
-				color: var(--d2l-color-celestine-plus-1);
-
-				/* Heading 3 - Lato Bold 20 */
-				font-size: 20px;
-				line-height: 30px;
-				font-weight: 700; /* bold */
-				letter-spacing: 0.2px;
-			}
-
-			.download-text {
-				margin-top: 10px;
 				color: var(--d2l-color-ferrite);
 
 				/* Body Text - Lato Regular 19 */
@@ -37,6 +15,24 @@
 				letter-spacing: 0.2px;
 			}
 
+			.container {
+				padding-top: 100px;
+				text-align: center;
+			}
+
+			.heading3 {
+				/* Heading 3 - Lato Bold 20 */
+				font-size: 20px;
+				line-height: 30px;
+				font-weight: 700; /* bold */
+				letter-spacing: 0.2px;
+			}
+
+			.title {
+				color: var(--d2l-color-celestine-plus-1);
+				margin-bottom: 10px;
+			}
+
 			.file-icon {
 				background-image: url('../images/file-icon.svg');
 				width: 163px;
@@ -44,35 +40,24 @@
 				margin: 50px auto;
 			}
 
-			.file-size {
-				color: #565a5c;
-				font-weight: 400;
-			}
-
 			.download-button {
-				background-color: #006fbf;
-				border: 1px solid #1c5295;
+				background-color: var(--d2l-color-celestine);
+				border: 1px solid var(--d2l-color-celestine-minus-1);
 				color: white;
 				border-radius: 8px;
 				width: 257px;
 				height: 52px;
 				margin-top: 50px;
-
-				/* Heading 3 - Lato Bold 20 */
-				font-size: 20px;
-				line-height: 30px;
-				font-weight: 700; /* bold */
-				letter-spacing: 0.2px;
 			}
 		</style>
 		<div class="container">
-			<div class="cannot-open-text">This kind of file can't be opened in this viewer</div>
-			<div class="download-text">Download and view the file in another application instead.</div>
+			<div class="title heading3">This kind of file can't be opened in this viewer</div>
+			<div>Download and view the file in another application instead.</div>
 			<div class="file-icon"></div>
-			<div class="file-size">File size: [unknown]</div>
+			<div>File size: [unknown]</div>
 			<template is="dom-if" if="[[_fileLocation]]">
 				<form method="get" action$="[[_fileLocation]]">
-					<button type="submit" class="download-button">Download</button>
+					<button type="submit" class="download-button heading3">Download</button>
 				</form>
 			</template>
 		</div>
