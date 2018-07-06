@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/d2l-localize-behavior/d2l-localize-behavior.html">
 
 <dom-module id="d2l-sequence-content-file-download">
 	<template>
@@ -52,45 +53,57 @@
 			}
 		</style>
 		<div class="container">
-			<div class="title heading3">This kind of file can't be opened in this viewer</div>
-			<div>Download and view the file in another application instead.</div>
+			<div class="title heading3">
+				[[localize('invalidFile')]]
+			</div>
+			<div>
+				[[localize('downloadInvalidFile')]]
+			</div>
 			<div class="file-icon"></div>
-			<div>File size: [unknown]</div>
+			<div>
+				[[localize('fileSize','size','[unknown]')]]
+			</div>
 			<template is="dom-if" if="[[_fileLocation]]">
 				<form method="get" action$="[[_fileLocation]]">
-					<button type="submit" class="download-button heading3">Download</button>
+					<button type="submit" class="download-button heading3">
+						[[localize('download')]]
+					</button>
 				</form>
 			</template>
 		</div>
 	</template>
 
-    <script>
+	<script>
 		/*
 			@mixes SirenEntityMixin
-        */
-        class D2LSequenceContentFileDownload extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
-            static get is() {
-                return 'd2l-sequence-content-file-download';
-            }
-            static get properties() {
-                return {
-                    _fileLocation: {
-                        type: String,
-                        computed: '_getFileLocation(entity)'
-                    }
-                }
-            }
-            _getFileLocation(entity) {
-                try {
-                    const fileActivity = this._getSubEntityByClass(entity, "file-activity");
-                    const file = this._getSubEntityByClass(fileActivity, "file");
-                    const link = this._getLinkByClass(file, "download");
-                    return link.href;
-                } catch(e) {
-                    return '';
-                }
-            }
-        }
-        customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);
+		*/
+		class D2LSequenceContentFileDownload extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+			static get is() {
+				return 'd2l-sequence-content-file-download';
+			}
+			static get properties() {
+				return {
+					_fileLocation: {
+						type: String,
+						computed: '_getFileLocation(entity)'
+					}
+				}
+			}
+			connectedCallback() {
+				super.connectedCallback();
+				this.loadResources(this.resolveUrl('../locales.json'));
+			}
+			_getFileLocation(entity) {
+				try {
+					const fileActivity = this._getSubEntityByClass(entity, "file-activity");
+					const file = this._getSubEntityByClass(fileActivity, "file");
+					const link = this._getLinkByClass(file, "download");
+					return link.href;
+				} catch(e) {
+					return '';
+				}
+			}
+		}
+		customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);
     </script>
 </dom-module>

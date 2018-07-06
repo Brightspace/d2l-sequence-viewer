@@ -2,7 +2,11 @@
 	"ar": {},
 	"de": {},
 	"en": {
-		"backToModule": "BACK TO [{module}] - [{course}]"
+		"backToModule": "BACK TO [{module}] - [{course}]",
+		"invalidFile": "This kind of file can't be opened in this viewer",
+		"downloadInvalidFile": "Download and view the file in another application instead.",
+		"fileSize": "File size: {size}",
+		"download": "Download"
 	},
 	"es": {},
 	"fr": {},
