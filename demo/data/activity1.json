@@ -14,7 +14,7 @@
 		}],
 		"class": ["activity", "link-activity", "link-plain"],
 		"properties": {
-			"title": "Quiz: The Very Very Very Long History of AlgebraQuiz: History of Algebra"
+			"title": "Quiz: The Very Very Very Long History of Algebra"
 		},
 		"rel": ["about", "item"],
 		"entities": [{

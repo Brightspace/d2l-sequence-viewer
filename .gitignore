@@ -5,3 +5,4 @@ analysis.json
 .idea
 dist/*
 build/*
+.vscode/*
