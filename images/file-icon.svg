@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="163" height="125" viewBox="0 0 163 125">
+    <defs>
+        <path id="a" d="M43 13.99c0-2.203 1.8-3.99 4.005-3.99H109l18 18v83H43V13.99z"/>
+        <mask id="c" width="84" height="101" x="0" y="0" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <path id="b" d="M108 10l19.041 19H108z"/>
+        <mask id="d" width="19.041" height="19" x="0" y="0" fill="#fff">
+            <use xlink:href="#b"/>
+        </mask>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <ellipse cx="81.5" cy="62.5" fill="#F2F8FC" rx="81.5" ry="62.5"/>
+        <use fill="#FFF" stroke="#006FBF" stroke-width="4" mask="url(#c)" xlink:href="#a"/>
+        <rect width="25" height="19" x="90" y="54" fill="#F2F8FC" rx="4"/>
+        <rect width="45" height="2" x="55" y="31" fill="#F2F8FC" rx="1"/>
+        <rect width="60" height="2" x="55" y="39" fill="#F2F8FC" rx="1"/>
+        <rect width="60" height="2" x="55" y="47" fill="#F2F8FC" rx="1"/>
+        <rect width="60" height="2" x="55" y="85" fill="#F2F8FC" rx="1"/>
+        <rect width="30" height="2" x="55" y="55" fill="#F2F8FC" rx="1"/>
+        <rect width="30" height="2" x="55" y="63" fill="#F2F8FC" rx="1"/>
+        <rect width="25" height="2" x="55" y="71" fill="#F2F8FC" rx="1"/>
+        <rect width="60" height="2" x="55" y="93" fill="#F2F8FC" rx="1"/>
+        <use fill="#F2F8FC" stroke="#006FBF" stroke-width="2" mask="url(#d)" xlink:href="#b"/>
+    </g>
+</svg>

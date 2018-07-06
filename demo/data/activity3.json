@@ -1,0 +1,92 @@
+{
+	"properties": {
+		"title": "Exempted Assignment"
+	},
+	"entities": [
+		{
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "https://qa108412259g.bspc.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=123187&type=dropbox&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-5418"
+				},
+				{
+					"rel": [
+						"alternate"
+					],
+					"class": [
+						"view"
+					],
+					"href": "https://qa108412259g.bspc.com/d2l/le/content/123187/viewContent/114554/View"
+				}
+			],
+			"class": [
+				"activity",
+				"link-activity",
+				"link-plain"
+			],
+			"properties": {
+				"title": "Exempted Assignment"
+			},
+			"rel": [
+				"about",
+				"item"
+			],
+			"entities": [
+				{
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://5230bfa9-7088-4243-9c82-1be367ebb572.sequences.api.dev.brightspace.com/123187/activity/114554/completion"
+						}
+					],
+					"class": [
+						"completion",
+						"incomplete",
+						"manual"
+					]
+				},
+				{
+					"class": [
+						"exemption",
+						"exempted"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/exemption"
+					]
+				}
+			],
+			"actions": [
+				{
+					"name": "view-activity",
+					"method": "POST",
+					"href": "https://5230bfa9-7088-4243-9c82-1be367ebb572.sequences.api.dev.brightspace.com/123187/activity/114554/view"
+				},
+				{
+					"name": "view-activity-duration",
+					"method": "PUT",
+					"href": "https://5230bfa9-7088-4243-9c82-1be367ebb572.sequences.api.dev.brightspace.com/123187/activity/114554/view"
+				}
+			]
+		}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/activity3.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/activity2.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/l1-module1.json"
+	}],
+	"class": ["sequenced-activity"]
+}
