@@ -1,6 +1,6 @@
 {
 	"properties": {
-		"title": "Quiz: History of Algebra"
+		"title": "Quiz: The Very Very Very Long History of Algebra"
 	},
 	"entities": [
 		{
@@ -14,7 +14,7 @@
 		}],
 		"class": ["activity", "link-activity", "link-plain"],
 		"properties": {
-			"title": "Quiz: History of Algebra"
+			"title": "Quiz: The Very Very Very Long History of AlgebraQuiz: History of Algebra"
 		},
 		"rel": ["about", "item"],
 		"entities": [{

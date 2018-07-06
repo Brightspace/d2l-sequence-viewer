@@ -29,13 +29,18 @@
 			"href": "data/m2-activity5.json"
 		},
 		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity6.json"
+		},
+		{
 			"class": [
 			  "completion",
 			  "incomplete"
 			],
 			"properties": {
 			  "completed": 3,
-			  "total": 3,
+			  "total": 4,
 			  "optionalViewed": 1,
 			  "optionalTotal": 2
 			},
