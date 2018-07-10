@@ -21,7 +21,7 @@
                 --d2l-loading-spinner-size: 75px;
             }
         </style>
-        <d2l-loading-spinner id="spinner" class="spinner"></d2l-loading-spinner>
+        <d2l-loading-spinner id="spinner"></d2l-loading-spinner>
         <iframe id="content" class="hide" frameBorder="0" src$="[[_linkLocation]]"></iframe>
     </template>
     <script>
@@ -65,14 +65,11 @@
 
                 // Suppress the LMS nav header for the content
                 content.onload = function() {
-                    const message = JSON.stringify({ eventType: 'd2l-suppress-nav' });
-                    content.contentWindow.postMessage(message, '*');
-
-                    // give the LMS a short amount of time to suppress the nav header...
+                    // give the LMS some time to jiggle and shake...
                     setTimeout(() => {
                         content.classList.remove('hide');
                         spinner.classList.add('hide')
-                    }, 0);
+                    }, 200);
                 }
             }
         }

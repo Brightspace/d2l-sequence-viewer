@@ -48,6 +48,23 @@
 						'eventType': 'ready',
 					});
 
+					// Handle d2l-suppress-nav messages
+					window.addEventListener('message', function(event) {
+						try {
+							var data = JSON.parse( event.data );
+							if (data.eventType !== 'd2l-suppress-nav-question') {
+								return;
+							}
+
+							var suppressEvent = JSON.stringify({
+								'eventType': 'd2l-suppress-nav'
+							});
+
+							event.source.postMessage(suppressEvent, event.origin);
+						} catch(e) {
+						}
+					});
+
 					// send the readyEvent to the LMS
 					window.parent.postMessage(readyEvent, '*');
 				});
