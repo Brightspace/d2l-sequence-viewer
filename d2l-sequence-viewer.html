@@ -57,7 +57,7 @@
 		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
 		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
 		<d2l-sequence-viewer-header class="topbar"
-			href="{{currentActivity}}"
+			href="{{href}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
 				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar"></d2l-icon-button>
@@ -66,14 +66,14 @@
 		</d2l-sequence-viewer-header>
 		<div id="sidebar">
 			<d2l-sequence-navigator
-				href="{{currentActivity}}"
+				href="{{href}}"
 				entity="[[entity]]"
 				token="[[token]]"
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-mouseover="_closeSlidebar">
 		<d2l-sequence-content-router class="viewer"
-			href="[[currentActivity]]"
+			href="[[href]]"
 			token="[[token]]"
 		></d2l-sequence-content-router>
 		</div>
@@ -90,9 +90,6 @@
 			}
 			static get properties() {
 				return {
-					currentActivity: {
-						type: String
-					},
 					title: {
 						type: Object,
 						computed: '_getTitle(entity)'
@@ -128,7 +125,6 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
-				this.currentActivity = href;
 			}
 			connectedCallback() {
 				super.connectedCallback();
