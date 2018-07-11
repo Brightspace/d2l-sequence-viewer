@@ -11,7 +11,8 @@
     "components/sequence-content-link.html",
     "components/sequence-content-router.html",
     "components/sequence-content-unknown.html",
-    "components/sequence-viewer-header.html"
+    "components/sequence-viewer-header.html",
+    "images/*"
   ],
   "sources": [
     "bower.json",
