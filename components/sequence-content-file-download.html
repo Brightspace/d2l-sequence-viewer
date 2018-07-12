@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../bower_components/d2l-localize-behavior/d2l-localize-behavior.html">
+<link rel="import" href="../bower_components/d2l-button/d2l-button.html">
+<link rel="import" href="../bower_components/d2l-content-icons/d2l-content-icons.html">
 
 <dom-module id="d2l-sequence-content-file-download">
 	<template>
@@ -36,17 +38,12 @@
 			}
 
 			.file-icon {
-				background-image: url('../images/file-icon.svg');
-				width: 163px;
-				height: 125px;
+				width: 90px;
+				height: 120px;
 				margin: 50px auto;
 			}
 
 			.download-button {
-				background-color: var(--d2l-color-celestine);
-				border: 1px solid var(--d2l-color-celestine-minus-1);
-				color: white;
-				border-radius: 8px;
 				width: 257px;
 				height: 52px;
 				margin-top: 50px;
@@ -59,16 +56,14 @@
 			<div>
 				[[localize('downloadInvalidFile')]]
 			</div>
-			<div class="file-icon"></div>
+			<div class="file-icon"><d2l-content-icons icon="file"></d2l-content-icons></div>
 			<div>
 				[[localize('fileSize','size','[unknown]')]]
 			</div>
 			<template is="dom-if" if="[[_fileLocation]]">
-				<form method="get" action$="[[_fileLocation]]">
-					<button type="submit" class="download-button heading3">
+					<d2l-button primary on-click="downloadFile" class="download-button">
 						[[localize('download')]]
-					</button>
-				</form>
+					</d2l-button>
 			</template>
 		</div>
 	</template>
@@ -102,6 +97,9 @@
 				} catch(e) {
 					return '';
 				}
+			}
+			downloadFile(){
+				window.open(this._fileLocation);
 			}
 		}
 		customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);

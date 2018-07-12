@@ -20,6 +20,7 @@
     "siren-entity": "BrightspaceHypermediaComponents/siren-entity",
     "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator",
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences",
+    "d2l-content-icons": "^1.0.2 || ^2.0.0",
     "d2l-organizations": "BrightspaceHypermediaComponents/organizations",
     "d2l-icons": "^4.13.0",
     "d2l-typography": "^6.1.3",
