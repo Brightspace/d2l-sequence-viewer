@@ -131,15 +131,17 @@
 				return `${size} ${units[i]}`;
 			}
 
-			async _setRawFileSize() {
-				const {headers} = await fetch(this._fileLocation, {
+			_setRawFileSize() {
+				fetch(this._fileLocation, {
 					method: 'HEAD',
 					headers: new Headers({
 						'Authorization': `Bearer ${this.token}`
 					})
+				}).then(({headers}) => {
+					this._rawFileSize = headers.get('content-length');
+				}).catch(err => {
+					this._rawFileSize = 0
 				});
-
-				this._rawFileSize = headers.get('content-length');
 			}
 		}
 		customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);
