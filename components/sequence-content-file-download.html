@@ -61,7 +61,7 @@
 			</div>
 			<div class="file-icon"></div>
 			<div>
-				[[localize('fileSize','size','[unknown]')]]
+				[[localize('fileSize','size',_fileSize)]]
 			</div>
 			<template is="dom-if" if="[[_fileLocation]]">
 				<form method="get" action$="[[_fileLocation]]">
@@ -85,23 +85,61 @@
 				return {
 					_fileLocation: {
 						type: String,
-						computed: '_getFileLocation(entity)'
+						computed: '_getFileLocation(entity)',
+						observer: '_setRawFileSize'
+					},
+					_language: {
+						type: String
+					},
+					_rawFileSize: {
+						type: Number
+					},
+					_fileSize: {
+						type: String,
+						computed: '_getHumanFileSize(_rawFileSize)'
 					}
 				}
 			}
 			connectedCallback() {
 				super.connectedCallback();
 				this.loadResources(this.resolveUrl('../locales.json'));
+				this._language = window.document.getElementsByTagName('html')[0]
+					.getAttribute('lang');
 			}
+
 			_getFileLocation(entity) {
 				try {
 					const fileActivity = this._getSubEntityByClass(entity, "file-activity");
 					const file = this._getSubEntityByClass(fileActivity, "file");
-					const link = this._getLinkByClass(file, "download");
+					const link = this._getLinkByRel(file, "alternate");
 					return link.href;
 				} catch(e) {
 					return '';
 				}
+			}
+
+			_getHumanFileSize(bytes) {
+				const thresh = 1000;
+				const units = ['B','kB','MB','GB','TB'];
+
+				let i;
+				for (i = 0; Math.abs(bytes) >= thresh && i < units.length - 1; i++) {
+					bytes /= thresh;
+				}
+
+				const size = parseFloat(bytes.toFixed(1)).toLocaleString(this._language);
+				return `${size} ${units[i]}`;
+			}
+
+			async _setRawFileSize() {
+				const {headers} = await fetch(this._fileLocation, {
+					method: 'HEAD',
+					headers: new Headers({
+						'Authorization': `Bearer ${this.token}`
+					})
+				});
+
+				this._rawFileSize = headers.get('content-length');
 			}
 		}
 		customElements.define(D2LSequenceContentFileDownload.is, D2LSequenceContentFileDownload);
