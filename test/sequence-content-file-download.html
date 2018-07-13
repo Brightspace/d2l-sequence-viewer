@@ -25,18 +25,18 @@
 					expect(form).to.have.attribute('action', 'data/test.zip');
 				});
 
-				it('Humansize should match expected values', async () => {
+				it('Humansize should match expected values', async() => {
 					const element = await SirenFixture.load('data/activity-file-zip.json', fixture('FileFixture'));
-					expect(element._getHumanFileSize( 0 )).to.equal("0 B");
-					expect(element._getHumanFileSize( 1 )).to.equal("1 B");
-					expect(element._getHumanFileSize( 150 )).to.equal("150 B");
-					expect(element._getHumanFileSize( 1500 )).to.equal("1.5 kB");
-					expect(element._getHumanFileSize( 150000 )).to.equal("150 kB");
-					expect(element._getHumanFileSize( 1500000 )).to.equal("1.5 MB");
-					expect(element._getHumanFileSize( 150000000 )).to.equal("150 MB");
-					expect(element._getHumanFileSize( 1500000000 )).to.equal("1.5 GB");
-					expect(element._getHumanFileSize( 150000000000 )).to.equal("150 GB");
-					expect(element._getHumanFileSize( 1500000000000 )).to.equal("1.5 TB");
+					expect(element._getHumanFileSize(0)).to.equal('0 B');
+					expect(element._getHumanFileSize(1)).to.equal('1 B');
+					expect(element._getHumanFileSize(150)).to.equal('150 B');
+					expect(element._getHumanFileSize(1500)).to.equal('1.5 kB');
+					expect(element._getHumanFileSize(150000)).to.equal('150 kB');
+					expect(element._getHumanFileSize(1500000)).to.equal('1.5 MB');
+					expect(element._getHumanFileSize(150000000)).to.equal('150 MB');
+					expect(element._getHumanFileSize(1500000000)).to.equal('1.5 GB');
+					expect(element._getHumanFileSize(150000000000)).to.equal('150 GB');
+					expect(element._getHumanFileSize(1500000000000)).to.equal('1.5 TB');
 				});
 			});
 		</script>
