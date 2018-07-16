@@ -7,6 +7,7 @@
 <link rel="import" href="./bower_components/polymer/polymer-element.html">
 <link rel="import" href="./bower_components/polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="./components/sequence-content-router.html">
+<link rel="import" href="./bower_components/d2l-button/d2l-button-icon.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -60,7 +61,7 @@
 			href="{{href}}"
 			token="[[token]]">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar"></d2l-icon-button>
+				<d2l-button-icon icon="d2l-tier3:menu" on-click="_toggleSlideSidebar"></d2l-button-icon>
 			</span>
 			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
 		</d2l-sequence-viewer-header>
