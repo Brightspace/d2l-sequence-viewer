@@ -42,7 +42,7 @@
 
 				it('should have a functional prev button', () => {
 					flush(() => {
-						const prevBtn = header.shadowRoot.querySelector('.prev-button d2l-button-icon');
+						const prevBtn = header.shadowRoot.querySelector('.prev-button d2l-icon-button');
 						expect(prevBtn).to.exist;
 						prevBtn.click();
 						expect(prevBtn.disabled).to.be.true;
@@ -52,7 +52,7 @@
 
 				it('should have a functional next button', () => {
 					flush(() => {
-						const nextBtn = header.shadowRoot.querySelector('.next-button d2l-button-icon');
+						const nextBtn = header.shadowRoot.querySelector('.next-button d2l-icon-button');
 						expect(nextBtn).to.exist;
 						nextBtn.click();
 						nextBtn.click();
@@ -65,7 +65,7 @@
 
 				it('should have a functional back button', () => {
 					flush(() => {
-						const backBtn = header.shadowRoot.querySelector('.back-icon d2l-button-icon');
+						const backBtn = header.shadowRoot.querySelector('.back-icon d2l-icon-button');
 						expect(backBtn).to.exist;
 						backBtn.click();
 						expect( topicName.shadowRoot ).to.have.text('Module 2');
@@ -73,7 +73,7 @@
 				});
 
 			});
-
+			
 		</script>
 	</body>
 </html>
