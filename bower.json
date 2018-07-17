@@ -33,6 +33,7 @@
   },
   "resolutions": {
     "polymer": "^2.6.0",
+    "d2l-icons": "^4.13.0",
     "webcomponentsjs": "^1.0.0"
   }
 }
