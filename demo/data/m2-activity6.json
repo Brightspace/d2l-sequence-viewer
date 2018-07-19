@@ -21,7 +21,7 @@
 			"links": [{
 				"rel": ["alternate"],
 				"type": "text/plain",
-				"href": "https://qa108412318g.bspc.com/d2l/api/le/1.12/123187/content/topics/104497/file?stream=true"
+				"href": "data/dummy?stream=true"
 			}, {
 				"rel": ["alternate"],
 				"class": ["view"],
