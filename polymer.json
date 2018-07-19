@@ -5,8 +5,7 @@
   "entrypoint": "index.html",
   "shell": "d2l-sequence-viewer.html",
   "fragments": [
-    "components/sequence-viewer-header.html",
-    "images/*"
+    "components/sequence-viewer-header.html"
   ],
   "sources": [
     "bower.json",
