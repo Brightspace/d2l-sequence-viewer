@@ -6,7 +6,7 @@
 <link rel="import" href="./bower_components/d2l-localize-behavior/d2l-localize-behavior.html">
 <link rel="import" href="./bower_components/polymer/polymer-element.html">
 <link rel="import" href="./bower_components/polymer-siren-mixins/siren-entity-mixin.html">
-<link rel="import" href="./components/sequence-content-router.html">
+<link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -72,10 +72,10 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-mouseover="_closeSlidebar">
-		<d2l-sequence-content-router class="viewer"
+		<d2l-sequences-content-router class="viewer"
 			href="[[href]]"
 			token="[[token]]"
-		></d2l-sequence-content-router>
+		></d2l-sequences-content-router>
 		</div>
 	</template>
 

@@ -5,12 +5,6 @@
   "entrypoint": "index.html",
   "shell": "d2l-sequence-viewer.html",
   "fragments": [
-    "components/sequence-content-file-download.html",
-    "components/sequence-content-file-html.html",
-    "components/sequence-content-file-router.html",
-    "components/sequence-content-link.html",
-    "components/sequence-content-router.html",
-    "components/sequence-content-unknown.html",
     "components/sequence-viewer-header.html",
     "images/*"
   ],
