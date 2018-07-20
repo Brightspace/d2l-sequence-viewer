@@ -18,6 +18,9 @@
 				.back-icon {
 					padding-bottom: 2px;
 				}
+				.back-text:hover {
+					cursor: pointer;
+				}
 				.topbar {
 					position: fixed;
 					top: 0px;
@@ -74,7 +77,9 @@
 					on-click="_onClickBack"
 				></d2l-icon-button>
 			</span>
-			<span slot="d2l-back-to-module">[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</span>
+			<span class="back-text" slot="d2l-back-to-module" on-click="_onClickBack">
+				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+			</span>
 		</d2l-sequence-viewer-header>
 		<div id="sidebar">
 			<d2l-sequence-navigator
