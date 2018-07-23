@@ -8,6 +8,7 @@
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-topic-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-module-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-iterator.html">
+<link rel="import" href="../bower_components/iron-a11y-announcer/iron-a11y-announcer.html">
 
 <dom-module id="d2l-sequence-viewer-header">
 	<template>
@@ -151,9 +152,12 @@
 				<slot name="d2l-back-to-module"></slot>
 			</div>
 			<d2l-sequences-topic-name
+				id="topicName"
 				class="topic-name col8"
 				href="[[href]]"
 				token="[[token]]"
+				tabindex="1"
+				role="heading"
 			></d2l-sequences-topic-name>
 			<div class="col9"></div>
 			<d2l-sequences-iterator
@@ -185,6 +189,20 @@
             static get is() {
                 return 'd2l-sequence-viewer-header';
             }
+			static get observers() {
+                return ['_announceTopic(entity)']
+			}
+			connectedCallback() {
+				super.connectedCallback();
+				Polymer.IronA11yAnnouncer.requestAvailability();
+				Polymer.IronA11yAnnouncer.instance.mode = 'polite';
+			}
+			_announceTopic() {
+				var self = this;
+				Polymer.IronA11yAnnouncer.instance.fire('iron-announce', {
+					text: self.$.topicName.innerText.trim()
+				});
+			}
         }
         customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
     </script>
