@@ -77,7 +77,11 @@
 					on-click="_onClickBack"
 				></d2l-icon-button>
 			</span>
-			<span class="back-text" slot="d2l-back-to-module" on-click="_onClickBack">
+			<span
+				class$="[[backTextClass]]"
+				slot="d2l-back-to-module"
+				on-click="_onClickBack"
+			>
 				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
 			</span>
 		</d2l-sequence-viewer-header>
@@ -118,6 +122,10 @@
 					backButtonClass: {
 						type: String,
 						computed: '_backButtonClass(returnUrl)'
+					},
+					backTextClass: {
+						type: String,
+						computed: '_backTextClass(returnUrl)'
 					},
 					returnUrl: {
 						type: String,
@@ -161,7 +169,9 @@
 				}
 			}
 			_onClickBack() {
-				window.location.href = this.returnUrl;
+				if( this.returnUrl ) {
+					window.location.href = this.returnUrl;
+				}
 			}
 			_getHrefByRel(entity, relation) {
 				const link = entity.getLinkByRel(relation);
@@ -188,6 +198,11 @@
 				return !returnUrl
 					? 'back-icon hide'
 					: 'back-icon';
+			}
+			_backTextClass(returnUrl) {
+				return !returnUrl
+					? ''
+					: 'back-text';
 			}
 			_toggleSlideSidebar() {
 				if ( this.$.sidebar.classList.contains('offscreen') ) {
