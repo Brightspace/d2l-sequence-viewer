@@ -64,7 +64,8 @@
 		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
 		<d2l-sequence-viewer-header class="topbar"
 			href="{{href}}"
-			token="[[token]]">
+			token="[[token]]"
+			role="banner">
 			<span slot="d2l-flyout-menu">
 				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
 			</span>
@@ -90,9 +91,10 @@
 				href="{{href}}"
 				entity="[[entity]]"
 				token="[[token]]"
+				role="navigation"
 			></d2l-sequence-navigator>
 		</div>
-		<div class="viewframe" on-mouseover="_closeSlidebar">
+		<div class="viewframe" on-mouseover="_closeSlidebar" role="main">
 		<d2l-sequences-content-router class="viewer"
 			href="[[href]]"
 			token="[[token]]"
