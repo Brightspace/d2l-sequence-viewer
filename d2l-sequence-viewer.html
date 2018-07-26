@@ -94,7 +94,7 @@
 				role="navigation"
 			></d2l-sequence-navigator>
 		</div>
-		<div class="viewframe" on-mouseover="_closeSlidebar" role="main">
+		<div class="viewframe" on-click="_closeSlidebar" role="main">
 		<d2l-sequences-content-router class="viewer"
 			href="[[href]]"
 			token="[[token]]"
@@ -152,6 +152,9 @@
 					},
 					_moduleName: {
 						type: String
+					},
+					_blurListener: {
+						type: Object
 					}
 				};
 			}
@@ -164,6 +167,18 @@
 			connectedCallback() {
 				super.connectedCallback();
 				this.loadResources(this.resolveUrl('./locales.json'));
+
+				// For ASV, the blur event is an indicator than an iframe took focus
+				// from our full-screen application.  Currently, the only thing that
+				// can do this is a content iframe.
+				this._blurListener = window.addEventListener('blur', () => {
+					this._closeSlidebar();
+				});
+			}
+			disconnectedCallback() {
+				super.disconnectedCallback();
+				window.removeEventListener(this._blurListener);
+				this._blurListener = null;
 			}
 			_closeSlidebar() {
 				if ( !this.$.sidebar.classList.contains('offscreen') ) {
