@@ -177,7 +177,7 @@
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
-				window.removeEventListener(this._blurListener);
+				window.removeEventListener('blur', this._blurListener);
 				this._blurListener = null;
 			}
 			_closeSlidebar() {
