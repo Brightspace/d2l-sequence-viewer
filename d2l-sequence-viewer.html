@@ -76,12 +76,13 @@
 					type="button"
 					text="Activity"
 					on-click="_onClickBack"
-				></d2l-icon-button>
+				>[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</d2l-icon-button>
 			</span>
 			<span
 				class$="[[backTextClass]]"
 				slot="d2l-back-to-module"
 				on-click="_onClickBack"
+				tabindex="-1"
 			>
 				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
 			</span>
