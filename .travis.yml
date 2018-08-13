@@ -4,11 +4,10 @@ addons:
   chrome: stable
 sudo: required
 after_success:
-- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:cdn'
+- 'export NODE_ENV=production && npm run publish:cdn'
 script:
 - npm run lint
 - npm run build
-- npm run test
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_RELEASE_TOKEN" >> ~/.netrc
 env:
