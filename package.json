@@ -46,7 +46,7 @@
         "key": "AKIAJSUZXLSOWGASCTAQ",
         "secretVar": "CDN_SECRET"
       },
-      "devTagVar": "TRAVIS_BUILD_ID",
+      "devTagVar": "TRAVIS_JOB_ID",
       "versionVar": "TRAVIS_TAG"
     }
   },
