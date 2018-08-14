@@ -4,8 +4,8 @@
 <link rel="import" href="./bower_components/d2l-organizations/components/d2l-organization-name.html">
 <link rel="import" href="./components/sequence-viewer-header.html">
 <link rel="import" href="./bower_components/d2l-localize-behavior/d2l-localize-behavior.html">
-<link rel="import" href="./bower_components/polymer/polymer-element.html">
-<link rel="import" href="./bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
 
 <dom-module id="d2l-sequence-viewer">
@@ -108,7 +108,10 @@
 			@mixes SirenEntityMixin
 			@demo demos/index.html
 		*/
-		class D2LSequenceViewer extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+		class D2LSequenceViewer extends Polymer.mixinBehaviors([
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
+			D2L.PolymerBehaviors.LocalizeBehavior
+		], Polymer.Element) {
 			static get is() {
 				return 'd2l-sequence-viewer';
 			}
@@ -203,7 +206,7 @@
 				}), '*');
 			}
 			_getHrefByRel(entity, relation) {
-				const link = entity.getLinkByRel(relation);
+				const link = entity && entity.getLinkByRel(relation);
 				return link && link.href || '';
 			}
 			_getTitle(entity) {
@@ -213,7 +216,7 @@
 				return () => { return Promise.resolve(token); };
 			}
 			_getOrganizationHref(entity) {
-				const upLink = entity.getLinkByRel( 'up' );
+				const upLink = entity && entity.getLinkByRel( 'up' );
 				if ( !upLink ) {
 					return '';
 				}

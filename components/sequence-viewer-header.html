@@ -1,5 +1,5 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../bower_components/d2l-colors/d2l-colors.html">
 <link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
@@ -185,7 +185,11 @@
 			@mixes SirenEntityMixin
 			@demo demos/index.html
         */
-        class D2LSequenceViewerHeader extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+        class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
+            D2L.PolymerBehaviors.Siren.EntityBehavior,
+			],
+			Polymer.Element
+		) {
             static get is() {
                 return 'd2l-sequence-viewer-header';
             }
@@ -195,11 +199,11 @@
 			connectedCallback() {
 				super.connectedCallback();
 				Polymer.IronA11yAnnouncer.requestAvailability();
-				Polymer.IronA11yAnnouncer.instance.mode = 'polite';
+				this.mode = 'polite';
 			}
 			_announceTopic() {
 				var self = this;
-				Polymer.IronA11yAnnouncer.instance.fire('iron-announce', {
+				this.fire('iron-announce', {
 					text: self.$.topicName.innerText.trim()
 				});
 			}
