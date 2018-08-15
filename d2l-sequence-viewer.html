@@ -71,7 +71,9 @@
 					icon="d2l-tier3:menu"
 					on-click="_toggleSlideSidebar"
 					aria-label$="[[localize('toggleNavMenu')]]"
-					tabindex="0">
+					tabindex="0"
+				>
+					[[localize('toggleNavMenu')]]
 				</d2l-icon-button>
 			</span>
 			<span slot="back-button">
@@ -83,7 +85,9 @@
 					aria-label$="[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]"
 					on-click="_onClickBack"
 					tabindex="0"
-				></d2l-icon-button>
+				>
+				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+				</d2l-icon-button>
 			</span>
 			<span
 				class$="[[backTextClass]]"
