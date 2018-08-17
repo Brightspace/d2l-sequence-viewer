@@ -1,5 +1,5 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../bower_components/d2l-colors/d2l-colors.html">
 <link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
@@ -56,7 +56,7 @@
 				letter-spacing: 0.2px;
 			}
 			.col1 {
-				flex: 0 0 30px;
+				flex: 0 0 40px;
 			}
 			.col2 {
 				flex: 0 0 30px;
@@ -102,7 +102,7 @@
 					visibility: hidden;
 				}
 				.col1 {
-					flex: 0 0 15px;
+					flex: 0 0 25px;
 				}
 				.col3 {
 					flex: 0 0 0px;
@@ -177,21 +177,34 @@
 			@mixes SirenEntityMixin
 			@demo demos/index.html
         */
-        class D2LSequenceViewerHeader extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
-            static get is() {
-                return 'd2l-sequence-viewer-header';
-            }
+        class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
+            D2L.PolymerBehaviors.Siren.EntityBehavior,
+			],
+			Polymer.Element
+		) {
+			static get is() {
+				return 'd2l-sequence-viewer-header';
+			}
+			static get properties() {
+				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					}
+				};
+			}
 			static get observers() {
                 return ['_announceTopic(entity)']
 			}
 			connectedCallback() {
 				super.connectedCallback();
 				Polymer.IronA11yAnnouncer.requestAvailability();
-				Polymer.IronA11yAnnouncer.instance.mode = 'polite';
+				this.mode = 'polite';
 			}
 			_announceTopic() {
 				var self = this;
-				Polymer.IronA11yAnnouncer.instance.fire('iron-announce', {
+				this.fire('iron-announce', {
 					text: self.$.topicName.innerText.trim()
 				});
 			}
