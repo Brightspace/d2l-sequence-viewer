@@ -17,8 +17,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "siren-entity": "BrightspaceHypermediaComponents/siren-entity",
-    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#^0.1.0",
-    "d2l-sequences": "BrightspaceHypermediaComponents/sequences#^0.1.0",
+    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#master",
+    "d2l-sequences": "BrightspaceHypermediaComponents/sequences#master",
     "d2l-organizations": "BrightspaceHypermediaComponents/organizations#master",
     "d2l-icons": "^4.14.2",
     "d2l-typography": "^6.1.3",
