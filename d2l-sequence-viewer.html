@@ -117,6 +117,11 @@
 			}
 			static get properties() {
 				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					},
 					title: {
 						type: Object,
 						computed: '_getTitle(entity)'

@@ -190,9 +190,18 @@
 			],
 			Polymer.Element
 		) {
-            static get is() {
-                return 'd2l-sequence-viewer-header';
-            }
+			static get is() {
+				return 'd2l-sequence-viewer-header';
+			}
+			static get properties() {
+				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					}
+				};
+			}
 			static get observers() {
                 return ['_announceTopic(entity)']
 			}
