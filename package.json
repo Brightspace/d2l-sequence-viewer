@@ -1,6 +1,6 @@
 {
   "name": "d2l-sequence-viewer",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "Replacement for the sequenced activity viewer",
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "private": true,

@@ -3,6 +3,9 @@ node_js: 9
 addons:
   chrome: stable
 sudo: required
+branches:
+  only:
+  - master
 after_success:
 - '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:cdn'
 script:
