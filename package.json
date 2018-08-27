@@ -45,9 +45,9 @@
       "targetDirectory": "d2l-sequence-viewer",
       "creds": {
         "key": "AKIAJSUZXLSOWGASCTAQ",
-        "secretVar": "CDN_SECRET",
-        "versionVar": "TRAVIS_TAG"
-      }
+        "secretVar": "CDN_SECRET"
+      },
+      "versionVar": "TRAVIS_TAG"
     }
   },
   "author": "D2L Corporation",
