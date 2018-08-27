@@ -46,7 +46,6 @@
         "key": "AKIAJSUZXLSOWGASCTAQ",
         "secretVar": "CDN_SECRET"
       },
-      "devTagVar": "TRAVIS_COMMIT",
       "versionVar": "TRAVIS_TAG"
     }
   },
