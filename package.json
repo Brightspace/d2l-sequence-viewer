@@ -23,7 +23,7 @@
     "start": "polymer serve",
     "build:appconfig": "frau-appconfig-builder",
     "build:cdn:appconfig": "DateStamp=$(date \"+%s\") && frau-appconfig-builder --devtag $DateStamp",
-    "publish:cdn": "npm run build:cdn:appconfig && DateStamp=$(date \"+%s\") && frau-publisher --devtag $DateStamp"
+    "publish:cdn": "npm run build:cdn:appconfig && frau-publisher --devtag $DateStamp"
   },
   "repository": {
     "type": "git",
