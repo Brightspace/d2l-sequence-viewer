@@ -8,7 +8,7 @@ branches:
   - master
   - /^v.*$/
 after_success:
-- 'npm run publish:cdn'
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:cdn'
 script:
 - npm run lint
 - npm run build
