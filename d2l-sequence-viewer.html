@@ -192,7 +192,7 @@
 				this._blurListener = null;
 			}
 			_closeSlidebar() {
-				if ( !this.$.sidebar.classList.contains('offscreen') ) {
+				if ( !this.$.sidebar.classList.contains('offscreen') && document.hasFocus() ) {
 					this.$.sidebar.classList.add('offscreen');
 				}
 			}
