@@ -58,6 +58,12 @@
 		"rel": ["next"],
 		"href": "data/m2-activity3.json"
 	}, {
+		"rel": ["prev-activity"],
+		"href": "data/m2-activity1.json"
+	}, {
+		"rel": ["next-activity"],
+		"href": "data/m2-activity3.json"
+	}, {
 		"rel": ["up"],
 		"href": "data/l1-module2.json"
 	}],
