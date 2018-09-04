@@ -1,6 +1,7 @@
 {
   "lint": {
-    "rules": ["polymer-2"]
+    "rules": ["polymer-2"],
+    "ignoreWarnings": ["non-literal-import", "not-loadable"]
   },
   "entrypoint": "index.html",
   "shell": "d2l-sequence-viewer.html",

@@ -107,9 +107,13 @@
 
 	<script>
 		/*
-			@mixes SirenEntityMixin
-			@demo demos/index.html
-		*/
+		* @appliesMixin D2L.PolymerBehaviors.LocalizeBehavior
+		* @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
+		* @memberOf D2L.Polymer.Mixins;
+		* @mixes D2L.PolymerBehaviors.Siren.EntityBehavior
+		* @extends Polymer.AppLocalizeBehavior
+		*/cd ..
+			cd
 		class D2LSequenceViewer extends Polymer.mixinBehaviors([
 			D2L.PolymerBehaviors.Siren.EntityBehavior,
 			D2L.PolymerBehaviors.LocalizeBehavior
