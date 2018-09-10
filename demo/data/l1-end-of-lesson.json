@@ -25,10 +25,14 @@
 			  "incomplete"
 			],
 			"properties": {
-			  "completed": 6,
+			  "completed": 4,
 			  "total": 6,
 			  "optionalViewed": 1,
-			  "optionalTotal": 2
+			  "optionalTotal": 2,
+			  "missing": [
+				"data/activity1.json",
+				"data/m2-activity6.json"
+			  ]
 			},
 			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
 		}
