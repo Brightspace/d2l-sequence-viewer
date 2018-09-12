@@ -71,33 +71,30 @@
 				flex: 0 0 20px;
 			}
 			.col6 {
-				flex: 0 0 23px;
+				flex: 1 1 123px;
 			}
 			.col7 {
-				flex: 1 1 100px;
-			}
-			.col8 {
 				flex: 2 2 200px;
 			}
-			.col9 {
+			.col8 {
 				flex: 1 1 100px;
 			}
-			.col10 {
+			.col9 {
 				flex: 0 0 30px;
+			}
+			.col10 {
+				flex: 0 0 20px;
 			}
 			.col11 {
-				flex: 0 0 20px;
-			}
-			.col12 {
 				flex: 0 0 23px;
 			}
-			.col13 {
+			.col12 {
 				flex: 0 0 20px;
 			}
-			.col14 {
+			.col13 {
 				flex: 0 0 30px;
 			}
-			.col15 {
+			.col14 {
 				flex: 0 0 30px;
 			}
 			@media(max-width: 720px) {
@@ -120,21 +117,18 @@
 					flex: 0 0 0px;
 				}
 				.col7 {
-					flex: 0 0 0px;
-				}
-				.col8 {
 					flex: 1 1 100px;
 				}
-				.col9 {
+				.col8 {
 					flex: 0 0 22px;
 				}
-				.col11 {
+				.col10 {
 					flex: 0 0 0px;
 				}
-				.col13 {
+				.col12 {
 					flex: 0 0 0px;
 				}
-				.col15 {
+				.col14 {
 					flex: 0 0 15px;
 				}
 			}
@@ -144,40 +138,38 @@
 			<div class="col3"></div>
 			<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
 			<div class="col5"></div>
-			<div class="hidden-small col6">
+			<div class="back-to-module hidden-small col6">
 				<slot name="back-button">
 				</slot>
-			</div>
-			<div class="back-to-module hidden-small col7">
 				<slot name="d2l-back-to-module"></slot>
 			</div>
 			<d2l-sequences-topic-name
 				id="topicName"
-				class="topic-name col8"
+				class="topic-name col7"
 				href="[[href]]"
 				token="[[token]]"
 				tabindex="1"
 				role="heading"
 			></d2l-sequences-topic-name>
-			<div class="col9"></div>
+			<div class="col8"></div>
 			<d2l-sequences-iterator
-				class="iterator-icon prev-button col10"
+				class="iterator-icon prev-button col9"
 				href="{{href}}"
 				token="[[token]]"
 				icon="d2l-tier3:chevron-left-circle"
 				previous
 			></d2l-sequences-iterator>
-			<div class="col11"></div>
-			<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
-			<div class="col13"></div>
+			<div class="col10"></div>
+			<d2l-icon class="flyout-divider col11" icon="d2l-tier2:divider-big"></d2l-icon>
+			<div class="col12"></div>
 			<d2l-sequences-iterator
-				class="iterator-icon next-button col14"
+				class="iterator-icon next-button col13"
 				href="{{href}}"
 				token="[[token]]"
 				icon="d2l-tier3:chevron-right-circle"
 				next
 			></d2l-sequences-iterator>
-			<div class="col15"></div>
+			<div class="col14"></div>
 		</template>
 
 	<script>

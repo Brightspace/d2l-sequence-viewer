@@ -18,7 +18,7 @@
 					display: block;
 				}
 				.back-icon {
-					padding-bottom: 2px;
+					vertical-align: middle;
 				}
 				.back-text:hover {
 					cursor: pointer;
@@ -77,7 +77,14 @@
 			token="[[token]]"
 			role="banner">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
+				<d2l-icon-button
+					icon="d2l-tier3:menu"
+					on-click="_toggleSlideSidebar"
+					aria-label$="[[localize('toggleNavMenu')]]"
+					tabindex="0"
+				>
+					[[localize('toggleNavMenu')]]
+				</d2l-icon-button>
 			</span>
 			<span slot="back-button">
 				<d2l-icon-button
@@ -85,14 +92,19 @@
 					icon="d2l-tier1:chevron-left"
 					type="button"
 					text="Activity"
+					aria-label$="[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]"
 					on-click="_onClickBack"
-				>[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</d2l-icon-button>
+					tabindex="0"
+				>
+				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+				</d2l-icon-button>
 			</span>
 			<span
 				class$="[[backTextClass]]"
 				slot="d2l-back-to-module"
 				on-click="_onClickBack"
 				tabindex="-1"
+				aria-hidden="true"
 			>
 				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
 			</span>
