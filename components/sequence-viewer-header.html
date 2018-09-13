@@ -4,7 +4,6 @@
 <link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier3-icons.html">
-<link rel="import" href="../bower_components/d2l-typography/d2l-typography.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-topic-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-module-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-iterator.html">
@@ -14,7 +13,6 @@
 	<template>
 		<style>
 			:host {
-				font-family: 'Lato', sans-serif;
 				display: flex;
 				flex-flow: row wrap;
 				align-items: center;
@@ -35,25 +33,17 @@
 				width: 23px;
 			}
 			.back-to-module {
+				@apply --d2l-body-small-text;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-
-				/* Small Body Text - Lato Regular 14, Tungsten */
-				font-size: 14px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
 			}
 			.topic-name {
+				@apply --d2l-body-compact-text;
 				text-align: center;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-
-				/* Compact Body Text - Lato Regular 16 */
-				font-size: 16px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
 			}
 			.pad-side {
 				flex: 1 1 0px;
