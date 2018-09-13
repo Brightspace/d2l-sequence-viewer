@@ -1,0 +1,64 @@
+{
+	"properties": {
+		"title": "End of Lesson"
+	},
+	"rel": [
+		"item"
+	],
+	"entities": [
+		{
+			"class": [
+				"activity",
+				"end-of-lesson-activity"
+			],
+			"properties": {
+				"title": "End of Lesson"
+			},
+			"rel": [
+				"about",
+				"item"
+			]
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 4,
+			  "total": 6,
+			  "optionalViewed": 1,
+			  "optionalTotal": 2,
+			  "missing": [
+				"data/activity1.json",
+				"data/m2-activity6.json"
+			  ]
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-end-of-lesson.json"
+		},
+		{
+			"rel": [
+				"prev-activity"
+			],
+			"href": "data/m2-activity6.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/lesson1.json"
+		}
+	],
+	"class": [
+		"sequenced-activity"
+	]
+}

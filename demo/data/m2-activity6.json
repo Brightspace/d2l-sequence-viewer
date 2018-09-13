@@ -74,6 +74,9 @@
 		"rel": ["prev-activity"],
 		"href": "data/m2-activity5.json"
 	}, {
+		"rel": ["next-activity"],
+		"href": "data/l1-end-of-lesson.json"
+	}, {
 		"rel": ["up"],
 		"href": "data/l1-module2.json"
 	}],

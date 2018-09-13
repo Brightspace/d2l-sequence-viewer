@@ -12,6 +12,11 @@
 			"class": ["sequence", "sequence-description"],
 			"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
 			"href": "data/l1-module2.json"
+		},		
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l1-end-of-lesson.json"
 		},
 		{
 			"class": [
