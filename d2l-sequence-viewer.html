@@ -29,8 +29,17 @@
 					left: -10px;
 					width: calc(100% + 10px);
 					height: 30px;
-					z-index: 2;
+					z-index: 3;
 					box-shadow: 2px 0px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
+				}
+				#sidebar-occlude {
+					width: calc(50% - 615px - 2px);
+					height: 100%;
+					background: white;
+					position: fixed;
+					top: 58px;
+					left: 0px;
+					z-index: 2;
 				}
 				#sidebar {
 					width: 330px;
@@ -41,7 +50,7 @@
 					padding: 0px;
 					background: linear-gradient(to right, #F9FAFC, #FFFFFF);
 					box-shadow: 0px 2px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
-					margin-left: 0px;
+					left: calc(50% - 615px);
 					transition: margin-left 0.5s;
 				}
 				#sidebar.offscreen {
@@ -69,6 +78,40 @@
 				.toastName {
 					font-weight: bold;
 				}
+				#flyoutRing.pulsate {
+					border: 20px solid var(--d2l-color-celestine-plus-1);
+					-webkit-border-radius: 80px;
+					height: 88px;
+					width: 88px;
+					position: absolute;
+					z-index: -1;
+					left: calc(50% - 615px - 10px);
+					top: calc(-28px - 10px);
+					-webkit-animation: pulsate 0.25s ease-out;
+					-webkit-animation-iteration-count: 1;
+					opacity: 0.0
+				}
+				@-webkit-keyframes pulsate {
+					0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+					50% {opacity: 1.0;}
+					100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+				}
+				@media(max-width: 1230px) {
+					#sidebar {
+						left: 0px;
+					}
+					#flyoutRing.pulsate {
+						left: -10px;
+					}
+				}
+				@media(max-width: 720px) {
+					#sidebar {
+						left: 0px;
+					}
+					#flyoutRing.pulsate {
+						left: -25px;
+					}
+				}
 			</style>
 		</custom-style>
 		<siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></siren-entity>
@@ -78,8 +121,9 @@
 			href="{{href}}"
 			token="[[token]]"
 			role="banner">
-			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
+			<span slot="d2l-flyout-menu" id="flyout-group">
+				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar" id="flyout-button">[[localize('toggleNavMenu')]]</d2l-icon-button>
+				<div id="flyoutRing"></div>
 			</span>
 			<span slot="back-button">
 				<d2l-icon-button
@@ -99,6 +143,8 @@
 				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
 			</span>
 		</d2l-sequence-viewer-header>
+		<div id="sidebar-occlude">
+		</div>
 		<div id="sidebar">
 			<d2l-sequence-navigator
 				href="{{href}}"
@@ -276,6 +322,16 @@
 			}
 			_toggleSlideSidebar() {
 				this.$.sidebar.classList.toggle('offscreen');
+				const ring = this.$.flyoutRing;
+				if (ring.classList.contains('pulsate')) {
+					ring.classList.remove('pulsate');
+				}
+				setTimeout(
+					function() {
+						ring.classList.add('pulsate');
+					},
+					100
+				);
 			}
 			_navigateTo() {
 				this.href = this.toast.url;
