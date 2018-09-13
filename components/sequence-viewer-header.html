@@ -55,6 +55,14 @@
 				font-weight: 400; /* normal */
 				letter-spacing: 0.2px;
 			}
+			.pad-side {
+				flex: 1 1 0px;
+			}
+			.pad-mid {
+				flex: 0 0 1230px;
+				display: flex;
+				align-items: center;
+			}
 			.col1 {
 				flex: 0 0 40px;
 			}
@@ -100,6 +108,16 @@
 			.col15 {
 				flex: 0 0 30px;
 			}
+			@media(max-width: 1230px) {
+				.pad-side {
+					flex: 0 0 0px;
+				}
+				.pad-mid {
+					flex: 1 1 300px;
+					display: flex;
+					align-items: center;
+				}
+			}
 			@media(max-width: 720px) {
 				.hidden-small {
 					visibility: hidden;
@@ -123,7 +141,7 @@
 					flex: 0 0 0px;
 				}
 				.col8 {
-					flex: 1 1 100px;
+					flex: 1 1 50px;
 				}
 				.col9 {
 					flex: 0 0 22px;
@@ -139,54 +157,58 @@
 				}
 			}
 		</style>
-			<div class="col1"></div>
-			<slot name="d2l-flyout-menu" d2l-flyout-menu class="col2"></slot>
-			<div class="col3"></div>
-			<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
-			<div class="col5"></div>
-			<div class="hidden-small col6">
-				<slot name="back-button">
-				</slot>
+			<div class="pad-side"></div>
+			<div class="pad-mid">
+				<div class="col1"></div>
+				<slot name="d2l-flyout-menu" d2l-flyout-menu class="col2"></slot>
+				<div class="col3"></div>
+				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				<div class="col5"></div>
+				<div class="hidden-small col6">
+					<slot name="back-button">
+					</slot>
+				</div>
+				<div class="back-to-module hidden-small col7">
+					<slot name="d2l-back-to-module"></slot>
+				</div>
+				<d2l-sequences-topic-name
+					id="topicName"
+					class="topic-name col8"
+					href="[[href]]"
+					token="[[token]]"
+					tabindex="1"
+					role="heading"
+				></d2l-sequences-topic-name>
+				<div class="col9"></div>
+				<d2l-sequences-iterator
+					class="iterator-icon prev-button col10"
+					href="{{href}}"
+					token="[[token]]"
+					icon="d2l-tier3:chevron-left-circle"
+					previous
+				></d2l-sequences-iterator>
+				<div class="col11"></div>
+				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
+				<div class="col13"></div>
+				<d2l-sequences-iterator
+					class="iterator-icon next-button col14"
+					href="{{href}}"
+					token="[[token]]"
+					icon="d2l-tier3:chevron-right-circle"
+					next
+				></d2l-sequences-iterator>
+				<div class="col15"></div>
 			</div>
-			<div class="back-to-module hidden-small col7">
-				<slot name="d2l-back-to-module"></slot>
-			</div>
-			<d2l-sequences-topic-name
-				id="topicName"
-				class="topic-name col8"
-				href="[[href]]"
-				token="[[token]]"
-				tabindex="1"
-				role="heading"
-			></d2l-sequences-topic-name>
-			<div class="col9"></div>
-			<d2l-sequences-iterator
-				class="iterator-icon prev-button col10"
-				href="{{href}}"
-				token="[[token]]"
-				icon="d2l-tier3:chevron-left-circle"
-				previous
-			></d2l-sequences-iterator>
-			<div class="col11"></div>
-			<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
-			<div class="col13"></div>
-			<d2l-sequences-iterator
-				class="iterator-icon next-button col14"
-				href="{{href}}"
-				token="[[token]]"
-				icon="d2l-tier3:chevron-right-circle"
-				next
-			></d2l-sequences-iterator>
-			<div class="col15"></div>
+			<div class="pad-side"></div>
 		</template>
 
 	<script>
 		/**
 		 * @extends {Polymer.Element}
 		 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
-        */
-        class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
-            D2L.PolymerBehaviors.Siren.EntityBehavior,
+		*/
+		class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
 			],
 			Polymer.Element
 		) {
@@ -203,7 +225,7 @@
 				};
 			}
 			static get observers() {
-                return ['_announceTopic(entity)']
+				return ['_announceTopic(entity)']
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -215,7 +237,7 @@
 					text: this.$.topicName.innerText.trim()
 				});
 			}
-        }
-        customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
-    </script>
+		}
+		customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
+	</script>
 </dom-module>
