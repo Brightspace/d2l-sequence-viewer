@@ -3,7 +3,7 @@
     "rules": ["polymer-2"],
     "ignoreWarnings": ["non-literal-import", "not-loadable"]
   },
-  "entrypoint": "index.html",
+  "entrypoint": "d2l-sequence-viewer.html",
   "shell": "d2l-sequence-viewer.html",
   "fragments": [
     "components/sequence-viewer-header.html"
