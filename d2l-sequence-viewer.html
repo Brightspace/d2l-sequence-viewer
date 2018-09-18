@@ -132,23 +132,27 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
-		<template is="dom-if" if="[[isEOL]]">
-			<d2l-sequences-content-eol-main href="{{href}}" token="[[token]]">
-			</d2l-sequences-content-eol-main>
-		</template>
-		<template is="dom-if" if="[[!isEOL]]">
-			<d2l-sequences-content-router class="viewer"
-				href="[[href]]"
-				token="[[token]]"
-			></d2l-sequences-content-router>
-		</template>
-		<d2l-alert-toast
-			class="d2l-typography"
-			id="toast">
-			<p>[[ toast.message ]]</p>
-			<p class="toastName">[[ toast.name ]]</p>
-			<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
-		</d2l-alert-toast>
+			<template is="dom-if" if="[[isEndOfLesson]]">
+				<d2l-sequences-content-eol-main
+					class="viewer"
+					href="{{href}}"
+					token="[[token]]">
+				</d2l-sequences-content-eol-main>
+			</template>
+			<template is="dom-if" if="[[!isEndOfLesson]]">
+				<d2l-sequences-content-router
+					class="viewer"
+					href="[[href]]"
+					token="[[token]]"
+				></d2l-sequences-content-router>
+			</template>
+			<d2l-alert-toast
+				class="d2l-typography"
+				id="toast">
+				<p>[[ toast.message ]]</p>
+				<p class="toastName">[[ toast.name ]]</p>
+				<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
+			</d2l-alert-toast>
 		</div>
 	</template>
 
@@ -223,9 +227,9 @@
 					_toastListener: {
 						type: Object
 					},
-					isEOL: {
+					isEndOfLesson: {
 						type: Boolean,
-						computed: 'isthisEOL(entity)'
+						computed: '_isEndOfLesson(entity)'
 					}
 				};
 			}
@@ -235,7 +239,7 @@
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
 			}
-			isthisEOL(entity){
+			_isEndOfLesson(entity){
 				return entity && entity.hasClass('end-of-sequence')
 			}
 			connectedCallback() {
@@ -262,7 +266,6 @@
 				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				console.log(document.hasFocus())
 				if( document.hasFocus() ) {
 					this.$.sidebar.classList.add('offscreen');
 				}
