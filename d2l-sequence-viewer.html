@@ -132,10 +132,16 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
-		<d2l-sequences-content-router class="viewer"
-			href="[[href]]"
-			token="[[token]]"
-		></d2l-sequences-content-router>
+		<template is="dom-if" if="[[isEOL]]">
+			<d2l-sequences-content-eol-main href="{{href}}" token="[[token]]">
+			</d2l-sequences-content-eol-main>
+		</template>
+		<template is="dom-if" if="[[!isEOL]]">
+			<d2l-sequences-content-router class="viewer"
+				href="[[href]]"
+				token="[[token]]"
+			></d2l-sequences-content-router>
+		</template>
 		<d2l-alert-toast
 			class="d2l-typography"
 			id="toast">
@@ -216,6 +222,10 @@
 					},
 					_toastListener: {
 						type: Object
+					},
+					isEOL: {
+						type: Boolean,
+						computed: 'isthisEOL(entity)'
 					}
 				};
 			}
@@ -224,6 +234,9 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
+			}
+			isthisEOL(entity){
+				return entity && entity.hasClass('end-of-sequence')
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -249,7 +262,10 @@
 				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				this.$.sidebar.classList.add('offscreen');
+				console.log(document.hasFocus())
+				if( document.hasFocus() ) {
+					this.$.sidebar.classList.add('offscreen');
+				}
 			}
 			_onClickBack() {
 				if ( !this.returnUrl ) {
