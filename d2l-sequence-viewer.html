@@ -239,8 +239,8 @@
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
 			}
-			_isEndOfLesson(entity){
-				return entity && entity.hasClass('end-of-sequence')
+			_isEndOfLesson(entity) {
+				return entity && entity.hasClass('end-of-sequence');
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -266,7 +266,7 @@
 				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				if( document.hasFocus() ) {
+				if ( document.hasFocus() ) {
 					this.$.sidebar.classList.add('offscreen');
 				}
 			}
