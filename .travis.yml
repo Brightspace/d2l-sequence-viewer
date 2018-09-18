@@ -9,7 +9,7 @@ branches:
   - de-framed-sequence-viewer
   - /^v.*$/
 after_success:
-- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:dev:cdn'
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "de-framed-sequence-viewer" ] || [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG" != "x" ] && export NODE_ENV=production && npm run publish:dev:cdn'
 script:
 - npm run lint
 - npm run build
