@@ -267,9 +267,7 @@
 				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				if ( document.hasFocus() ) {
-					this.$.sidebar.classList.add('offscreen');
-				}
+				this.$.sidebar.classList.add('offscreen');
 			}
 			_onClickBack() {
 				if ( !this.returnUrl ) {
