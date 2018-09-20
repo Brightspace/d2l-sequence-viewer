@@ -28,6 +28,9 @@ To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/pol
 polymer analyze > analysis.json && polymer serve
 ```
 
+The demo will be available at [http://127.0.0.1:8081/demo/](http://127.0.0.1:8081/demo/)
+
+
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
 
 ```shell
