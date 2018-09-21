@@ -29,8 +29,8 @@
 
 				describe('render', () => {
 
-					beforeEach( () => {
-						elem = fixture('basic');
+					beforeEach( async() => {
+						elem = await fixture('basic');
 					});
 
 					it('should instantiate the element', () => {

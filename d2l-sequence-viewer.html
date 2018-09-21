@@ -7,6 +7,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
+<link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-eol-main.html">
 <link rel="import" href="./bower_components/d2l-alert/d2l-alert-toast.html">
 <link rel="import" href="./bower_components/d2l-link/d2l-link.html">
 
@@ -131,17 +132,28 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
-		<d2l-sequences-content-router class="viewer"
-			href="[[href]]"
-			token="[[token]]"
-		></d2l-sequences-content-router>
-		<d2l-alert-toast
-			class="d2l-typography"
-			id="toast">
-			<p>[[ toast.message ]]</p>
-			<p class="toastName">[[ toast.name ]]</p>
-			<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
-		</d2l-alert-toast>
+			<template is="dom-if" if="[[isEndOfLesson]]">
+				<d2l-sequences-content-eol-main
+					class="viewer"
+					href="{{href}}"
+					token="[[token]]"
+					return-url="[[returnUrl]]">
+				</d2l-sequences-content-eol-main>
+			</template>
+			<template is="dom-if" if="[[!isEndOfLesson]]">
+				<d2l-sequences-content-router
+					class="viewer"
+					href="[[href]]"
+					token="[[token]]"
+				></d2l-sequences-content-router>
+			</template>
+			<d2l-alert-toast
+				class="d2l-typography"
+				id="toast">
+				<p>[[ toast.message ]]</p>
+				<p class="toastName">[[ toast.name ]]</p>
+				<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
+			</d2l-alert-toast>
 		</div>
 	</template>
 
@@ -215,6 +227,10 @@
 					},
 					_toastListener: {
 						type: Object
+					},
+					isEndOfLesson: {
+						type: Boolean,
+						computed: '_isEndOfLesson(entity)'
 					}
 				};
 			}
@@ -223,6 +239,9 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
+			}
+			_isEndOfLesson(entity) {
+				return entity && entity.hasClass('end-of-sequence');
 			}
 			connectedCallback() {
 				super.connectedCallback();
