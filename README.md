@@ -28,7 +28,11 @@ To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/pol
 polymer analyze > analysis.json && polymer serve
 ```
 
-The demo will be available at [http://127.0.0.1:8081/demo/](http://127.0.0.1:8081/demo/)
+The demo will be available at [http://127.0.0.1:port/demo/](http://127.0.0.1:port/demo/). Port is printed to console after the server starts. Alternatively, you can run the following command and then add `/demo` to the end of the URL:
+
+```shell
+polymer analyze > analysis.json && polymer serve --open
+```
 
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
