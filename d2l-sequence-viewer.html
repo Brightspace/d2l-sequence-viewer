@@ -268,9 +268,9 @@
 			}
 			_closeSlidebar() {
 				requestAnimationFrame( () => {
-                    if (document.hasFocus()) {
-                        this.$.sidebar.classList.add('offscreen');
-                    }
+					if (document.hasFocus()) {
+						this.$.sidebar.classList.add('offscreen');
+					}
                 });
 			}
 			_onClickBack() {
