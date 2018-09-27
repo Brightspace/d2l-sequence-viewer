@@ -267,11 +267,11 @@
 				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				requestAnimationFrame( () => {
+				setTimeout( () => {
 					if (document.hasFocus()) {
 						this.$.sidebar.classList.add('offscreen');
 					}
-				});
+				},1);
 			}
 			_onClickBack() {
 				if ( !this.returnUrl ) {
