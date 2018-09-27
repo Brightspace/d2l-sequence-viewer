@@ -4,7 +4,6 @@
 <link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
 <link rel="import" href="../bower_components/d2l-icons/tier3-icons.html">
-<link rel="import" href="../bower_components/d2l-typography/d2l-typography.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-topic-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-module-name.html">
 <link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-iterator.html">
@@ -14,7 +13,6 @@
 	<template>
 		<style>
 			:host {
-				font-family: 'Lato', sans-serif;
 				display: flex;
 				flex-flow: row wrap;
 				align-items: center;
@@ -35,25 +33,25 @@
 				width: 23px;
 			}
 			.back-to-module {
+				@apply --d2l-body-small-text;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-
-				/* Small Body Text - Lato Regular 14, Tungsten */
-				font-size: 14px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
 			}
 			.topic-name {
+				@apply --d2l-body-compact-text;
 				text-align: center;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-
-				/* Compact Body Text - Lato Regular 16 */
-				font-size: 16px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
+			}
+			.pad-side {
+				flex: 1 1 0px;
+			}
+			.pad-mid {
+				flex: 0 0 1230px;
+				display: flex;
+				align-items: center;
 			}
 			.col1 {
 				flex: 0 0 40px;
@@ -100,6 +98,16 @@
 			.col15 {
 				flex: 0 0 30px;
 			}
+			@media(max-width: 1230px) {
+				.pad-side {
+					flex: 0 0 0px;
+				}
+				.pad-mid {
+					flex: 1 1 300px;
+					display: flex;
+					align-items: center;
+				}
+			}
 			@media(max-width: 720px) {
 				.hidden-small {
 					visibility: hidden;
@@ -123,7 +131,7 @@
 					flex: 0 0 0px;
 				}
 				.col8 {
-					flex: 1 1 100px;
+					flex: 1 1 50px;
 				}
 				.col9 {
 					flex: 0 0 22px;
@@ -139,54 +147,58 @@
 				}
 			}
 		</style>
-			<div class="col1"></div>
-			<slot name="d2l-flyout-menu" d2l-flyout-menu class="col2"></slot>
-			<div class="col3"></div>
-			<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
-			<div class="col5"></div>
-			<div class="hidden-small col6">
-				<slot name="back-button">
-				</slot>
+			<div class="pad-side"></div>
+			<div class="pad-mid">
+				<div class="col1"></div>
+				<slot name="d2l-flyout-menu" d2l-flyout-menu class="col2"></slot>
+				<div class="col3"></div>
+				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				<div class="col5"></div>
+				<div class="hidden-small col6">
+					<slot name="back-button">
+					</slot>
+				</div>
+				<div class="back-to-module hidden-small col7">
+					<slot name="d2l-back-to-module"></slot>
+				</div>
+				<d2l-sequences-topic-name
+					id="topicName"
+					class="topic-name col8"
+					href="[[href]]"
+					token="[[token]]"
+					tabindex="1"
+					role="heading"
+				></d2l-sequences-topic-name>
+				<div class="col9"></div>
+				<d2l-sequences-iterator
+					class="iterator-icon prev-button col10"
+					href="{{href}}"
+					token="[[token]]"
+					icon="d2l-tier3:chevron-left-circle"
+					previous
+				></d2l-sequences-iterator>
+				<div class="col11"></div>
+				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
+				<div class="col13"></div>
+				<d2l-sequences-iterator
+					class="iterator-icon next-button col14"
+					href="{{href}}"
+					token="[[token]]"
+					icon="d2l-tier3:chevron-right-circle"
+					next
+				></d2l-sequences-iterator>
+				<div class="col15"></div>
 			</div>
-			<div class="back-to-module hidden-small col7">
-				<slot name="d2l-back-to-module"></slot>
-			</div>
-			<d2l-sequences-topic-name
-				id="topicName"
-				class="topic-name col8"
-				href="[[href]]"
-				token="[[token]]"
-				tabindex="1"
-				role="heading"
-			></d2l-sequences-topic-name>
-			<div class="col9"></div>
-			<d2l-sequences-iterator
-				class="iterator-icon prev-button col10"
-				href="{{href}}"
-				token="[[token]]"
-				icon="d2l-tier3:chevron-left-circle"
-				previous
-			></d2l-sequences-iterator>
-			<div class="col11"></div>
-			<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
-			<div class="col13"></div>
-			<d2l-sequences-iterator
-				class="iterator-icon next-button col14"
-				href="{{href}}"
-				token="[[token]]"
-				icon="d2l-tier3:chevron-right-circle"
-				next
-			></d2l-sequences-iterator>
-			<div class="col15"></div>
+			<div class="pad-side"></div>
 		</template>
 
 	<script>
-		/*
-			@mixes SirenEntityMixin
-			@demo demos/index.html
-        */
-        class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
-            D2L.PolymerBehaviors.Siren.EntityBehavior,
+		/**
+		 * @extends {Polymer.Element}
+		 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
+		*/
+		class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
 			],
 			Polymer.Element
 		) {
@@ -203,7 +215,7 @@
 				};
 			}
 			static get observers() {
-                return ['_announceTopic(entity)']
+				return ['_announceTopic(entity)']
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -211,12 +223,11 @@
 				this.mode = 'polite';
 			}
 			_announceTopic() {
-				var self = this;
 				this.fire('iron-announce', {
-					text: self.$.topicName.innerText.trim()
+					text: this.$.topicName.innerText.trim()
 				});
 			}
-        }
-        customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
-    </script>
+		}
+		customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
+	</script>
 </dom-module>

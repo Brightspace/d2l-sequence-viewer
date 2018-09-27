@@ -2,44 +2,89 @@
 	"properties": {
 		"title": "Introduction and Module One Pretest"
 	},
+	"rel": [
+		"item"
+	],
 	"entities": [
 		{
-			"class": ["sequence", "sequenced-activity"],
-			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
 			"href": "data/activity1.json"
 		},
 		{
-			"class": ["sequence", "sequenced-activity"],
-			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
 			"href": "data/activity2.json"
 		},
 		{
-			"class": ["sequence", "sequenced-activity"],
-			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
 			"href": "data/activity3.json"
 		},
 		{
 			"class": [
-			  "completion",
-			  "incomplete"
+				"completion",
+				"incomplete"
 			],
 			"properties": {
-			  "completed": 1,
-			  "total": 3,
-			  "optionalViewed": 0,
-			  "optionalTotal": 0
+				"completed": 1,
+				"total": 2,
+				"optionalViewed": 0,
+				"optionalTotal": 1
 			},
-			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
-		  }],
-	"links": [{
-		"rel": ["self", "describes"],
-		"href": "data/l1-module1.json"
-	}, {
-		"rel": ["next"],
-		"href": "data/l1-module2.json"
-	}, {
-		"rel": ["up"],
-		"href": "data/lesson1.json"
-	}],
-	"class": ["sequence", "sequence-description"]
+			"rel": [
+				"item",
+				"https://api.brightspace.com/rels/completion"
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-module1.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": [
+				"next-activity"
+			],
+			"href": "data/m2-activity1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/lesson1.json"
+		}
+	],
+	"class": [
+		"sequence",
+		"sequence-description"
+	]
 }

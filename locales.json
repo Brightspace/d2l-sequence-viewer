@@ -3,7 +3,8 @@
 	"de": {},
 	"en": {
 		"backToModule": "BACK TO [{module}] - [{course}]",
-		"toggleNavMenu": "Toggle navigational slide out sidebar"
+		"toggleNavMenu": "Toggle navigational slide out sidebar",
+		"goBack": "Go Back"
 	},
 	"es": {},
 	"fr": {},

@@ -7,6 +7,9 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
+<link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-eol-main.html">
+<link rel="import" href="./bower_components/d2l-alert/d2l-alert-toast.html">
+<link rel="import" href="./bower_components/d2l-link/d2l-link.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -14,6 +17,8 @@
 			<style is="custom-style" include="d2l-typography">
 				:host {
 					display: block;
+					color: var(--d2l-color-ferrite);
+					@apply --d2l-body-standard-text;
 				}
 				.back-icon {
 					padding-bottom: 2px;
@@ -30,6 +35,15 @@
 					z-index: 2;
 					box-shadow: 2px 0px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
 				}
+				#sidebar-occlude {
+					width: calc(50% - 615px - 2px);
+					height: 100%;
+					background: white;
+					position: fixed;
+					top: 58px;
+					left: 0px;
+					z-index: 2;
+				}
 				#sidebar {
 					width: 330px;
 					position: fixed;
@@ -39,7 +53,7 @@
 					padding: 0px;
 					background: linear-gradient(to right, #F9FAFC, #FFFFFF);
 					box-shadow: 0px 2px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
-					margin-left: 0px;
+					left: calc(50% - 615px);
 					transition: margin-left 0.5s;
 				}
 				#sidebar.offscreen {
@@ -55,9 +69,27 @@
 				}
 				.viewframe{
 					height: 100vw;
+					width: 1230px;
+					margin: auto;
 				}
 				.hide {
 					display: none;
+				}
+				d2l-alert-toast {
+					font-size: 20px !important;
+				}
+				.toastName {
+					font-weight: bold;
+				}
+				@media(max-width: 1230px) {
+					#sidebar {
+						left: 0px;
+					}
+				}
+				@media(max-width: 720px) {
+					#sidebar {
+						left: 0px;
+					}
 				}
 			</style>
 		</custom-style>
@@ -89,6 +121,8 @@
 				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
 			</span>
 		</d2l-sequence-viewer-header>
+		<div id="sidebar-occlude">
+		</div>
 		<div id="sidebar">
 			<d2l-sequence-navigator
 				href="{{href}}"
@@ -98,17 +132,38 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
-		<d2l-sequences-content-router class="viewer"
-			href="[[href]]"
-			token="[[token]]"
-		></d2l-sequences-content-router>
+			<template is="dom-if" if="[[isEndOfLesson]]">
+				<d2l-sequences-content-eol-main
+					class="viewer"
+					href="{{href}}"
+					token="[[token]]"
+					return-url="[[returnUrl]]">
+				</d2l-sequences-content-eol-main>
+			</template>
+			<template is="dom-if" if="[[!isEndOfLesson]]">
+				<d2l-sequences-content-router
+					class="viewer"
+					href="[[href]]"
+					token="[[token]]"
+				></d2l-sequences-content-router>
+			</template>
+			<d2l-alert-toast
+				class="d2l-typography"
+				id="toast">
+				<p>[[ toast.message ]]</p>
+				<p class="toastName">[[ toast.name ]]</p>
+				<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
+			</d2l-alert-toast>
 		</div>
 	</template>
 
 	<script>
 		/*
-			@mixes SirenEntityMixin
-			@demo demos/index.html
+		* @appliesMixin D2L.PolymerBehaviors.LocalizeBehavior
+		* @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
+		* @memberOf D2L.Polymer.Mixins;
+		* @mixes D2L.PolymerBehaviors.Siren.EntityBehavior
+		* @extends Polymer.AppLocalizeBehavior
 		*/
 		class D2LSequenceViewer extends Polymer.mixinBehaviors([
 			D2L.PolymerBehaviors.Siren.EntityBehavior,
@@ -155,6 +210,9 @@
 						type: String,
 						computed: '_getOrganizationHref(organizationEntity)'
 					},
+					toast: {
+						type: Object,
+					},
 					_courseName: {
 						type: String,
 					},
@@ -166,6 +224,13 @@
 					},
 					_blurListener: {
 						type: Object
+					},
+					_toastListener: {
+						type: Object
+					},
+					isEndOfLesson: {
+						type: Boolean,
+						computed: '_isEndOfLesson(entity)'
 					}
 				};
 			}
@@ -185,6 +250,9 @@
 					id: this.title
 				}, this.title + ' weee', document.referrer.split('?')[0] + '?url=' + encodeURIComponent(href) || '')
 			}
+			_isEndOfLesson(entity) {
+				return entity && entity.hasClass('end-of-sequence');
+			}
 			connectedCallback() {
 				super.connectedCallback();
 				this.loadResources(this.resolveUrl('./locales.json'));
@@ -195,16 +263,25 @@
 				this._blurListener = window.addEventListener('blur', () => {
 					this._closeSlidebar();
 				});
+
+				this._toastListener = window.addEventListener('toast', ({detail}) => {
+					this.toast = detail;
+					this.$.toast.open = true;
+				});
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
 				window.removeEventListener('blur', this._blurListener);
 				this._blurListener = null;
+				window.removeEventListener('toast', this._toastListener);
+				this._toastListener = null;
 			}
 			_closeSlidebar() {
-				if ( !this.$.sidebar.classList.contains('offscreen') ) {
-					this.$.sidebar.classList.add('offscreen');
-				}
+				requestAnimationFrame( () => {
+					if (document.hasFocus()) {
+						this.$.sidebar.classList.add('offscreen');
+					}
+				});
 			}
 			_onClickBack() {
 				if ( !this.returnUrl ) {
@@ -254,11 +331,10 @@
 					: 'back-text';
 			}
 			_toggleSlideSidebar() {
-				if ( this.$.sidebar.classList.contains('offscreen') ) {
-					this.$.sidebar.classList.remove('offscreen');
-				} else {
-					this.$.sidebar.classList.add('offscreen');
-				}
+				this.$.sidebar.classList.toggle('offscreen');
+			}
+			_navigateTo() {
+				this.href = this.toast.url;
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
