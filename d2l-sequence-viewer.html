@@ -239,11 +239,6 @@
 			}
 			_initialize(href) {
 				this._intermediateOrganizationHref = href;
-				// HEY! This is the thing we want when we are no longer in an IFrame, 
-				// it uses the history object and it's pushState method to set the new url
-				// Allows us the ability to set the new URL, with history without reloading. 
-				// document.referrer, will probably need to change to window.location
-				// https://gomakethings.com/how-to-update-a-url-without-reloading-the-page-using-vanilla-javascript/
 
 				// set the value of document.referrer to window.location.
 			  	Object.defineProperty(document, "referrer", {configurable: true, get : function(){ return window.location; }})
