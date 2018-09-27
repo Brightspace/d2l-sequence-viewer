@@ -241,12 +241,12 @@
 				this._intermediateOrganizationHref = href;
 
 				// set the value of document.referrer to window.location.
-			  	Object.defineProperty(document, "referrer", {configurable: true, get : function(){ return window.location; }})
+				Object.defineProperty(document, 'referrer', {configurable: true, get: function() { return window.location; }});
 
-			  	// change the current address to display the url of the item being currently viewed.
+				// change the current address to display the url of the item being currently viewed.
 				history.pushState({
 					title: this.title,
-				}, this.title,'?url=' + encodeURIComponent(href) || '');
+				}, this.title, '?url=' + encodeURIComponent(href) || '');
 			}
 			_isEndOfLesson(entity) {
 				return entity && entity.hasClass('end-of-sequence');
