@@ -10,6 +10,7 @@
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-eol-main.html">
 <link rel="import" href="./bower_components/d2l-alert/d2l-alert-toast.html">
 <link rel="import" href="./bower_components/d2l-link/d2l-link.html">
+<link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-button-notification-icon.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -106,16 +107,22 @@
 			token="[[token]]"
 			role="banner">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" class="flyout-icon" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
+				<d2l-navigation-button-notification-icon
+					icon="d2l-tier3:menu"
+					class="flyout-icon"
+					on-click="_toggleSlideSidebar"
+				>[[localize('toggleNavMenu')]]
+				</d2l-navigation-button-notification-icon>
 			</span>
 			<span slot="back-button">
-				<d2l-icon-button
+				<d2l-navigation-button-notification-icon
 					class$="[[backButtonClass]]"
 					icon="d2l-tier1:chevron-left"
 					type="button"
 					text="Activity"
 					on-click="_onClickBack"
-				>[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]</d2l-icon-button>
+				>[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+				</d2l-navigation-button-notification-icon>
 			</span>
 			<span
 				class$="[[backTextClass]]"
