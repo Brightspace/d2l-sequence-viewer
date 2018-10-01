@@ -34,6 +34,7 @@
 					height: 30px;
 					z-index: 2;
 					box-shadow: 2px 0px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
+					flex-flow: row;
 				}
 				#sidebar-occlude {
 					width: calc(50% - 615px - 2px);
@@ -81,6 +82,10 @@
 				.toastName {
 					font-weight: bold;
 				}
+				.flyout-icon {
+					font-size: 0px;
+					display: block;
+				}
 				@media(max-width: 1230px) {
 					#sidebar {
 						left: 0px;
@@ -101,7 +106,7 @@
 			token="[[token]]"
 			role="banner">
 			<span slot="d2l-flyout-menu">
-				<d2l-icon-button icon="d2l-tier3:menu" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
+				<d2l-icon-button icon="d2l-tier3:menu" class="flyout-icon" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]</d2l-icon-button>
 			</span>
 			<span slot="back-button">
 				<d2l-icon-button
