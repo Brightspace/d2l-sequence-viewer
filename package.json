@@ -7,7 +7,7 @@
   "scripts": {
     "postinstall": "polymer install",
     "lint:html": "eslint *.html demo/*.html test/*.html",
-    "lint": "npm run lint:html",
+    "lint": "npm run lint:html && polymer lint --input *.html {components,demo}/*.html",
     "test": "npm run lint && polymer test --skip-plugin sauce",
     "clean": "rimraf build && rimraf dist",
     "prestart": "gulp build-locales && polymer analyze > analysis.json",

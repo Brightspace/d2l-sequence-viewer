@@ -69,6 +69,21 @@
 				});
 
 				describe('back button', () => {
+
+					var originalDocumentReferrer;
+
+					beforeEach( function() {
+						// store original value of document.referrer for future use.
+						originalDocumentReferrer = document.referrer;
+						// set document.referrer = '' for purposes of the following tests.
+						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return ''; } } );
+					});
+
+					afterEach( function() {
+						// set document.referrer to its original value after tests are done.
+						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return originalDocumentReferrer; } } );
+					});
+
 					it('should be visible when given return url', () => {
 						elem = fixture('withReturnUrl');
 						const button = elem.shadowRoot.querySelector('.back-icon');

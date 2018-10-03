@@ -2,7 +2,7 @@
 	"ar": {},
 	"de": {},
 	"en": {
-		"backToModule": "BACK TO [{module}] - [{course}]",
+		"backToContent": "Back to Content Home",
 		"toggleNavMenu": "Toggle navigational slide out sidebar",
 		"goBack": "Go Back"
 	},

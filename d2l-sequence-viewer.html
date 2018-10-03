@@ -121,7 +121,8 @@
 					type="button"
 					text="Activity"
 					on-click="_onClickBack"
-				>[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+				>[[localize('backToContent')]]
+				
 				</d2l-navigation-button-notification-icon>
 			</span>
 			<span
@@ -130,7 +131,7 @@
 				on-click="_onClickBack"
 				tabindex="-1"
 			>
-				[[localize('backToModule', 'module', _moduleName, 'course', _courseName)]]
+				[[localize('backToContent')]]
 			</span>
 		</d2l-sequence-viewer-header>
 		<div id="sidebar-occlude">
@@ -171,11 +172,10 @@
 
 	<script>
 		/*
-		* @appliesMixin D2L.PolymerBehaviors.LocalizeBehavior
+		* @polymer
+		* @extends Polymer.Element
 		* @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
-		* @memberOf D2L.Polymer.Mixins;
-		* @mixes D2L.PolymerBehaviors.Siren.EntityBehavior
-		* @extends Polymer.AppLocalizeBehavior
+		* @appliesMixin D2L.PolymerBehaviors.LocalizeBehavior
 		*/
 		class D2LSequenceViewer extends Polymer.mixinBehaviors([
 			D2L.PolymerBehaviors.Siren.EntityBehavior,
@@ -207,9 +207,12 @@
 						type: String,
 						computed: '_backTextClass(returnUrl)'
 					},
+					// holds the address of the page that launched ASV
+					// The "back to content home" and "I'm done" buttons
+					// will take the user to this address.
 					returnUrl: {
 						type: String,
-						value: false
+						computed: '_getReturnUrl()'
 					},
 					moduleHref: {
 						type: Object,
@@ -243,7 +246,7 @@
 					isEndOfLesson: {
 						type: Boolean,
 						computed: '_isEndOfLesson(entity)'
-					}
+					},
 				};
 			}
 			static get observers() {
@@ -256,6 +259,12 @@
 				history.pushState({
 					title: this.title,
 				}, this.title, '?url=' + encodeURIComponent(href) || '');
+			}
+			// if a return-url parameter was passed when creating the element
+			// then returnUrl should have that value. If not, returnUrl should
+			// be document.referrer.
+			_getReturnUrl() {
+				return this.returnUrl || document.referrer || '';
 			}
 			_isEndOfLesson(entity) {
 				return entity && entity.hasClass('end-of-sequence');
