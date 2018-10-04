@@ -99,9 +99,6 @@
 				}
 			</style>
 		</custom-style>
-		<siren-entity href="[[_intermediateOrganizationHref]]" token="[[token]]" entity="{{organizationEntity}}"></siren-entity>
-		<d2l-sequences-module-name class="hide" href="[[moduleHref]]" token="[[token]]" title="{{_moduleName}}"></d2l-sequences-module-name>
-		<d2l-organization-name class="hide" href="[[organizationHref]]" token="[[token]]" name="{{_courseName}}"></d2l-organization-name>
 		<d2l-sequence-viewer-header class="topbar"
 			href="{{href}}"
 			token="[[token]]"
@@ -139,7 +136,6 @@
 		<div id="sidebar">
 			<d2l-sequence-navigator
 				href="{{href}}"
-				entity="[[entity]]"
 				token="[[token]]"
 				role="navigation"
 			></d2l-sequence-navigator>
@@ -214,28 +210,8 @@
 						type: String,
 						computed: '_getReturnUrl()'
 					},
-					moduleHref: {
-						type: Object,
-						computed: '_getHrefByRel(entity, "up")'
-					},
-					organizationEntity: {
-						type: Object
-					},
-					organizationHref: {
-						type: String,
-						computed: '_getOrganizationHref(organizationEntity)'
-					},
 					toast: {
 						type: Object,
-					},
-					_courseName: {
-						type: String,
-					},
-					_intermediateOrganizationHref: {
-						type: String
-					},
-					_moduleName: {
-						type: String
 					},
 					_blurListener: {
 						type: Object
@@ -253,7 +229,6 @@
 				return ['_initialize(href)'];
 			}
 			_initialize(href) {
-				this._intermediateOrganizationHref = href;
 
 				// change the current address to display the url of the item being currently viewed.
 				history.pushState({
@@ -315,26 +290,11 @@
 					returnUrl: this.returnUrl
 				}), '*');
 			}
-			_getHrefByRel(entity, relation) {
-				const link = entity && entity.getLinkByRel(relation);
-				return link && link.href || '';
-			}
 			_getTitle(entity) {
 				return entity && entity.properties && entity.properties.title || '';
 			}
 			_getToken(token) {
 				return () => { return Promise.resolve(token); };
-			}
-			_getOrganizationHref(entity) {
-				const upLink = entity && entity.getLinkByRel( 'up' );
-				if ( !upLink ) {
-					return '';
-				}
-				if ( upLink.rel.indexOf( 'https://api.brightspace.com/rels/organization' ) >= 0 ) {
-					return upLink.href;
-				}
-				this._intermediateOrganizationHref = upLink.href;
-				return '';
 			}
 			_backButtonClass(returnUrl) {
 				return !returnUrl
