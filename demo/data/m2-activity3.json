@@ -38,10 +38,10 @@
 		"rel": ["next"],
 		"href": "data/m2-activity4.json"
 	}, {
-		"rel": ["prev-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
 		"href": "data/m2-activity2.json"
 	}, {
-		"rel": ["next-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/next-activity"],
 		"href": "data/m2-activity4.json"
 	}, {
 		"rel": ["up"],

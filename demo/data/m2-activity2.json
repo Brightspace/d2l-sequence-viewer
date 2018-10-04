@@ -58,10 +58,10 @@
 		"rel": ["next"],
 		"href": "data/m2-activity3.json"
 	}, {
-		"rel": ["prev-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
 		"href": "data/m2-activity1.json"
 	}, {
-		"rel": ["next-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/next-activity"],
 		"href": "data/m2-activity3.json"
 	}, {
 		"rel": ["up"],

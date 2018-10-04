@@ -72,7 +72,7 @@
 		},
 		{
 			"rel": [
-				"next-activity"
+				"https://sequences.api.brightspace.com/rels/next-activity"
 			],
 			"href": "data/m2-activity1.json"
 		},

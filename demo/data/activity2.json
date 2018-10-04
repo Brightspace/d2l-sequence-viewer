@@ -81,10 +81,10 @@
 		"rel": ["next"],
 		"href": "data/activity3.json"
 	}, {
-		"rel": ["prev-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
 		"href": "data/activity1.json"
 	}, {
-		"rel": ["next-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/next-activity"],
 		"href": "data/activity3.json"
 	}, {
 		"rel": ["up"],

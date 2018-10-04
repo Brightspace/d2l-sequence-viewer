@@ -105,7 +105,7 @@
 		},
 		{
 			"rel": [
-				"prev-activity"
+				"https://sequences.api.brightspace.com/rels/prev-activity"
 			],
 			"href": "data/activity3.json"
 		},
