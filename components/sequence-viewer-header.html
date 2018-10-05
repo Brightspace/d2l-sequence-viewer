@@ -174,7 +174,6 @@
 				></d2l-sequences-topic-name>
 				<div class="col9"></div>
 				<d2l-sequences-iterator
-					id="prevIter"
 					class="iterator-icon prev-button col10"
 					href="{{href}}"
 					token="[[token]]"
@@ -185,7 +184,6 @@
 				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col13"></div>
 				<d2l-sequences-iterator
-					id="nextIter"
 					class="iterator-icon next-button col14"
 					href="{{href}}"
 					token="[[token]]"
@@ -219,9 +217,6 @@
 						type: String,
 						reflectToAttribute: true,
 						notify: true
-					},
-					_iterateListener: {
-						type: Object
 					}
 				};
 			}
@@ -232,18 +227,9 @@
 				super.connectedCallback();
 				Polymer.IronA11yAnnouncer.requestAvailability();
 				this.mode = 'polite';
-				this._iterateListener = this.$.prevIter.addEventListener('iterate', () => {
-					this.dispatchEvent(new CustomEvent('iterate'));
-				});
-				this._iterateListener = this.$.nextIter.addEventListener('iterate', () => {
-					this.dispatchEvent(new CustomEvent('iterate'));
-				});
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
-				this.$.prevIter.removeEventListener('iterate', this._iterateListener);
-				this.$.nextIter.removeEventListener('iterate', this._iterateListener);
-				this._iterateListener = null;
 			}
 			_announceTopic() {
 				this.fire('iron-announce', {
