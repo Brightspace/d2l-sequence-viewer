@@ -98,7 +98,9 @@
 				}
 			</style>
 		</custom-style>
-		<d2l-sequence-viewer-header class="topbar"
+		<d2l-sequence-viewer-header
+			id="topbar"
+			class="topbar"
 			href="{{href}}"
 			token="[[token]]"
 			role="banner">
@@ -139,9 +141,10 @@
 				role="navigation"
 			></d2l-sequence-navigator>
 		</div>
-		<div class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
+		<div id="viewframe" class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
 			<template is="dom-if" if="[[isEndOfLesson]]">
 				<d2l-sequences-content-eol-main
+					id="viewer"
 					class="viewer"
 					href="{{href}}"
 					token="[[token]]"
@@ -150,6 +153,7 @@
 			</template>
 			<template is="dom-if" if="[[!isEndOfLesson]]">
 				<d2l-sequences-content-router
+					id="viewer"
 					class="viewer"
 					href="[[href]]"
 					token="[[token]]"
@@ -222,6 +226,9 @@
 						type: Boolean,
 						computed: '_isEndOfLesson(entity)'
 					},
+					_iterateListener: {
+						type: Object
+					}
 				};
 			}
 			static get observers() {
@@ -258,6 +265,10 @@
 					this.toast = detail;
 					this.$.toast.open = true;
 				});
+
+				this._iterateListener = this.$.topbar.addEventListener('iterate', () => {
+					this.$.viewframe.focus();
+				});
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
@@ -265,6 +276,8 @@
 				this._blurListener = null;
 				window.removeEventListener('toast', this._toastListener);
 				this._toastListener = null;
+				this.$.topbar.removeEventListener('iterate', this._iterateListener);
+				this._iterateListener = null;
 			}
 			_closeSlidebar() {
 				setTimeout( () => {
