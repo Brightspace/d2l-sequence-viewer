@@ -228,9 +228,6 @@
 				Polymer.IronA11yAnnouncer.requestAvailability();
 				this.mode = 'polite';
 			}
-			disconnectedCallback() {
-				super.disconnectedCallback();
-			}
 			_announceTopic() {
 				this.fire('iron-announce', {
 					text: this.$.topicName.innerText.trim()
