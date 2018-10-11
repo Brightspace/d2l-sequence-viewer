@@ -228,7 +228,6 @@
 				return ['_initialize(href)'];
 			}
 			_initialize(href) {
-
 				// change the current address to display the url of the item being currently viewed.
 				history.pushState({
 					title: this.title,
@@ -313,5 +312,41 @@
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
+
+		// list of query selectors for elements that should be removed.
+		var selectors = [
+			'nav',
+			'body > div.d2l-twopanelselector-wrapper.d2l-max-width.d2l-min-width.d2l-page-main > div.d2l-box-layout > div.d2l-box.d2l-box-v.d2l-twopanelselector-header',
+			'body > div.d2l-twopanelselector-wrapper.d2l-max-width.d2l-min-width.d2l-page-main > div.d2l-page-collapsepane-container.d2l-page-collapsepane-show'
+		];
+
+		window.addEventListener('message', function(event) {
+
+			var eventData;
+			try {
+				eventData = JSON.parse(event.data);
+			} catch (err) {
+				return;
+			}
+
+			if (eventData.eventType && eventData.eventType === 'd2l-iframe-load') {
+				_removeNavElements();
+			}
+
+		}, false);
+
+		function _removeNavElements() {
+			var content = document.querySelector('d2l-sequence-viewer').shadowRoot.querySelector('d2l-sequences-content-router').shadowRoot.querySelector('d2l-sequences-content-link').shadowRoot.querySelector('#content');
+
+			// prepare postMessage data.
+			var origin = window.location.protocol + '//' + window.location.host;
+			var eventData = JSON.stringify({
+				eventType: 'd2l-element-hider',
+				selectors: selectors
+			});
+
+			// send d2l-element-hider event to the iframe page.
+			content.contentWindow.postMessage(JSON.stringify(eventData), origin);
+		}
 	</script>
 </dom-module>
