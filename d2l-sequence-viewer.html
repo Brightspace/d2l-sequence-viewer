@@ -313,40 +313,52 @@
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
 
-		// list of query selectors for elements that should be removed.
+		// list of query selectors and attributes for elements that should be removed.
 		var selectors = [
-			'nav',
-			'body > div.d2l-twopanelselector-wrapper.d2l-max-width.d2l-min-width.d2l-page-main > div.d2l-box-layout > div.d2l-box.d2l-box-v.d2l-twopanelselector-header',
-			'body > div.d2l-twopanelselector-wrapper.d2l-max-width.d2l-min-width.d2l-page-main > div.d2l-page-collapsepane-container.d2l-page-collapsepane-show'
+			{
+				cssSelector: 'nav', // page header and breadcrumbs
+			},
+			{
+				cssSelector: 'button.d2l-button', // the cancel button
+				attrs: {
+					innerHTML: 'Cancel'
+				}
+			},
+			{
+				cssSelector: 'button.d2l-button', // the exit button
+				attrs: {
+					innerHTML: 'Exit'
+				}
+			}
 		];
 
 		window.addEventListener('message', function(event) {
-
 			var eventData;
 			try {
 				eventData = JSON.parse(event.data);
 			} catch (err) {
-				return;
+				eventData = event.data;
 			}
 
-			if (eventData.eventType && eventData.eventType === 'd2l-iframe-load') {
-				_removeNavElements();
+			if (typeof(eventData) === 'object' && eventData.eventType && eventData.eventType === 'd2l-iframe-load') {
+				fireRemoveNavElementsEvent();
 			}
 
 		}, false);
 
-		function _removeNavElements() {
+		function fireRemoveNavElementsEvent() {
 			var content = document.querySelector('d2l-sequence-viewer').shadowRoot.querySelector('d2l-sequences-content-router').shadowRoot.querySelector('d2l-sequences-content-link').shadowRoot.querySelector('#content');
 
 			// prepare postMessage data.
 			var origin = window.location.protocol + '//' + window.location.host;
-			var eventData = JSON.stringify({
+			var eventData = {
 				eventType: 'd2l-element-hider',
 				selectors: selectors
-			});
+			};
 
 			// send d2l-element-hider event to the iframe page.
 			content.contentWindow.postMessage(JSON.stringify(eventData), origin);
 		}
+		//  C:\D2L\instances\lsone\checkout\le\D2L.LE\D2L.LE.Web.UI\Desktop\
 	</script>
 </dom-module>
