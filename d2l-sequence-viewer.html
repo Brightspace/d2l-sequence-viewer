@@ -316,7 +316,10 @@
 		// list of query selectors and attributes for elements that should be removed.
 		var selectors = [
 			{
-				cssSelector: 'nav', // page header and breadcrumbs
+				cssSelector: 'nav' // page header and breadcrumbs
+			},
+			{
+				cssSelector: 'div.d2l-box.d2l-box-h.d2l-twopanelselector-side' // side navigation panel
 			},
 			{
 				cssSelector: 'button.d2l-button', // the cancel button
@@ -329,6 +332,9 @@
 				attrs: {
 					innerHTML: 'Exit'
 				}
+			},
+			{
+				cssSelector: 'div.d2l-page-header' // Page header including 'settings' and 'help' buttons.
 			}
 		];
 
