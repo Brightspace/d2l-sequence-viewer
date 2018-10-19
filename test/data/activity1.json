@@ -57,10 +57,10 @@
 	],
 	"links": [{
 		"rel": ["self", "describes"],
-		"href": "data/m1-activity1.json"
+		"href": "data/activity1.json"
 	}, {
 		"rel": ["next"],
-		"href": "data/m1-activity2.json"
+		"href": "data/activity2.json"
 	}, {
 		"rel": ["up"],
 		"href": "data/l1-module1.json"
