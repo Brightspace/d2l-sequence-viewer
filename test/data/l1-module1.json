@@ -6,12 +6,12 @@
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/l1-m1-activity1.json"
+			"href": "data/m1-activity1.json"
 		},
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/l1-m1-activity2.json"
+			"href": "data/m1-activity2.json"
 		},
 		{
 			"class": [

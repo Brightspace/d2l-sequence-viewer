@@ -30,13 +30,13 @@
 	}],
 	"links": [{
 		"rel": ["self", "describes"],
-		"href": "data/l1-m2-activity3.json"
+		"href": "data/m2-activity3.json"
 	}, {
 		"rel": ["prev"],
-		"href": "data/l1-m2-activity2.json"
+		"href": "data/m2-activity2.json"
 	}, {
 		"rel": ["next"],
-		"href": "data/l1-m2-activity4.json"
+		"href": "data/m2-activity4.json"
 	}, {
 		"rel": ["up"],
 		"href": "data/l1-module2.json"
