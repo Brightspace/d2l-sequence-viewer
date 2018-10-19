@@ -1,0 +1,148 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "Thallids and Saprolings Essay"
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:assignments",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/assignments.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:assignments",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/assignments.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"link-activity",
+				"link-plain"
+			],
+			"rel": [
+				"about",
+				"item"
+			],
+			"properties": {
+				"title": "Thallids and Saprolings Essay"
+			},
+			"entities": [
+				{
+					"class": [
+						"completion",
+						"incomplete",
+						"manual"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114509/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114509/view",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114509/view",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				}
+			],
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "https://qa108813671g.bspc.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=123187&type=dropbox&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-4468"
+				},
+				{
+					"class": [
+						"view"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa108813671g.bspc.com/d2l/le/content/123187/viewContent/114509/View"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-activity2.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/l1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l2-m1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/lesson1.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

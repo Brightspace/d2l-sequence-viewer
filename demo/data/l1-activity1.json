@@ -1,0 +1,181 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "Latrine Recovery in the 13th Century"
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:discussions",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/discussions.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:discussions",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/discussions.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"link-activity",
+				"link-plain"
+			],
+			"rel": [
+				"about",
+				"item"
+			],
+			"properties": {
+				"title": "Latrine Recovery in the 13th Century"
+			},
+			"entities": [
+				{
+					"class": [
+						"last-viewed",
+						"date"
+					],
+					"rel": [
+						"item"
+					],
+					"properties": {
+						"date": "2018-10-19T14:34:02.267Z"
+					}
+				},
+				{
+					"class": [
+						"completion",
+						"completed",
+						"manual"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"entities": [
+						{
+							"class": [
+								"auto",
+								"completion",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2018-10-19T14:34:19.257Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114508/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114508/view",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/114508/view",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				}
+			],
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "https://qa108813671g.bspc.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=123187&type=discuss&rCode=6E09A215-8089-48F3-B66B-32802692AF9B-4467"
+				},
+				{
+					"class": [
+						"view"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa108813671g.bspc.com/d2l/le/content/123187/viewContent/114508/View"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-activity2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-m2-activity8.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l1-activity2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/lesson1.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

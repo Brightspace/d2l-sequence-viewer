@@ -12,7 +12,7 @@
     "clean": "rimraf build && rimraf dist",
     "prestart": "gulp build-locales && polymer analyze > analysis.json",
     "build:polymer": "polymer build",
-    "resolver": "path-exists dist/appconfig.json && frau-local-appresolver || npm run build && npm run resolver",
+    "resolver": "frau-local-appresolver || npm run build && npm run resolver",
     "build:app": "npm run build:polymer && npm run build:vulcanize",
     "build:images": "mkdirp dist/components/ && ncp images dist/components/images/",
     "build:vulcanize": "mkdirp dist && vulcanize --inline-css --inline-scripts --strip-comments build/default/d2l-sequence-viewer.html > dist/d2l-sequence-viewer.html",

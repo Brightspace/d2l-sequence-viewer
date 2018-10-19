@@ -3,7 +3,7 @@
 		"sequenced-activity"
 	],
 	"properties": {
-		"title": "Accessible Word Document"
+		"title": "HTML Sample"
 	},
 	"entities": [
 		{
@@ -15,8 +15,8 @@
 				"icon"
 			],
 			"properties": {
-				"iconSetKey": "d2l-tier1:file-document",
-				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/file-document.svg"
+				"iconSetKey": "d2l-tier1:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/browser.svg"
 			}
 		},
 		{
@@ -28,8 +28,8 @@
 				"icon"
 			],
 			"properties": {
-				"iconSetKey": "d2l-tier2:file-document",
-				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/file-document.svg"
+				"iconSetKey": "d2l-tier2:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/browser.svg"
 			}
 		},
 		{
@@ -41,8 +41,8 @@
 				"about"
 			],
 			"properties": {
-				"name": "Accessible Word Document.pdf",
-				"title": "Accessible Word Document.pdf"
+				"name": "HTML Sample.html",
+				"title": "HTML Sample.html"
 			},
 			"entities": [
 				{
@@ -53,9 +53,9 @@
 						"about"
 					],
 					"properties": {
-						"name": "Accessible Word Document.pdf",
-						"title": "Accessible Word Document.pdf",
-						"type": "application/pdf"
+						"name": "HTML Sample.html",
+						"title": "HTML Sample.html",
+						"type": "text/html"
 					},
 					"entities": [
 						{
@@ -67,7 +67,7 @@
 								"item"
 							],
 							"properties": {
-								"date": "2016-05-06T00:08:10.787Z"
+								"date": "2016-05-06T00:08:10.720Z"
 							}
 						}
 					],
@@ -76,8 +76,8 @@
 							"rel": [
 								"alternate"
 							],
-							"type": "application/pdf",
-							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104507/file?stream=true"
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104504/file?stream=true"
 						},
 						{
 							"class": [
@@ -86,8 +86,8 @@
 							"rel": [
 								"alternate"
 							],
-							"type": "application/pdf",
-							"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/104507/View"
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/104504/View"
 						},
 						{
 							"class": [
@@ -96,38 +96,53 @@
 							"rel": [
 								"alternate"
 							],
-							"type": "application/pdf",
-							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104507/file?stream=false"
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104504/file?stream=false"
 						}
 					]
 				},
 				{
 					"class": [
 						"completion",
-						"incomplete"
+						"completed"
 					],
 					"rel": [
 						"item",
 						"https://api.brightspace.com/rels/completion"
+					],
+					"entities": [
+						{
+							"class": [
+								"auto",
+								"completion",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2018-10-19T14:15:21.770Z"
+							}
+						}
 					],
 					"links": [
 						{
 							"rel": [
 								"alternate"
 							],
-							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104507/completion"
+							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/104504/completion"
 						}
 					]
 				}
 			],
 			"actions": [
 				{
-					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104507/view",
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104504/view",
 					"name": "view-activity",
 					"method": "POST"
 				},
 				{
-					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104507/view",
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104504/view",
 					"name": "view-activity-duration",
 					"method": "PUT"
 				}
@@ -140,7 +155,7 @@
 				"self",
 				"describes"
 			],
-			"href": "data/l2-m1-activity1.json"
+			"href": "data/l1-m2-activity1.json"
 		},
 		{
 			"rel": [
@@ -150,15 +165,21 @@
 		},
 		{
 			"rel": [
+				"next"
+			],
+			"href": "data/l1-m2-activity2.json"
+		},
+		{
+			"rel": [
 				"https://sequences.api.brightspace.com/rels/prev-activity"
 			],
-			"href": "data/l1-m2-activity8.json"
+			"href": "data/l1-m1-activity5.json"
 		},
 		{
 			"rel": [
 				"https://sequences.api.brightspace.com/rels/next-activity"
 			],
-			"href": "data/l3-activity1.json"
+			"href": "data/l1-m2-activity2.json"
 		},
 		{
 			"rel": [
@@ -170,7 +191,7 @@
 			"rel": [
 				"up"
 			],
-			"href": "data/l2-module1.json"
+			"href": "data/l1-module2.json"
 		}
 	],
 	"rel": [

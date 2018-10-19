@@ -6,27 +6,27 @@
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/m2-activity1.json"
+			"href": "data/l1-m2-activity1.json"
 		},
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/m2-activity2.json"
+			"href": "data/l1-m2-activity2.json"
 		},
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/m2-activity3.json"
+			"href": "data/l1-m2-activity3.json"
 		},
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/m2-activity4.json"
+			"href": "data/l1-m2-activity4.json"
 		},
 		{
 			"class": ["sequence", "sequenced-activity"],
 			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/m2-activity5.json"
+			"href": "data/l1-m2-activity5.json"
 		},
 		{
 			"class": [

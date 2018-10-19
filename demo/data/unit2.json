@@ -1,34 +1,74 @@
 {
-	"properties": {
-		"title": "Unit 2"
-	},
-	"rel": ["item"],
-	"entities": [
-		{
-			"class": ["sequence", "sequenced-activity"],
-			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
-			"href": "data/unit2-activity1.json"
-		},
-		{
-			"class": [
-			  "completion",
-			  "completed"
-			],
-			"properties": {
-			  "completed": 1,
-			  "total": 1,
-			  "optionalViewed": 0,
-			  "optionalTotal": 0
-			},
-			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
-		}
+	"class": [
+			"sequence",
+			"sequence-description"
 	],
-	"links": [{
-		"rel": ["self", "describes"],
-		"href": "data/unit2.json"
-	}, {
-		"rel": ["up"],
-		"href": "data/sample2.json"
-	}],
-	"class": ["sequence", "sequence-description"]
+	"properties": {
+			"title": "Unit 2"
+	},
+	"entities": [
+			{
+					"class": [
+							"sequenced-activity",
+							"available"
+					],
+					"rel": [
+							"self",
+							"https://api.brightspace.com/rels/sequenced-activity"
+					],
+					"href": "data/unit2-activity1.json"
+			},
+			{
+					"class": [
+							"completion",
+							"incomplete"
+					],
+					"rel": [
+							"item",
+							"https://api.brightspace.com/rels/completion"
+					],
+					"properties": {
+							"completed": 0,
+							"total": 1,
+							"optionalViewed": 0,
+							"optionalTotal": 0
+					}
+			}
+	],
+	"links": [
+			{
+					"rel": [
+							"self",
+							"describes"
+					],
+					"href": "data/unit2.json"
+			},
+			{
+					"rel": [
+							"https://api.brightspace.com/rels/organization"
+					],
+					"href": "data/sample2.json"
+			},
+			{
+					"rel": [
+							"https://sequences.api.brightspace.com/rels/next-activity"
+					],
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/0/end-of-sequence"
+			},
+			{
+					"rel": [
+							"https://sequences.api.brightspace.com/rels/sequence-root"
+					],
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/0"
+			},
+			{
+					"rel": [
+							"up"
+					],
+					"href": "data/sample2.json"
+			}
+	],
+	"rel": [
+			"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
 }

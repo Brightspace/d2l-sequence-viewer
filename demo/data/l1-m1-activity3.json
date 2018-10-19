@@ -1,0 +1,199 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "This is a manual file"
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/browser.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/browser.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"file-activity"
+			],
+			"rel": [
+				"about"
+			],
+			"properties": {
+				"name": "This is a manual file.html",
+				"title": "This is a manual file.html"
+			},
+			"entities": [
+				{
+					"class": [
+						"file"
+					],
+					"rel": [
+						"about"
+					],
+					"properties": {
+						"name": "This is a manual file.html",
+						"title": "This is a manual file.html",
+						"type": "text/html"
+					},
+					"entities": [
+						{
+							"class": [
+								"last-modified",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2018-05-10T19:59:53.700Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/114551/file?stream=true"
+						},
+						{
+							"class": [
+								"view"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/114551/View"
+						},
+						{
+							"class": [
+								"download"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/114551/file?stream=false"
+						}
+					]
+				},
+				{
+					"class": [
+						"completion",
+						"incomplete",
+						"manual"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"actions": [
+						{
+							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/114551/completion",
+							"name": "mark-as-complete",
+							"method": "POST"
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/114551/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/114551/view",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/114551/view",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-m1-activity3.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/l1-m1-activity2.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-m1-activity4.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-m1-activity2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l1-m1-activity4.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/l1-module1.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

@@ -1,82 +1,173 @@
 {
+	"class": [
+		"sequenced-activity"
+	],
 	"properties": {
 		"title": "My File"
 	},
-	"rel": ["item"],
-	"entities": [{
-		"class": ["activity", "file-activity"],
-		"rel": ["about"],
-		"properties": {
-			"name": "My File.html",
-			"title": "My File.html"
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/browser.svg"
+			}
 		},
-		"entities": [{
-			"class": ["file"],
-			"rel": ["about"],
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:browser",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/browser.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"file-activity"
+			],
+			"rel": [
+				"about"
+			],
 			"properties": {
 				"name": "My File.html",
-				"title": "My File.html",
-				"type": "text/html"
+				"title": "My File.html"
 			},
-			"links": [{
-				"rel": ["alternate"],
-				"type": "text/html",
-				"href": "https://qa108111243g.bspc.com/d2l/api/le/1.12/123187/content/topics/105685/file?stream=true"
-			}, {
-				"rel": ["alternate"],
-				"class": ["view"],
-				"type": "text/html",
-				"href": "https://qa108111243g.bspc.com/d2l/le/content/123187/viewContent/105685/View"
-			}, {
-				"rel": ["alternate"],
-				"class": ["download"],
-				"type": "text/html",
-				"href": "https://qa108111243g.bspc.com/d2l/api/le/1.12/123187/content/topics/105685/file?stream=false"
-			}],
-			"entities": [{
-				"rel": ["item"],
-				"class": ["last-modified", "date"],
-				"properties": {
-					"date": "2016-10-28T17:53:25.143Z"
-				}
-			}]
-		}, {
-			"rel": ["item"],
-			"class": ["last-viewed", "date"],
-			"properties": {
-				"date": "2016-10-28T18:02:26.973Z"
-			}
-		}, {
-			"rel": ["item"],
-			"links": [{
-				"rel": ["alternate"],
-				"href": "123187/activity/105685/completion"
-			}],
-			"entities": [{
-				"class": ["auto", "completion", "date"],
-				"properties": {
-					"date": "2016-10-28T17:53:28.317Z"
+			"entities": [
+				{
+					"class": [
+						"file"
+					],
+					"rel": [
+						"about"
+					],
+					"properties": {
+						"name": "My File.html",
+						"title": "My File.html",
+						"type": "text/html"
+					},
+					"entities": [
+						{
+							"class": [
+								"last-modified",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2016-10-28T17:53:25.143Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813671g.bspc.com/d2l/api/le/1.12/123187/content/topics/105685/file?stream=true"
+						},
+						{
+							"class": [
+								"view"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813671g.bspc.com/d2l/le/content/123187/viewContent/105685/View"
+						},
+						{
+							"class": [
+								"download"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "text/html",
+							"href": "https://qa108813671g.bspc.com/d2l/api/le/1.12/123187/content/topics/105685/file?stream=false"
+						}
+					]
 				},
-				"rel": ["item"]
-			}],
-			"class": ["completion", "completed"]
-		}],
-		"actions": [{
-			"name": "view-activity",
-			"method": "POST",
-			"href": "123187/activity/105685/view"
-		}, {
-			"name": "view-activity-duration",
-			"method": "PUT",
-			"href": "123187/activity/105685/view"
-		}]
-	}],
-	"links": [{
-		"rel": ["self", "describes"],
-		"href": "data/unit2-activity1.json"
-	}, {
-		"rel": ["up"],
-		"href": "data/unit2.json"
-	}],
-	"class": ["sequenced-activity"]
+				{
+					"class": [
+						"completion",
+						"incomplete"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105685/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105685/view",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105685/view",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/unit2-activity1.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105686/end-of-sequence"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit2.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/unit2.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
 }

@@ -3,7 +3,7 @@
 		"sequenced-activity"
 	],
 	"properties": {
-		"title": "Hand & Wrist DLM: Plate Fixation"
+		"title": "Wikipedia Log"
 	},
 	"entities": [
 		{
@@ -28,22 +28,24 @@
 				"icon"
 			],
 			"properties": {
-				"iconSetKey": "d2l-tier1:link",
-				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/link.svg"
+				"iconSetKey": "d2l-tier2:link",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/link.svg"
 			}
 		},
 		{
 			"class": [
 				"activity",
 				"link-activity",
-				"link-scorm-1-2"
+				"link-plain",
+				"external",
+				"open-in-new-tab"
 			],
 			"rel": [
 				"about",
 				"item"
 			],
 			"properties": {
-				"title": "Hand & Wrist DLM: Plate Fixation"
+				"title": "Wikipedia Log"
 			},
 			"entities": [
 				{
@@ -60,19 +62,19 @@
 							"rel": [
 								"alternate"
 							],
-							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105281/completion"
+							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104500/completion"
 						}
 					]
 				}
 			],
 			"actions": [
 				{
-					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105281/view",
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104500/view",
 					"name": "view-activity",
 					"method": "POST"
 				},
 				{
-					"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/105281/view",
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104500/view",
 					"name": "view-activity-duration",
 					"method": "PUT"
 				}
@@ -82,7 +84,7 @@
 					"rel": [
 						"about"
 					],
-					"href": "https://prodqa.proddev.d2l/d2l/lor/viewer/view.d2l?ou=123187&loIdentId=20"
+					"href": "https://en.wikipedia.org/static/images/project-logos/enwiki-2x.png"
 				},
 				{
 					"class": [
@@ -91,7 +93,7 @@
 					"rel": [
 						"alternate"
 					],
-					"href": "https://qa108813671g.bspc.com/d2l/le/content/123187/viewContent/105281/View"
+					"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/104500/View"
 				}
 			]
 		}
@@ -102,7 +104,7 @@
 				"self",
 				"describes"
 			],
-			"href": "data/l3-activity1.json"
+			"href": "data/l1-m2-activity3.json"
 		},
 		{
 			"rel": [
@@ -112,15 +114,27 @@
 		},
 		{
 			"rel": [
+				"prev"
+			],
+			"href": "data/l1-m2-activity2.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-m2-activity4.json"
+		},
+		{
+			"rel": [
 				"https://sequences.api.brightspace.com/rels/prev-activity"
 			],
-			"href": "data/l2-m1-activity1.json"
+			"href": "data/l1-m2-activity2.json"
 		},
 		{
 			"rel": [
 				"https://sequences.api.brightspace.com/rels/next-activity"
 			],
-			"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/104492/end-of-sequence"
+			"href": "data/l1-m2-activity4.json"
 		},
 		{
 			"rel": [
@@ -132,7 +146,7 @@
 			"rel": [
 				"up"
 			],
-			"href": "data/lesson3.json"
+			"href": "data/l1-module2.json"
 		}
 	],
 	"rel": [
