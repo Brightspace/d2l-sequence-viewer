@@ -3,7 +3,7 @@
 		"sequenced-activity"
 	],
 	"properties": {
-		"title": "This is an optional file"
+		"title": "This is an optional file with a long name"
 	},
 	"entities": [
 		{

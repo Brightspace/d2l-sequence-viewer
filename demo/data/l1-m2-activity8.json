@@ -127,7 +127,7 @@
 			"rel": [
 				"https://sequences.api.brightspace.com/rels/next-activity"
 			],
-			"href": "data/l2-m1-activity1.json"
+			"href": "data/l1-activity1.json"
 		},
 		{
 			"rel": [

@@ -3,7 +3,7 @@
 		"sequenced-activity"
 	],
 	"properties": {
-		"title": "Exempted Assignment"
+		"title": "Exempted Assignment with a long name"
 	},
 	"entities": [
 		{
@@ -43,7 +43,7 @@
 				"item"
 			],
 			"properties": {
-				"title": "Exempted Assignment"
+				"title": "Exempted Assignment with a long name"
 			},
 			"entities": [
 				{
