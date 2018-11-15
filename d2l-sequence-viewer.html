@@ -6,7 +6,6 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
-<link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-eol-main.html">
 <link rel="import" href="./bower_components/d2l-alert/d2l-alert-toast.html">
 <link rel="import" href="./bower_components/d2l-link/d2l-link.html">
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-button-notification-icon.html">
@@ -149,22 +148,12 @@
 			></d2l-sequence-navigator>
 		</div>
 		<div id="viewframe" class="viewframe" on-click="_closeSlidebar" role="main" tabindex="0">
-			<template is="dom-if" if="[[isEndOfLesson]]">
-				<d2l-sequences-content-eol-main
-					class="viewer"
-					href="{{href}}"
-					token="[[token]]"
-					return-url="[[returnUrl]]">
-				</d2l-sequences-content-eol-main>
-			</template>
-			<template is="dom-if" if="[[!isEndOfLesson]]">
-				<d2l-sequences-content-router
-					id="viewer"
-					class="viewer"
-					href="[[href]]"
-					token="[[token]]"
-				></d2l-sequences-content-router>
-			</template>
+			<d2l-sequences-content-router
+				id="viewer"
+				class="viewer"
+				href="[[href]]"
+				token="[[token]]"
+			></d2l-sequences-content-router>
 			<d2l-alert-toast
 				class="d2l-typography"
 				id="toast">
@@ -227,10 +216,6 @@
 					},
 					_toastListener: {
 						type: Object
-					},
-					isEndOfLesson: {
-						type: Boolean,
-						computed: '_isEndOfLesson(entity)'
 					}
 				};
 			}
@@ -249,9 +234,6 @@
 			// be document.referrer.
 			_getReturnUrl() {
 				return this.returnUrl || document.referrer || '';
-			}
-			_isEndOfLesson(entity) {
-				return entity && entity.hasClass('end-of-sequence');
 			}
 			connectedCallback() {
 				super.connectedCallback();
