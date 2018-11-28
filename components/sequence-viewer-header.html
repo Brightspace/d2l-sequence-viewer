@@ -17,8 +17,6 @@
 				flex-flow: row wrap;
 				align-items: center;
 				width: 100%;
-				border-bottom: 1px solid var(--d2l-color-gypsum);
-				border-top: 4px solid var(--d2l-color-celestine);
 				padding-top: 10px;
 				padding-bottom: 10px;
 				background-color: white;
@@ -40,6 +38,7 @@
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				padding-left: 8px;
 			}
 			.topic-name {
 				@apply --d2l-body-compact-text;
@@ -158,8 +157,6 @@
 				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col5"></div>
 				<div class="hidden-small col6">
-					<slot name="back-button">
-					</slot>
 				</div>
 				<div class="back-to-module hidden-small col7">
 					<slot name="d2l-back-to-module"></slot>
