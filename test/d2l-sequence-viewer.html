@@ -12,7 +12,7 @@
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<d2l-sequence-viewer href="http://example.com" token="foo"></d2l-sequence-viewer>
+				<d2l-sequence-viewer href="data/unit1.json" token="foo"></d2l-sequence-viewer>
 			</template>
 		</test-fixture>
 
@@ -34,7 +34,7 @@
 					});
 
 					it('should instantiate the element', () => {
-						expect(elem).to.have.attribute('href', 'http://example.com');
+						expect(elem).to.have.attribute('href', 'data/unit1.json');
 						expect(elem).to.have.attribute('token', 'foo');
 					});
 
@@ -86,15 +86,17 @@
 
 					it('should be visible when given return url', () => {
 						elem = fixture('withReturnUrl');
-						const button = elem.shadowRoot.querySelector('.back-icon');
-						expect( button ).not.to.have.class('hide');
+						const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+						expect( button ).to.exist;
 					});
 
-					it('should not be visible when no return url given', () => {
+					it('should be visible and have a default when no return url given', () => {
 						elem = fixture('basic');
-						const button = elem.shadowRoot.querySelector('.back-icon');
-						expect( button ).to.have.class('hide');
-					});
+						const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+						expect( button ).to.exist;
+						expect( button ).to.have.attribute('href', 'google.ca');
+					}
+					);
 				});
 
 			});

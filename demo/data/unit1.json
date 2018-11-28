@@ -88,6 +88,10 @@
 				"up"
 			],
 			"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187"
+		},
+		{
+			"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],
+			"href":"http://google.ca"
 		}
 	],
 	"rel": [

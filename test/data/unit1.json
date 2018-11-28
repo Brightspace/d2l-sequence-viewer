@@ -43,6 +43,9 @@
 	}, {
 		"rel": ["up"],
 		"href": "data/sample2.json"
+	},{
+		"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],
+		"href":"google.ca"
 	}],
 	"class": ["sequence", "sequence-description"]
 }

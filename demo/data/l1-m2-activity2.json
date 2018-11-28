@@ -161,6 +161,10 @@
 				"up"
 			],
 			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],
+			"href":"http://google.ca"
 		}
 	],
 	"rel": [

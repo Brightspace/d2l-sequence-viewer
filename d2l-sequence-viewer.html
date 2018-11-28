@@ -135,6 +135,7 @@
 			<div slot="d2l-back-to-module" class="tester">
 				<d2l-navigation-link-back text="[[localize('backToContent')]]"
 					on-click="_onClickBack"
+					href="[[returnUrl]]"
 					>
 				</d2l-navigation-link-back>
 			</div>
@@ -213,10 +214,6 @@
 						type: Object,
 						computed: '_getToken(token)'
 					},
-					backButtonClass: {
-						type: String,
-						computed: '_backButtonClass(returnUrl)'
-					},
 		
 					// holds the address of the page that launched ASV
 					// The "back to content home" and "I'm done" buttons
@@ -258,7 +255,7 @@
 			// be document.referrer.
 			_getReturnUrl(entity) {
 				const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
-				return this.returnUrl || document.referrer || defaultReturnUrl || '';
+				return this.returnUrl || document.referrer || defaultReturnUrl && defaultReturnUrl.href || '';
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -314,11 +311,6 @@
 			}
 			_getToken(token) {
 				return () => { return Promise.resolve(token); };
-			}
-			_backButtonClass(returnUrl) {
-				return !returnUrl
-					? 'back-icon hide'
-					: 'back-icon';
 			}
 		
 			_toggleSlideSidebar() {
