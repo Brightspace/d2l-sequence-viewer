@@ -21,6 +21,7 @@
 					display: block;
 					color: var(--d2l-color-ferrite);
 					@apply --d2l-body-standard-text;
+					--d2l-navigation-primary-color: var(--d2l-asv-accent-color);
 					--d2l-branding-primary-color: var(--d2l-asv-accent-color);
 				}
 				.back-icon {
@@ -216,7 +217,7 @@
 						type: String,
 						computed: '_backButtonClass(returnUrl)'
 					},
-					
+		
 					// holds the address of the page that launched ASV
 					// The "back to content home" and "I'm done" buttons
 					// will take the user to this address.
@@ -319,7 +320,7 @@
 					? 'back-icon hide'
 					: 'back-icon';
 			}
-			
+		
 			_toggleSlideSidebar() {
 				this.$.sidebar.classList.toggle('offscreen');
 			}
