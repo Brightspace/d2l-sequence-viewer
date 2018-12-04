@@ -110,7 +110,7 @@
 						left: 0px;
 					}
 				}
-				d2l-navigation-link-back {
+				.d2l-sequence-viewer-navicon-container {
 					height: 50px;
 				}
 			</style>
@@ -130,8 +130,9 @@
 				>[[localize('toggleNavMenu')]]
 				</d2l-navigation-button-notification-icon>
 			</span>
-			<div slot="d2l-back-to-module">
-				<d2l-navigation-link-back text="[[localize('backToContent')]]"
+			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
+				<d2l-navigation-link-back 
+					text="[[localize('backToContent')]]"
 					on-click="_onClickBack"
 					href="[[returnUrl]]"
 					>
