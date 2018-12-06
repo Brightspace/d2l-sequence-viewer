@@ -12,6 +12,7 @@
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-band.html">
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-link-back.html">
 <link rel="import" href="./bower_components/d2l-sequence-navigator/components/d2l-lesson-header.html">
+<link rel="import" href="./bower_components/polymer-frau-jwt/frau-jwt-local.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -115,6 +116,7 @@
 				}
 			</style>
 		</custom-style>
+		<polymer-frau-jwt token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></polymer-frau-jwt>
 		<d2l-navigation-band></d2l-navigation-band>
 		<d2l-sequence-viewer-header
 			class="topbar"
