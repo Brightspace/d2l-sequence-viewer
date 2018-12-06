@@ -12,6 +12,7 @@
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-band.html">
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-link-back.html">
 <link rel="import" href="./bower_components/d2l-sequence-navigator/components/d2l-lesson-header.html">
+<link rel="import" href="./bower_components/d2l-sequence-navigator/components/d2l-sequence-end.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -92,14 +93,7 @@
 					display: block;
 					height: 50px;
 				}
-				.end-of-lesson {
-					@apply --d2l-heading-3;
-					text-decoration: none;
-					cursor: pointer;
-				}
-				.end-of-lesson-holder{
-					padding: 20px 40px 20px 20px;
-				}
+				
 				@media(max-width: 1230px) {
 					#sidebar {
 						left: 0px;
@@ -156,9 +150,11 @@
 					></d2l-lesson-header>
 				</span>
 				<span slot="end-of-lesson">
-					<div class="end-of-lesson-holder">
-						<a on-click="showEndOfLesson" class="end-of-lesson">[[localize('endOfLesson')]]</a>
-					</div>
+					<d2l-sequence-end
+						href="[[_sequenceEndHref]]"
+						current-activity="{{href}}"
+						text="[[localize('endOfLesson')]]"
+					></d2l-sequence-end>
 				</span>
 			</d2l-sequence-navigator>
 		</div>
@@ -204,6 +200,10 @@
 					_rootHref: {
 						type: String,
 						computed: '_getRootHref(entity)'
+					},
+					_sequenceEndHref: {
+						type: String,
+						computed: '_getSequenceEndHref(entity)'
 					},
 					title: {
 						type: Object,
@@ -326,9 +326,9 @@
 				const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
 				return rootLink && rootLink.href || '';
 			}
-			showEndOfLesson() {
-				const navigator = this.shadowRoot.querySelector('d2l-sequence-navigator');
-				navigator.href = this._rootHref + '/end-of-sequence';
+			_getSequenceEndHref(entity){
+				const rootHref = this._getRootHref(entity);
+				return rootHref && rootHref + '/end-of-sequence' || '';
 			}
 		}
 		customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
