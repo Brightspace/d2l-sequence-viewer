@@ -13,6 +13,7 @@
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-link-back.html">
 <link rel="import" href="./bower_components/d2l-sequence-navigator/components/d2l-lesson-header.html">
 <link rel="import" href="./bower_components/d2l-sequence-navigator/components/d2l-sequence-end.html">
+<link rel="import" href="./bower_components/d2l-offscreen/d2l-offscreen-shared-styles.html">
 
 <dom-module id="d2l-sequence-viewer">
 	<template>
@@ -40,7 +41,7 @@
 					flex-flow: row;
 				}
 				#sidebar-occlude {
-					width: calc(50% - 615px - 2px);
+					width: calc(50% - 585px - 2px);
 					height: 100%;
 					background: white;
 					position: fixed;
@@ -57,7 +58,7 @@
 					bottom: 0px;
 					padding: 0px;
 					background: white;
-					left: calc(50% - 615px);
+					left: calc(50% - 585px);
 					transition: margin-left 0.5s;
 				}
 				#sidebar.offscreen {
@@ -65,15 +66,15 @@
 				}
 				.viewer {
 					position: relative;
-
 					top: 56px;
 					bottom: 0px;
 					width: 100%;
 					overflow-y: auto;
 				}
 				.viewframe {
+					padding: 0px 30px;
 					height: calc(100vh - 40px - 8px - 4px);
-					max-width: 1230px;
+					max-width: 1170px;
 					margin: auto;
 				}
 				.viewframe:focus {
@@ -94,14 +95,20 @@
 					height: 50px;
 				}
 				
-				@media(max-width: 1230px) {
+				@media(max-width: 929px) {
 					#sidebar {
 						left: 0px;
 					}
+					.viewframe {
+						padding: 0px 24px;
+					}
 				}
-				@media(max-width: 720px) {
+				@media(max-width: 767px) {
 					#sidebar {
 						left: 0px;
+					}
+					.viewframe {
+						padding: 0px 18px;
 					}
 				}
 				.d2l-sequence-viewer-navicon-container {
