@@ -74,7 +74,7 @@
 				flex: 0 0 23px;
 			}
 			.col7 {
-				flex: 1 1 100px;
+				flex: 0 0 165px;
 			}
 			.col8 {
 				flex: 2 2 200px;
@@ -129,11 +129,8 @@
 				.col6 {
 					flex: 0 0 0px;
 				}
-				.col7 {
-					flex: 0 0 0px;
-				}
 				.col8 {
-					flex: 1 1 50px;
+					flex: 1 1 0px;
 				}
 				.col9 {
 					flex: 0 0 22px;
@@ -158,12 +155,12 @@
 				<div class="col5"></div>
 				<div class="hidden-small col6">
 				</div>
-				<div class="back-to-module hidden-small col7">
+				<div class="back-to-module col7">
 					<slot name="d2l-back-to-module"></slot>
 				</div>
 				<d2l-sequences-topic-name
 					id="topicName"
-					class="topic-name col8"
+					class="topic-name col8 hidden-small"
 					href="[[href]]"
 					token="[[token]]"
 					role="heading"
