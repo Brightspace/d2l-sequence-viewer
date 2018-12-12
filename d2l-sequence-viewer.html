@@ -19,6 +19,9 @@
 		<custom-style include="d2l-typography">
 			<style is="custom-style" include="d2l-typography">
 				:host {
+					--viewer-max-width: 1170px;
+					--sidebar-position: calc(50% - var(--viewer-max-width) / 2);
+
 					display: block;
 					color: var(--d2l-color-ferrite);
 					@apply --d2l-body-standard-text;
@@ -40,7 +43,7 @@
 					flex-flow: row;
 				}
 				#sidebar-occlude {
-					width: calc(50% - 615px - 2px);
+					width: calc(var(--sidebar-position) - 2px);
 					height: 100%;
 					background: white;
 					position: fixed;
@@ -57,7 +60,7 @@
 					bottom: 0px;
 					padding: 0px;
 					background: white;
-					left: calc(50% - 615px);
+					left: calc(var(--sidebar-position) - 25px);
 					transition: margin-left 0.5s;
 				}
 				#sidebar.offscreen {
@@ -65,15 +68,15 @@
 				}
 				.viewer {
 					position: relative;
-
 					top: 56px;
 					bottom: 0px;
 					width: 100%;
 					overflow-y: auto;
 				}
 				.viewframe {
+					padding: 0 30px;
 					height: calc(100vh - 40px - 8px - 4px);
-					max-width: 1230px;
+					max-width: var(--viewer-max-width);
 					margin: auto;
 				}
 				.viewframe:focus {
@@ -88,18 +91,25 @@
 					height: 50px;
 				}
 				
-				@media(max-width: 1230px) {
-					#sidebar {
-						left: 0px;
-					}
-				}
-				@media(max-width: 720px) {
-					#sidebar {
-						left: 0px;
-					}
-				}
 				.d2l-sequence-viewer-navicon-container {
 					height: 50px;
+				}
+
+				@media(max-width: 1220px) {
+					#sidebar {
+						left: 0;
+					}
+				}
+
+				@media(max-width: 929px) {
+					.viewframe {
+						padding: 0 24px;
+					}
+				}
+				@media(max-width: 767px) {
+					.viewframe {
+						padding: 0 18px;
+					}
 				}
 			</style>
 		</custom-style>
@@ -300,7 +310,7 @@
 				const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
 				return rootLink && rootLink.href || '';
 			}
-			_getSequenceEndHref(entity){
+			_getSequenceEndHref(entity) {
 				const rootHref = this._getRootHref(entity);
 				return rootHref && rootHref + '/end-of-sequence' || '';
 			}
