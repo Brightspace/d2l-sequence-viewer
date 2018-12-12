@@ -140,7 +140,7 @@
 				<d2l-navigation-link-back 
 					text="[[localize('backToContent')]]"
 					on-click="_onClickBack"
-					href="[[returnUrl]]"
+					href="[[backToContentLink]]"
 					>
 				</d2l-navigation-link-back>
 			</div>
@@ -225,13 +225,14 @@
 						type: Object,
 						computed: '_getToken(token)'
 					},
-		
-					// holds the address of the page that launched ASV
+					returnUrl: {
+						type: String
+					},
 					// The "back to content home" and "I'm done" buttons
 					// will take the user to this address.
-					returnUrl: {
+					backToContentLink: {
 						type: String,
-						computed: '_getReturnUrl(entity)'
+						computed: '_getBackToContentLink(entity)'
 					},
 					toast: {
 						type: Object,
@@ -265,10 +266,7 @@
 					title: this.title,
 				}, this.title, '?url=' + encodeURIComponent(href) || '');
 			}
-			// if a return-url parameter was passed when creating the element
-			// then returnUrl should have that value. If not, returnUrl should
-			// be document.referrer.
-			_getReturnUrl(entity) {
+			_getBackToContentLink(entity) {
 				const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
 				return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
 			}
@@ -303,19 +301,19 @@
 				}, 1 );
 			}
 			_onClickBack() {
-				if ( !this.returnUrl ) {
+				if ( !this.backToContentLink ) {
 					return;
 				}
 
 				if ( window.parent === window ) {
-					window.location.href = this.returnUrl;
+					window.location.href = this.backToContentLink;
 					return;
 				}
 
 				// If we're in an iframe we need to post a message to do the navigation for us
 				window.parent.postMessage(JSON.stringify({
 					eventType: 'd2l-sequence-viewer-return',
-					returnUrl: this.returnUrl
+					returnUrl: this.backToContentLink
 				}), '*');
 			}
 			_onIterate() {
