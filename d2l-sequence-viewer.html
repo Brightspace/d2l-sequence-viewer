@@ -6,7 +6,6 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="./bower_components/d2l-sequences/components/d2l-sequences-content-router.html">
-<link rel="import" href="./bower_components/d2l-alert/d2l-alert-toast.html">
 <link rel="import" href="./bower_components/d2l-link/d2l-link.html">
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-button-notification-icon.html">
 <link rel="import" href="./bower_components/d2l-navigation/d2l-navigation-band.html">
@@ -82,12 +81,6 @@
 				}
 				.hide {
 					display: none;
-				}
-				d2l-alert-toast {
-					font-size: 20px !important;
-				}
-				.toastName {
-					font-weight: bold;
 				}
 				.flyout-icon {
 					font-size: 0px;
@@ -168,13 +161,6 @@
 				href="{{href}}"
 				token="[[token]]"
 			></d2l-sequences-content-router>
-			<d2l-alert-toast
-				class="d2l-typography"
-				id="toast">
-				<p>[[ toast.message ]]</p>
-				<p class="toastName">[[ toast.name ]]</p>
-				<d2l-link on-click="_navigateTo">[[localize('goBack')]]</d2l-link>
-			</d2l-alert-toast>
 		</div>
 	</template>
 
@@ -224,13 +210,7 @@
 						type: String,
 						computed: '_getBackToContentLink(entity)'
 					},
-					toast: {
-						type: Object,
-					},
 					_blurListener: {
-						type: Object
-					},
-					_toastListener: {
 						type: Object
 					}
 				};
@@ -274,18 +254,11 @@
 				this._blurListener = window.addEventListener('blur', () => {
 					this._closeSlidebar();
 				});
-
-				this._toastListener = window.addEventListener('toast', ({detail}) => {
-					this.toast = detail;
-					this.$.toast.open = true;
-				});
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
 				window.removeEventListener('blur', this._blurListener);
 				this._blurListener = null;
-				window.removeEventListener('toast', this._toastListener);
-				this._toastListener = null;
 			}
 			_closeSlidebar() {
 				setTimeout( () => {
@@ -322,9 +295,6 @@
 		
 			_toggleSlideSidebar() {
 				this.$.sidebar.classList.toggle('offscreen');
-			}
-			_navigateTo() {
-				this.href = this.toast.url;
 			}
 			_getRootHref(entity) {
 				const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
