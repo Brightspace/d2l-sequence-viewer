@@ -15,7 +15,6 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "d2l-alert": "^3.2.0",
     "d2l-icons": "^5",
     "d2l-link": "^4",
     "d2l-offscreen": "^3",
