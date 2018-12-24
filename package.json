@@ -1,6 +1,6 @@
 {
   "name": "d2l-sequence-viewer",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "description": "Polymer replacement for the sequenced activity viewer",
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "private": true,
