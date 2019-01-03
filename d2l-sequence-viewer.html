@@ -227,7 +227,7 @@
 				};
 			}
 			static get observers() {
-				return ['_initialize(href)'];
+				return ['_initialize(entity)'];
 			}
 			ready() {
 				super.ready();
@@ -240,16 +240,23 @@
 					navbarstyles
 				);
 			}
-			_initialize(href) {
-				// change the current address to display the url of the item being currently viewed.
-				history.pushState({
-					href: href,
-				}, this.title, '?url=' + encodeURIComponent(href) || '');
+			_initialize(entity) {
+				if (!entity) {
+					return;
+				}
 
-				this._onPopStateListener = window.addEventListener('popstate', (event) => {
-					this.href = event.state.href;
-					event.preventDefault();
-				});
+				// change the current address to display the url of the item being currently viewed.
+				if(history.state) {
+					history.pushState({
+						href: this.href,
+					}, this.title, '?url=' + encodeURIComponent(this.href) || '');
+				} else {
+					history.replaceState({
+						href: this.href,
+					}, this.title, '?url=' + encodeURIComponent(this.href) || '');	
+				}
+
+				document.title = this.title;
 			}
 			_getBackToContentLink(entity) {
 				const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
@@ -265,11 +272,22 @@
 				this._blurListener = window.addEventListener('blur', () => {
 					this._closeSlidebar();
 				});
+				this._onPopStateListener = window.addEventListener('popstate', (event) => {
+					
+					if (event.state && event.state.href) {
+						if (this.href === event.state.href) {
+							history.back();
+						}
+						this.href = event.state.href;
+						event.preventDefault();
+					}
+				});
 			}
 			disconnectedCallback() {
 				super.disconnectedCallback();
 				window.removeEventListener('blur', this._blurListener);
 				this._blurListener = null;
+				window.removeEventListener('popstate', this._onPopStateListener);
 			}
 			_closeSlidebar() {
 				setTimeout( () => {
