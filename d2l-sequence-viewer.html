@@ -246,14 +246,14 @@
 				}
 
 				// change the current address to display the url of the item being currently viewed.
-				if(history.state) {
-					history.pushState({
-						href: this.href,
-					}, this.title, '?url=' + encodeURIComponent(this.href) || '');
+				const stateObject = {
+					href: this.href,
+					app: D2LSequenceViewer.is
+				};
+				if (history.state && history.state.app === D2LSequenceViewer.is) {
+					history.pushState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');
 				} else {
-					history.replaceState({
-						href: this.href,
-					}, this.title, '?url=' + encodeURIComponent(this.href) || '');	
+					history.replaceState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');
 				}
 
 				document.title = this.title;
@@ -273,7 +273,7 @@
 					this._closeSlidebar();
 				});
 				this._onPopStateListener = window.addEventListener('popstate', (event) => {
-					
+
 					if (event.state && event.state.href) {
 						if (this.href === event.state.href) {
 							history.back();
