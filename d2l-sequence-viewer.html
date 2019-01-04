@@ -206,7 +206,8 @@
 					},
 					title: {
 						type: Object,
-						computed: '_getTitle(entity)'
+						computed: '_getTitle(entity)',
+						observer: '_titleChanged'
 					},
 					getToken: {
 						type: Object,
@@ -227,7 +228,7 @@
 				};
 			}
 			static get observers() {
-				return ['_initialize(entity)'];
+				return ['_pushState(href)'];
 			}
 			ready() {
 				super.ready();
@@ -240,23 +241,24 @@
 					navbarstyles
 				);
 			}
-			_initialize(entity) {
-				if (!entity) {
-					return;
-				}
-
-				// change the current address to display the url of the item being currently viewed.
+			_titleChanged(title) {
+				document.title = title;
+			}
+			_pushState(href) {
 				const stateObject = {
 					href: this.href,
 					app: D2LSequenceViewer.is
 				};
+				// check if history.state belongs to the sequence viewer
 				if (history.state && history.state.app === D2LSequenceViewer.is) {
-					history.pushState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');
+					// check if we've already executed pushState for this topic
+					if (history.state.href !== this.href) {
+						history.pushState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');	
+					}
 				} else {
+					// if it's the first state being pushed by sequence viewer, use replaceState.
 					history.replaceState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');
 				}
-
-				document.title = this.title;
 			}
 			_getBackToContentLink(entity) {
 				const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
@@ -273,11 +275,7 @@
 					this._closeSlidebar();
 				});
 				this._onPopStateListener = window.addEventListener('popstate', (event) => {
-
 					if (event.state && event.state.href) {
-						if (this.href === event.state.href) {
-							history.back();
-						}
 						this.href = event.state.href;
 						event.preventDefault();
 					}
