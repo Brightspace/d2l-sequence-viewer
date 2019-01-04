@@ -246,18 +246,18 @@
 			}
 			_pushState(href) {
 				const stateObject = {
-					href: this.href,
+					href: href,
 					app: D2LSequenceViewer.is
 				};
 				// check if history.state belongs to the sequence viewer
 				if (history.state && history.state.app === D2LSequenceViewer.is) {
 					// check if we've already executed pushState for this topic
-					if (history.state.href !== this.href) {
-						history.pushState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');	
+					if (history.state.href !== href) {
+						history.pushState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
 					}
 				} else {
 					// if it's the first state being pushed by sequence viewer, use replaceState.
-					history.replaceState(stateObject, this.title, '?url=' + encodeURIComponent(this.href) || '');
+					history.replaceState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
 				}
 			}
 			_getBackToContentLink(entity) {
