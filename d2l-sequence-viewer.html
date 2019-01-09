@@ -89,7 +89,7 @@
 					display: block;
 					height: 50px;
 				}
-				
+
 				.d2l-sequence-viewer-navicon-container {
 					height: 50px;
 				}
@@ -129,7 +129,7 @@
 				</d2l-navigation-button-notification-icon>
 			</span>
 			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
-				<d2l-navigation-link-back 
+				<d2l-navigation-link-back
 					text="[[localize('backToContent')]]"
 					on-click="_onClickBack"
 					href="[[backToContentLink]]"
@@ -150,7 +150,6 @@
 						href="[[_rootHref]]"
 						current-activity="{{href}}"
 						token="[[token]]"
-						tabindex="0"
 					></d2l-lesson-header>
 				</span>
 				<span slot="end-of-lesson">
@@ -158,7 +157,6 @@
 						href="[[_sequenceEndHref]]"
 						current-activity="{{href}}"
 						text="[[localize('endOfSequence')]]"
-						tabindex="0"
 					></d2l-sequence-end>
 				</span>
 			</d2l-sequence-navigator>
@@ -318,7 +316,7 @@
 			_getToken(token) {
 				return () => { return Promise.resolve(token); };
 			}
-		
+
 			_toggleSlideSidebar() {
 				this.$.sidebar.classList.toggle('offscreen');
 			}

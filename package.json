@@ -21,7 +21,8 @@
     "build:appconfig": "frau-appconfig-builder",
     "start": "polymer serve",
     "publish:cdn": "frau-publisher",
-    "publish:dev:cdn": "DateStamp=$(date \"+%s\") && frau-appconfig-builder --devtag $DateStamp && frau-publisher --devtag $DateStamp"
+    "publish:dev:cdn": "DateStamp=$(date \"+%s\") && frau-appconfig-builder --devtag $DateStamp && frau-publisher --devtag $DateStamp",
+    "watch": "onchange -v \"*.html\" -- npm.cmd run build"
   },
   "repository": {
     "type": "git",
