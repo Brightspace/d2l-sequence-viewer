@@ -191,6 +191,7 @@
 					href: {
 						type: String,
 						reflectToAttribute: true,
+						observer: '_hrefChanged',
 						notify: true
 					},
 					_rootHref: {
@@ -237,6 +238,9 @@
 				this.updateStyles(
 					navbarstyles
 				);
+			}
+			_hrefChanged(href) {
+				this.$.viewframe.focus();
 			}
 			_titleChanged(title) {
 				document.title = title;
