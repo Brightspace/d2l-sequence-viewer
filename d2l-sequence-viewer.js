@@ -5,6 +5,10 @@ import 'd2l-localize-behavior/d2l-localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-link/d2l-link.js';
+import 'd2l-sequence-navigator/d2l-sequence-navigator.js';
+import 'd2l-sequence-navigator/components/d2l-lesson-header.js';
+import 'd2l-sequence-navigator/components/d2l-sequence-end.js';
+import 'd2l-sequences/components/d2l-sequences-content-router.js';
 import 'd2l-navigation/d2l-navigation-button-notification-icon.js';
 import 'd2l-navigation/d2l-navigation-band.js';
 import 'd2l-navigation/d2l-navigation-link-back.js';
@@ -234,7 +238,7 @@ class D2LSequenceViewer extends mixinBehaviors([
   }
   connectedCallback() {
 	  super.connectedCallback();
-	  this.loadResources(this.resolveUrl('./locales.json'));
+	  this.loadResources(this.resolveUrl('../locales.json'));
 
 	  // For ASV, the blur event is an indicator than an iframe took focus
 	  // from our full-screen application.  Currently, the only thing that
@@ -290,7 +294,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
   _toggleSlideSidebar() {
 	  this.$.sidebar.classList.toggle('offscreen');
-	  this.$.sidebarHeader.shadowRoot.querySelector('a').focus()
+	  this.$.sidebarHeader.shadowRoot.querySelector('a').focus();
   }
   _getRootHref(entity) {
 	  const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');

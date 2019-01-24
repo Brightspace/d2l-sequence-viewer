@@ -10,7 +10,7 @@
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "scripts": {
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
-    "lint": "npm run lint:wc && npm run lint:js",
+    "lint": "npm run lint:js",
     "test": "npm run lint && polymer test --skip-plugin sauce",
     "clean": "rimraf build && rimraf dist",
     "prestart": "gulp && polymer analyze > analysis.json",
@@ -62,7 +62,7 @@
     "browserify": "^16.2.2",
     "chai-dom": "^1.8.0",
     "eslint": "^4.2.0",
-    "eslint-config-brightspace": "^0.3.1",
+    "eslint-config-brightspace": "^0.4.1",
     "eslint-plugin-html": "^3.1.0",
     "frau-appconfig-builder": "^0.1.0",
     "gulp": "4.0.0",
@@ -89,12 +89,15 @@
   "dependencies": {
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-link": "BrightspaceUI/link#semver:^5",
+    "d2l-sequences": "BrightspaceHypermediaComponents/sequences#semver:^1",
+    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "@polymer/iron-a11y-announcer": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
     "siren-entity": "BrightspaceHypermediaComponents/siren-entity#semver:^1",
+    "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1",
     "d2l-navigation": "BrightspaceUI/navigation#semver:^3"
   }
 }

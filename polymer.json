@@ -4,16 +4,12 @@
     "rules": ["polymer-3"],
     "ignoreWarnings": ["non-literal-import", "not-loadable", "set-unknown-attribute", "databind-with-unknown-property","databinding-calls-must-be-functions", "could-not-resolve-reference"]
   },
-  "entrypoint": "d2l-sequence-viewer.html",
-  "shell": "d2l-sequence-viewer.html",
+  "entrypoint": "d2l-sequence-viewer.js",
+  "shell": "d2l-sequence-viewer.js",
   "fragments": [
-    "components/sequence-viewer-header.html"
+    "components/sequence-viewer-header.js"
   ],
   "sources": [
-    "bower.json",
     "locales.json"
-  ],
-  "extraDependencies": [
-    "bower_components/webcomponentsjs/webcomponents-lite.js"
   ]
 }
