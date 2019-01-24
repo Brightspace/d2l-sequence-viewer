@@ -1,7 +1,7 @@
 node_modules
 analysis.json
 .idea
-dist/*
-build/*
+dist
+build
 
 node_modules

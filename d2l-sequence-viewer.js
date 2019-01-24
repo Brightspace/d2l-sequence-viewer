@@ -26,8 +26,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.LocalizeBehavior
 ], PolymerElement) {
-  static get template() {
-	return html`
+	static get template() {
+		return html`
 		<custom-style include="d2l-typography">
 			<style is="custom-style" include="d2l-typography">
 				:host {
@@ -152,157 +152,157 @@ class D2LSequenceViewer extends mixinBehaviors([
 			<d2l-sequences-content-router id="viewer" class="viewer" on-sequences-return-mixin-click-back="_onClickBack" href="{{href}}" token="[[token]]"></d2l-sequences-content-router>
 		</div>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequence-viewer';
-  }
-  static get properties() {
-	  return {
-		  href: {
-			  type: String,
-			  reflectToAttribute: true,
-			  observer: '_hrefChanged',
-			  notify: true
-		  },
-		  _rootHref: {
-			  type: String,
-			  computed: '_getRootHref(entity)'
-		  },
-		  _sequenceEndHref: {
-			  type: String,
-			  computed: '_getSequenceEndHref(entity)'
-		  },
-		  title: {
-			  type: Object,
-			  computed: '_getTitle(entity)',
-			  observer: '_titleChanged'
-		  },
-		  getToken: {
-			  type: Object,
-			  computed: '_getToken(token)'
-		  },
-		  returnUrl: {
-			  type: String
-		  },
-		  // The "back to content home" and "I'm done" buttons
-		  // will take the user to this address.
-		  backToContentLink: {
-			  type: String,
-			  computed: '_getBackToContentLink(entity)'
-		  },
-		  _blurListener: {
-			  type: Object
-		  }
-	  };
-  }
-  static get observers() {
-	  return ['_pushState(href)'];
-  }
-  ready() {
-	  super.ready();
-	  const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-	  const navbarstyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
-	  this.updateStyles(
-		  styles
-	  );
-	  this.updateStyles(
-		  navbarstyles
-	  );
-  }
-  _hrefChanged() {
-	  this.$.viewframe.focus();
-  }
-  _titleChanged(title) {
-	  document.title = title;
-  }
-  _pushState(href) {
-	  const stateObject = {
-		  href: href,
-		  app: D2LSequenceViewer.is
-	  };
-	  // check if history.state belongs to the sequence viewer
-	  if (history.state && history.state.app === D2LSequenceViewer.is) {
-		  // check if we've already executed pushState for this topic
-		  if (history.state.href !== href) {
-			  history.pushState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
-		  }
-	  } else {
-		  // if it's the first state being pushed by sequence viewer, use replaceState.
-		  history.replaceState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
-	  }
-  }
-  _getBackToContentLink(entity) {
-	  const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
-	  return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
-  }
-  connectedCallback() {
-	  super.connectedCallback();
-	  this.loadResources(this.resolveUrl('../locales.json'));
+	static get is() {
+		return 'd2l-sequence-viewer';
+	}
+	static get properties() {
+		return {
+			href: {
+				type: String,
+				reflectToAttribute: true,
+				observer: '_hrefChanged',
+				notify: true
+			},
+			_rootHref: {
+				type: String,
+				computed: '_getRootHref(entity)'
+			},
+			_sequenceEndHref: {
+				type: String,
+				computed: '_getSequenceEndHref(entity)'
+			},
+			title: {
+				type: Object,
+				computed: '_getTitle(entity)',
+				observer: '_titleChanged'
+			},
+			getToken: {
+				type: Object,
+				computed: '_getToken(token)'
+			},
+			returnUrl: {
+				type: String
+			},
+			// The "back to content home" and "I'm done" buttons
+			// will take the user to this address.
+			backToContentLink: {
+				type: String,
+				computed: '_getBackToContentLink(entity)'
+			},
+			_blurListener: {
+				type: Object
+			}
+		};
+	}
+	static get observers() {
+		return ['_pushState(href)'];
+	}
+	ready() {
+		super.ready();
+		const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
+		const navbarstyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		this.updateStyles(
+			styles
+		);
+		this.updateStyles(
+			navbarstyles
+		);
+	}
+	_hrefChanged() {
+		this.$.viewframe.focus();
+	}
+	_titleChanged(title) {
+		document.title = title;
+	}
+	_pushState(href) {
+		const stateObject = {
+			href: href,
+			app: D2LSequenceViewer.is
+		};
+		// check if history.state belongs to the sequence viewer
+		if (history.state && history.state.app === D2LSequenceViewer.is) {
+			// check if we've already executed pushState for this topic
+			if (history.state.href !== href) {
+				history.pushState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
+			}
+		} else {
+			// if it's the first state being pushed by sequence viewer, use replaceState.
+			history.replaceState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
+		}
+	}
+	_getBackToContentLink(entity) {
+		const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
+		return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
+	}
+	connectedCallback() {
+		super.connectedCallback();
+		this.loadResources(this.resolveUrl('../locales.json'));
 
-	  // For ASV, the blur event is an indicator than an iframe took focus
-	  // from our full-screen application.  Currently, the only thing that
-	  // can do this is a content iframe.
-	  this._blurListener = window.addEventListener('blur', () => {
-		  this._closeSlidebar();
-	  });
-	  this._onPopStateListener = window.addEventListener('popstate', (event) => {
-		  if (event.state && event.state.href) {
-			  this.href = event.state.href;
-			  event.preventDefault();
-		  }
-	  });
-  }
-  disconnectedCallback() {
-	  super.disconnectedCallback();
-	  window.removeEventListener('blur', this._blurListener);
-	  this._blurListener = null;
-	  window.removeEventListener('popstate', this._onPopStateListener);
-  }
-  _closeSlidebar() {
-	  setTimeout( () => {
-		  if (document.hasFocus()) {
-			  this.$.sidebar.classList.add('offscreen');
-		  }
-	  }, 1 );
-  }
-  _onClickBack() {
-	  if ( !this.backToContentLink ) {
-		  return;
-	  }
+		// For ASV, the blur event is an indicator than an iframe took focus
+		// from our full-screen application.  Currently, the only thing that
+		// can do this is a content iframe.
+		this._blurListener = window.addEventListener('blur', () => {
+			this._closeSlidebar();
+		});
+		this._onPopStateListener = window.addEventListener('popstate', (event) => {
+			if (event.state && event.state.href) {
+				this.href = event.state.href;
+				event.preventDefault();
+			}
+		});
+	}
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('blur', this._blurListener);
+		this._blurListener = null;
+		window.removeEventListener('popstate', this._onPopStateListener);
+	}
+	_closeSlidebar() {
+		setTimeout(() => {
+			if (document.hasFocus()) {
+				this.$.sidebar.classList.add('offscreen');
+			}
+		}, 1);
+	}
+	_onClickBack() {
+		if (!this.backToContentLink) {
+			return;
+		}
 
-	  if ( window.parent === window ) {
-		  window.location.href = this.backToContentLink;
-		  return;
-	  }
+		if (window.parent === window) {
+			window.location.href = this.backToContentLink;
+			return;
+		}
 
-	  // If we're in an iframe we need to post a message to do the navigation for us
-	  window.parent.postMessage(JSON.stringify({
-		  eventType: 'd2l-sequence-viewer-return',
-		  returnUrl: this.backToContentLink
-	  }), '*');
-  }
-  _onIterate() {
-	  this.$.viewframe.focus();
-  }
-  _getTitle(entity) {
-	  return entity && entity.properties && entity.properties.title || '';
-  }
-  _getToken(token) {
-	  return () => { return Promise.resolve(token); };
-  }
+		// If we're in an iframe we need to post a message to do the navigation for us
+		window.parent.postMessage(JSON.stringify({
+			eventType: 'd2l-sequence-viewer-return',
+			returnUrl: this.backToContentLink
+		}), '*');
+	}
+	_onIterate() {
+		this.$.viewframe.focus();
+	}
+	_getTitle(entity) {
+		return entity && entity.properties && entity.properties.title || '';
+	}
+	_getToken(token) {
+		return () => { return Promise.resolve(token); };
+	}
 
-  _toggleSlideSidebar() {
-	  this.$.sidebar.classList.toggle('offscreen');
-	  this.$.sidebarHeader.shadowRoot.querySelector('a').focus();
-  }
-  _getRootHref(entity) {
-	  const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
-	  return rootLink && rootLink.href || '';
-  }
-  _getSequenceEndHref(entity) {
-	  const rootHref = this._getRootHref(entity);
-	  return rootHref && rootHref + '/end-of-sequence' || '';
-  }
+	_toggleSlideSidebar() {
+		this.$.sidebar.classList.toggle('offscreen');
+		this.$.sidebarHeader.shadowRoot.querySelector('a').focus();
+	}
+	_getRootHref(entity) {
+		const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
+		return rootLink && rootLink.href || '';
+	}
+	_getSequenceEndHref(entity) {
+		const rootHref = this._getRootHref(entity);
+		return rootHref && rootHref + '/end-of-sequence' || '';
+	}
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);

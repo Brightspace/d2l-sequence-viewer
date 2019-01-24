@@ -1,3 +1,4 @@
+/* global require exports */
 const {src, dest} = require('gulp');
 const merge = require('gulp-merge-json');
 const path = require('path');
@@ -11,7 +12,7 @@ function defaultTask() {
 				const lang = path.basename(basename, '.json');
 				return {
 					[lang]: parsedJson
-				}
+				};
 			}
 		}))
 		.pipe(dest('.'));

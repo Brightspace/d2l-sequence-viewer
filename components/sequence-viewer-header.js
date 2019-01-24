@@ -18,13 +18,9 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 * @extends Polymer.mixinBehaviors
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
-class D2LSequenceViewerHeader extends mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior,
-	],
-	PolymerElement
-) {
-  static get template() {
-	return html`
+class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
+	static get template() {
+		return html`
 		<style>
 			:host {
 				display: flex;
@@ -183,32 +179,32 @@ class D2LSequenceViewerHeader extends mixinBehaviors([
 			</div>
 			<div class="pad-side"></div>
 `;
-  }
+	}
 
-  static get is() {
-	  return 'd2l-sequence-viewer-header';
-  }
-  static get properties() {
-	  return {
-		  href: {
-			  type: String,
-			  reflectToAttribute: true,
-			  notify: true
-		  }
-	  };
-  }
-  static get observers() {
-	  return ['_announceTopic(entity)']
-  }
-  connectedCallback() {
-	  super.connectedCallback();
-	  IronA11yAnnouncer.requestAvailability();
-	  this.mode = 'polite';
-  }
-  _announceTopic() {
-	  this.fire('iron-announce', {
-		  text: this.$.topicName.innerText.trim()
-	  });
-  }
+	static get is() {
+		return 'd2l-sequence-viewer-header';
+	}
+	static get properties() {
+		return {
+			href: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			}
+		};
+	}
+	static get observers() {
+		return ['_announceTopic(entity)'];
+	}
+	connectedCallback() {
+		super.connectedCallback();
+		IronA11yAnnouncer.requestAvailability();
+		this.mode = 'polite';
+	}
+	_announceTopic() {
+		this.fire('iron-announce', {
+			text: this.$.topicName.innerText.trim()
+		});
+	}
 }
 customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
