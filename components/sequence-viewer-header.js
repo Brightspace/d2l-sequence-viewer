@@ -1,16 +1,27 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../bower_components/d2l-colors/d2l-colors.html">
-<link rel="import" href="../bower_components/d2l-icons/d2l-icons.html">
-<link rel="import" href="../bower_components/d2l-icons/tier2-icons.html">
-<link rel="import" href="../bower_components/d2l-icons/tier3-icons.html">
-<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-topic-name.html">
-<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-module-name.html">
-<link rel="import" href="../bower_components/d2l-sequences/components/d2l-sequences-iterator.html">
-<link rel="import" href="../bower_components/iron-a11y-announcer/iron-a11y-announcer.html">
-
-<dom-module id="d2l-sequence-viewer-header">
-	<template>
+import '@polymer/polymer/polymer-legacy.js';
+import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
+import 'd2l-colors/d2l-colors.js';
+import 'd2l-icons/d2l-icons.js';
+import 'd2l-icons/tier2-icons.js';
+import 'd2l-icons/tier3-icons.js';
+import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+/**
+* @polymer
+* @customelement
+* @extends Polymer.Element
+* @extends Polymer.mixinBehaviors
+* @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
+*/
+class D2LSequenceViewerHeader extends mixinBehaviors([
+	D2L.PolymerBehaviors.Siren.EntityBehavior,
+	],
+	PolymerElement
+) {
+  static get template() {
+	return html`
 		<style>
 			:host {
 				display: flex;
@@ -149,7 +160,7 @@
 			<div class="pad-side"></div>
 			<div class="pad-mid">
 				<div class="col1"></div>
-					<slot name="d2l-flyout-menu" d2l-flyout-menu class="col2"></slot>
+					<slot name="d2l-flyout-menu" d2l-flyout-menu="" class="col2"></slot>
 				<div class="col3"></div>
 				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col5"></div>
@@ -158,75 +169,43 @@
 				<div class="back-to-module col7">
 					<slot name="d2l-back-to-module"></slot>
 				</div>
-				<d2l-sequences-topic-name
-					id="topicName"
-					class="topic-name col8 hidden-small"
-					href="[[href]]"
-					token="[[token]]"
-					role="heading"
-				></d2l-sequences-topic-name>
+				<d2l-sequences-topic-name id="topicName" class="topic-name col8 hidden-small" href="[[href]]" token="[[token]]" role="heading"></d2l-sequences-topic-name>
 				<div class="col9"></div>
-				<d2l-sequences-iterator
-					class="iterator-icon prev-button col10"
-					href="{{href}}"
-					token="[[token]]"
-					icon="d2l-tier3:chevron-left-circle"
-					previous
-				></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon prev-button col10" href="{{href}}" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous=""></d2l-sequences-iterator>
 				<div class="col11"></div>
 				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col13"></div>
-				<d2l-sequences-iterator
-					class="iterator-icon next-button col14"
-					href="{{href}}"
-					token="[[token]]"
-					icon="d2l-tier3:chevron-right-circle"
-					next
-				></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon next-button col14" href="{{href}}" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next=""></d2l-sequences-iterator>
 				<div class="col15"></div>
 			</div>
 			<div class="pad-side"></div>
-		</template>
+`;
+  }
 
-	<script>
-		/**
-		* @polymer
-		* @customelement
-		* @extends Polymer.Element
-		* @extends Polymer.mixinBehaviors
-		* @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
-		*/
-		class D2LSequenceViewerHeader extends Polymer.mixinBehaviors([
-			D2L.PolymerBehaviors.Siren.EntityBehavior,
-			],
-			Polymer.Element
-		) {
-			static get is() {
-				return 'd2l-sequence-viewer-header';
-			}
-			static get properties() {
-				return {
-					href: {
-						type: String,
-						reflectToAttribute: true,
-						notify: true
-					}
-				};
-			}
-			static get observers() {
-				return ['_announceTopic(entity)']
-			}
-			connectedCallback() {
-				super.connectedCallback();
-				Polymer.IronA11yAnnouncer.requestAvailability();
-				this.mode = 'polite';
-			}
-			_announceTopic() {
-				this.fire('iron-announce', {
-					text: this.$.topicName.innerText.trim()
-				});
-			}
-		}
-		customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
-	</script>
-</dom-module>
+  static get is() {
+	  return 'd2l-sequence-viewer-header';
+  }
+  static get properties() {
+	  return {
+		  href: {
+			  type: String,
+			  reflectToAttribute: true,
+			  notify: true
+		  }
+	  };
+  }
+  static get observers() {
+	  return ['_announceTopic(entity)']
+  }
+  connectedCallback() {
+	  super.connectedCallback();
+	  IronA11yAnnouncer.requestAvailability();
+	  this.mode = 'polite';
+  }
+  _announceTopic() {
+	  this.fire('iron-announce', {
+		  text: this.$.topicName.innerText.trim()
+	  });
+  }
+}
+customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);

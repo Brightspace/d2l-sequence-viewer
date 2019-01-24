@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequence-viewer test</title>
-		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
-		<link rel="import" href="../d2l-sequence-viewer.html">
+		<script type="module" src="../d2l-sequence-viewer.js"></script>
 	</head>
 	<body>
 		<test-fixture id="lesson">
@@ -18,62 +18,62 @@
 			</template>
 		</test-fixture>
 
-		<script>
-			/* global SirenFixture */
-			describe('sequence-viewer-header', () => {
+		<script type="module">
+import '../d2l-sequence-viewer.js';
+/* global SirenFixture */
+describe('sequence-viewer-header', () => {
 
-				let elem;
-				let header;
-				let topicName;
+	let elem;
+	let header;
+	let topicName;
 
-				beforeEach( async() => {
-					elem = await SirenFixture.load('data/m2-activity2.json', fixture('lesson'));
-					header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
-					topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
-				});
+	beforeEach( async() => {
+		elem = await SirenFixture.load('data/m2-activity2.json', fixture('lesson'));
+		header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
+		topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
+	});
 
-				it('should create a header and topic name element', () => {
-					flush(() => {
-						expect(header).to.exist;
-						expect(topicName).to.exist;
-						expect( topicName.shadowRoot ).to.have.text('Zombies');
-					});
-				});
+	it('should create a header and topic name element', () => {
+		flush(() => {
+			expect(header).to.exist;
+			expect(topicName).to.exist;
+			expect( topicName.shadowRoot ).to.have.text('Zombies');
+		});
+	});
 
-				it('should have a functional prev button', () => {
-					flush(() => {
-						const prevBtn = header.shadowRoot.querySelector('.prev-button d2l-navigation-button-notification-icon');
-						expect(prevBtn).to.exist;
-						prevBtn.click();
-						expect(prevBtn.disabled).to.be.true;
-						expect(topicName.shadowRoot).to.have.text('HTML Sample');
-					});
-				});
+	it('should have a functional prev button', () => {
+		flush(() => {
+			const prevBtn = header.shadowRoot.querySelector('.prev-button d2l-navigation-button-notification-icon');
+			expect(prevBtn).to.exist;
+			prevBtn.click();
+			expect(prevBtn.disabled).to.be.true;
+			expect(topicName.shadowRoot).to.have.text('HTML Sample');
+		});
+	});
 
-				it('should have a functional next button', () => {
-					flush(() => {
-						const nextBtn = header.shadowRoot.querySelector('.next-button d2l-navigation-button-notification-icon');
-						expect(nextBtn).to.exist;
-						nextBtn.click();
-						nextBtn.click();
-						nextBtn.click();
-						nextBtn.click();
-						expect(nextBtn.disabled).to.be.true;
-						expect(topicName.shadowRoot).to.have.text('Google Optional Topic');
-					});
-				});
+	it('should have a functional next button', () => {
+		flush(() => {
+			const nextBtn = header.shadowRoot.querySelector('.next-button d2l-navigation-button-notification-icon');
+			expect(nextBtn).to.exist;
+			nextBtn.click();
+			nextBtn.click();
+			nextBtn.click();
+			nextBtn.click();
+			expect(nextBtn.disabled).to.be.true;
+			expect(topicName.shadowRoot).to.have.text('Google Optional Topic');
+		});
+	});
 
-				it('should have a functional back button', () => {
-					flush(() => {
-						const backBtn = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
-						expect(backBtn).to.exist;
-						backBtn.click();
-						expect( topicName.shadowRoot ).to.have.text('Module 2');
-					});
-				});
+	it('should have a functional back button', () => {
+		flush(() => {
+			const backBtn = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
+			expect(backBtn).to.exist;
+			backBtn.click();
+			expect( topicName.shadowRoot ).to.have.text('Module 2');
+		});
+	});
 
-			});
-			
-		</script>
+});
+</script>
 	</body>
 </html>

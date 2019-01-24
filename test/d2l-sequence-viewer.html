@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequence-viewer test</title>
-		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/chai-dom/chai-dom.js"></script>
-		<link rel="import" href="../d2l-sequence-viewer.html">
+		<script type="module" src="../d2l-sequence-viewer.js"></script>
 	</head>
 	<body>
 		<test-fixture id="basic">
@@ -22,85 +22,85 @@
 			</template>
 		</test-fixture>
 
-		<script>
-			describe('d2l-sequence-viewer', () => {
+		<script type="module">
+import '../d2l-sequence-viewer.js';
+describe('d2l-sequence-viewer', () => {
 
-				let elem;
+	let elem;
 
-				describe('render', () => {
+	describe('render', () => {
 
-					beforeEach( async() => {
-						elem = await fixture('basic');
-					});
+		beforeEach( async() => {
+			elem = await fixture('basic');
+		});
 
-					it('should instantiate the element', () => {
-						expect(elem).to.have.attribute('href', 'data/unit1.json');
-						expect(elem).to.have.attribute('token', 'foo');
-					});
+		it('should instantiate the element', () => {
+			expect(elem).to.have.attribute('href', 'data/unit1.json');
+			expect(elem).to.have.attribute('token', 'foo');
+		});
 
-					describe('sidebar tests', () => {
+		describe('sidebar tests', () => {
 
-						let sidebar;
+			let sidebar;
 
-						beforeEach( () => {
-							sidebar = elem.shadowRoot.querySelector('#sidebar');
-						});
-
-						it('should create sidebar element containing d2l-sequence-navigator', () => {
-							expect( sidebar ).to.exist;
-							expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
-						});
-
-						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', () => {
-							const button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
-							expect( button ).to.exist;
-							expect( sidebar ).to.have.class('offscreen');
-							button.click();
-							expect( sidebar ).not.to.have.class('offscreen');
-							button.click();
-							expect( sidebar ).to.have.class('offscreen');
-						});
-					});
-
-					it('should show the content router component', () => {
-						const contentRouter = elem.shadowRoot.querySelector('.viewer');
-						expect(contentRouter).to.exist;
-					});
-				});
-
-				describe('back button', () => {
-
-					var originalDocumentReferrer;
-
-					beforeEach( function() {
-						// store original value of document.referrer for future use.
-						originalDocumentReferrer = document.referrer;
-						// set document.referrer = '' for purposes of the following tests.
-						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return ''; } } );
-					});
-
-					afterEach( function() {
-						// set document.referrer to its original value after tests are done.
-						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return originalDocumentReferrer; } } );
-					});
-
-					it('should be visible when given return url', () => {
-						elem = fixture('withReturnUrl');
-						const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
-						expect( button ).to.exist;
-					});
-
-					it('should be visible and have a default when no return url given', () => {
-						elem = fixture('basic');
-						const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
-						expect( button ).to.exist;
-						expect( button ).to.have.attribute('href', 'google.ca');
-					}
-					);
-				});
-
+			beforeEach( () => {
+				sidebar = elem.shadowRoot.querySelector('#sidebar');
 			});
 
-		</script>
+			it('should create sidebar element containing d2l-sequence-navigator', () => {
+				expect( sidebar ).to.exist;
+				expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
+			});
+
+			it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', () => {
+				const button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+				expect( button ).to.exist;
+				expect( sidebar ).to.have.class('offscreen');
+				button.click();
+				expect( sidebar ).not.to.have.class('offscreen');
+				button.click();
+				expect( sidebar ).to.have.class('offscreen');
+			});
+		});
+
+		it('should show the content router component', () => {
+			const contentRouter = elem.shadowRoot.querySelector('.viewer');
+			expect(contentRouter).to.exist;
+		});
+	});
+
+	describe('back button', () => {
+
+		var originalDocumentReferrer;
+
+		beforeEach( function() {
+			// store original value of document.referrer for future use.
+			originalDocumentReferrer = document.referrer;
+			// set document.referrer = '' for purposes of the following tests.
+			Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return ''; } } );
+		});
+
+		afterEach( function() {
+			// set document.referrer to its original value after tests are done.
+			Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return originalDocumentReferrer; } } );
+		});
+
+		it('should be visible when given return url', () => {
+			elem = fixture('withReturnUrl');
+			const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+			expect( button ).to.exist;
+		});
+
+		it('should be visible and have a default when no return url given', () => {
+			elem = fixture('basic');
+			const button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+			expect( button ).to.exist;
+			expect( button ).to.have.attribute('href', 'google.ca');
+		}
+		);
+	});
+
+});
+</script>
 	</body>
 </html>

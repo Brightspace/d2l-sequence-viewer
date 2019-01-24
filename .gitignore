@@ -1,8 +1,7 @@
-bower_components*
 node_modules
-bower-*.json
 analysis.json
 .idea
 dist/*
 build/*
-.vscode/*
+
+node_modules

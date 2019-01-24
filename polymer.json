@@ -1,6 +1,7 @@
 {
+  "npm": true,
   "lint": {
-    "rules": ["polymer-2-hybrid"],
+    "rules": ["polymer-3"],
     "ignoreWarnings": ["non-literal-import", "not-loadable", "set-unknown-attribute", "databind-with-unknown-property","databinding-calls-must-be-functions", "could-not-resolve-reference"]
   },
   "entrypoint": "d2l-sequence-viewer.html",
