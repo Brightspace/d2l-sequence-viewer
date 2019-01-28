@@ -7,7 +7,8 @@
   "entrypoint": "d2l-sequence-viewer.js",
   "shell": "d2l-sequence-viewer.js",
   "fragments": [
-    "components/sequence-viewer-header.js"
+    "components/sequence-viewer-header.js",
+    "localize-behavior.js"
   ],
   "sources": [
     "locales.json"

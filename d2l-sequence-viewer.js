@@ -1,7 +1,7 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
-import 'd2l-localize-behavior/d2l-localize-behavior.js';
+import './localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-link/d2l-link.js';
@@ -20,11 +20,11 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 * @polymer
 * @extends Polymer.Element
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
-* @appliesMixin D2L.PolymerBehaviors.LocalizeBehavior
+* @appliesMixin D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
 */
 class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
-	D2L.PolymerBehaviors.LocalizeBehavior
+	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
 ], PolymerElement) {
 	static get template() {
 		return html`
@@ -238,7 +238,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 	connectedCallback() {
 		super.connectedCallback();
-		this.loadResources(this.resolveUrl('../locales.json'));
 
 		// For ASV, the blur event is an indicator than an iframe took focus
 		// from our full-screen application.  Currently, the only thing that
