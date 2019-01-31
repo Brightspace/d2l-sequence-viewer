@@ -170,11 +170,11 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</div>
 				<d2l-sequences-topic-name id="topicName" class="topic-name col8 hidden-small" href="[[href]]" token="[[token]]" role="heading"></d2l-sequences-topic-name>
 				<div class="col9"></div>
-				<d2l-sequences-iterator class="iterator-icon prev-button col10" disabled="[[!previousActivityHref]]" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous=""></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous=""></d2l-sequences-iterator>
 				<div class="col11"></div>
 				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col13"></div>
-				<d2l-sequences-iterator class="iterator-icon next-button col14" disabled="[[!nextActivityHref]]" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next=""></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon next-button col14" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next=""></d2l-sequences-iterator>
 				<div class="col15"></div>
 			</div>
 			<div class="pad-side"></div>
