@@ -100,7 +100,6 @@
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "@polymer/iron-a11y-announcer": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
-    "siren-entity": "BrightspaceHypermediaComponents/siren-entity#semver:^1",
     "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1",
     "d2l-navigation": "BrightspaceUI/navigation#semver:^3"
   }
