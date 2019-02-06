@@ -6,7 +6,7 @@
   },
   "homepage": "https://github.com/Brightspace/sequence-viewer",
   "name": "d2l-sequence-viewer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "scripts": {
     "lint:js": "eslint . --ext .js,.html test/**/*.html demo/**/*.js demo/**/*.html",
