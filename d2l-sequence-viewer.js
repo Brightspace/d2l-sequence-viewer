@@ -66,6 +66,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					z-index: 2;
 				}
 				#sidebar {
+					overflow-y: auto;
 					width: 330px;
 					height: calc(100% + 56px - 5px);
 					position: fixed;
