@@ -156,8 +156,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				}
 			}
 			h1 {
-				font-weight: normal;
-				font-size: 1em;
+				@apply --d2l-body-compact-text;
 			}
 		</style>
 			<div class="pad-side"></div>
