@@ -139,7 +139,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		<d2l-navigation-band></d2l-navigation-band>
 		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate">
 			<span slot="d2l-flyout-menu">
-				<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar">[[localize('toggleNavMenu')]]
+				<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
 				</d2l-navigation-button-notification-icon>
 			</span>
 			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
