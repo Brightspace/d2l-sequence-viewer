@@ -155,6 +155,10 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 					flex: 0 0 15px;
 				}
 			}
+			h1 {
+				font-weight: normal;
+				font-size: 1em;
+			}
 		</style>
 			<div class="pad-side"></div>
 			<div class="pad-mid">
@@ -168,7 +172,11 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				<div class="back-to-module col7">
 					<slot name="d2l-back-to-module"></slot>
 				</div>
-				<d2l-sequences-topic-name id="topicName" class="topic-name col8 hidden-small" href="[[href]]" token="[[token]]" role="heading"></d2l-sequences-topic-name>
+				<div class="topic-name col8 hidden-small">
+				<h1>
+					<d2l-sequences-topic-name id="topicName" href="[[href]]" token="[[token]]"></d2l-sequences-topic-name>
+				</h1>
+				</div>
 				<div class="col9"></div>
 				<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous=""></d2l-sequences-iterator>
 				<div class="col11"></div>
