@@ -122,7 +122,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 			}
 			@media(max-width: 720px) {
 				.hidden-small {
-					visibility: hidden;
+					display: none;
 				}
 				.col1 {
 					flex: 0 0 25px;
@@ -138,6 +138,9 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				}
 				.col6 {
 					flex: 0 0 0px;
+				}
+				.col7{
+					flex: 0 0 125px;
 				}
 				.col8 {
 					flex: 1 1 0px;
