@@ -91,6 +91,7 @@
   },
   "main": "d2l-sequence-viewer.js",
   "dependencies": {
+    "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-link": "BrightspaceUI/link#semver:^5",
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences#semver:^1",

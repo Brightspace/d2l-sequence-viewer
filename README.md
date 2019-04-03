@@ -4,12 +4,6 @@
 
 [Polymer](https://www.polymer-project.org)-based web component for D2L sequence-viewer.
 
-## Installation
-
-```shell
-bower install d2l-sequence-viewer
-```
-
 ## Usage
 
 ## Developing, Testing and Contributing

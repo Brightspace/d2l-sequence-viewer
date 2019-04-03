@@ -20,6 +20,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 /*
 * @polymer
+* @customElement
 * @extends Polymer.Element
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 * @appliesMixin D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
@@ -79,7 +80,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					transition: margin-left 0.5s;
 					padding-left: 25px;
 				}
-				
+
 				#sidebar.offscreen {
 					margin-left: -475px;
 				}
@@ -131,7 +132,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				@media(max-width: 405px) {
 					#sidebar {
 						width: calc(100% - 25px);
-					} 
+					}
 				}
 			</style>
 		</custom-style>
@@ -196,8 +197,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			returnUrl: {
 				type: String
 			},
-			// The "back to content home" and "I'm done" buttons
-			// will take the user to this address.
+			/* The "back to content home" and "I'm done" buttons
+			 * will take the user to this address.
+			 */
 			backToContentLink: {
 				type: String,
 				computed: '_getBackToContentLink(entity)'
@@ -298,6 +300,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	_getTitle(entity) {
 		return entity && entity.properties && entity.properties.title || '';
 	}
+	//function for refetching the jwt token
 	_getToken(token) {
 		return () => { return Promise.resolve(token); };
 	}
