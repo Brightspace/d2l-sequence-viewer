@@ -2,7 +2,7 @@
 
 # d2l-sequence-viewer
 
-[Polymer](https://www.polymer-project.org)-based web component for D2L sequence-viewer.
+[Polymer](https://www.polymer-project.org)-based web component for viewing sequences in Brightspace.
 
 ## Usage
 
@@ -49,15 +49,17 @@ npm test
 
 ## Integrating d2l-sequence-viewer into Brightspace
 
-1.  Follow the steps in ([brightspace-integration]https://github.com/Brightspace/brightspace-integration) to clone your own local copy of bsi. (Be sure to follow the instructions to update `D2L.LP.Web.UI.Html.Bsi.config.json`)
+1.  Follow the steps in [brightspace-integration](https://github.com/Brightspace/brightspace-integration) to clone your own local copy of bsi. (Be sure to follow the instructions to update `D2L.LP.Web.UI.Html.Bsi.config.json`)
 
 2.  Navigate to the Config Variable Browser found in the Brightspace Admin Tools gear menu and enable the following feature:
-```
-d2l.Tools.SequenceViewer.EnableLearnerExperience
-```
+`d2l.Tools.SequenceViewer.EnableLearnerExperience`
 
 3.  Run npm link in your `d2l-sequence-viewer` folder to add your local sequence viewer to the npm registry.
 
-4.  Run ```shell npm link d2l-sequence-viewer``` in your `brightspace-integration` folder to link bsi to your local sequence viewer.
+4.  Run
+	```shell
+	npm link d2l-sequence-viewer
+	```
+	in your `brightspace-integration` folder to link bsi to your local sequence viewer.
 
 5.  Login as a student in your Brightspace OrgUnit and navigate to a topic
