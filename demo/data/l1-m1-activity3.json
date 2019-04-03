@@ -113,7 +113,7 @@
 					],
 					"actions": [
 						{
-							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/114551/completion",
+							"href": "",
 							"name": "mark-as-complete",
 							"method": "POST"
 						}

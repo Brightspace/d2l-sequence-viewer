@@ -82,16 +82,6 @@
 				}
 			],
 			"actions": [
-				{
-					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104499/view",
-					"name": "view-activity",
-					"method": "POST"
-				},
-				{
-					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104499/view",
-					"name": "view-activity-duration",
-					"method": "PUT"
-				}
 			],
 			"links": [
 				{
