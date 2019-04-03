@@ -93,9 +93,11 @@
   "dependencies": {
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
+    "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-link": "BrightspaceUI/link#semver:^5",
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences#semver:^1",
     "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
+    "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
