@@ -49,25 +49,15 @@ npm test
 
 ## Integrating d2l-sequence-viewer into Brightspace
 
-1.  Login to [Launch Darkly](https://app.launchdarkly.com/default/test/features/enhanced-asv/targetting), find the `enhanced-asv` flag and add your Brightspace tenantid to the list.
+1.  Follow the steps in ([brightspace-integration]https://github.com/Brightspace/brightspace-integration) to clone your own local copy of bsi. (Be sure to follow the instructions to update `D2L.LP.Web.UI.Html.Bsi.config.json`)
 
 2.  Navigate to the Config Variable Browser found in the Brightspace Admin Tools gear menu and enable the following feature:
 ```
 d2l.Tools.SequenceViewer.EnableLearnerExperience
 ```
 
-3.  Open the Free-Range App Manager found in the Brightspace Admin Tools gear menu
+3.  Run npm link in your `d2l-sequence-viewer` folder to add your local sequence viewer to the npm registry.
 
-4.  Search for the FRA key: `urn:d2l:fra:class:enhanced-sequence-viewer`
+4.  Run ```shell npm link d2l-sequence-viewer``` in your `brightspace-integration` folder to link bsi to your local sequence viewer.
 
-5.  Override the current location to the latested published FRA location on the CDN.  For instance:
-`https://s.brightspace.com/apps/d2l-sequence-viewer/dev/c7da0c347c035a952d8b5ba7bc36b71dc3ab56c5/appconfig.json`
-
-6.  Login as a student in your Brightspace OrgUnit and navigate to a topic
-
-
-### Optional Steps For integrating to a local development instance
-
-7.  Clone the [lp-devappregistry-config](https://git.dev.d2l/projects/CORE/repos/lp-devappregistry-config/browse) into your instance's _checkout_ directory.
-
-8.  Perform a full build
+5.  Login as a student in your Brightspace OrgUnit and navigate to a topic
