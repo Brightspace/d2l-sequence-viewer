@@ -1,7 +1,7 @@
 {
    "activity" : "Activité",
-   "backToContent" : "Retour à Contenu",
-   "endOfSequence" : "Fin de l'unité",
+   "backToContent" : "Retour au contenu",
+   "endOfSequence" : "Fin de l’unité",
    "goBack" : "Retour",
-   "toggleNavMenu" : "Faire paraître la barre latérale de navigation"
+   "toggleNavMenu" : "Activer/Désactiver la barre de navigation latérale coulissante"
 }
