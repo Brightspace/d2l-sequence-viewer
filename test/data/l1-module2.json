@@ -1,6 +1,7 @@
 {
 	"properties": {
-		"title": "Module 2"
+		"title": "Module 2",
+		"sideNavOpen": true
 	},
 	"entities": [
 		{
