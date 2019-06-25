@@ -239,7 +239,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		if (!entity || this._loaded) {
 			return;
 		}
-		// topic entoity
+		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up');
 			const result = await window.D2L.Siren.EntityStore.fetch(moduleLink, this.token);
