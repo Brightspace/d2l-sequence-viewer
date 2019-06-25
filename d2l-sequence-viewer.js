@@ -234,17 +234,24 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	}
 
-	_onEntityChanged(entity) {
+	async _onEntityChanged(entity) {
 		//entity is null or not first time loading the page
 		if (!entity || this._loaded) {
 			return;
 		}
-
-		if (entity && entity.properties) {
-			this.mEntity = entity; //set entity so updateNavStatus can use the correct entity
+		// topic entoity
+		if (entity.hasClass('sequenced-activity')) {
+			const moduleLink = entity.getLinkByRel('up');
+			const result = await window.D2L.Siren.EntityStore.fetch(moduleLink, this.token);
+			if (result && result.entity && result.entity.properties) {
+				this.mEntity = result.entity;
+				this._loaded = true;
+			}
+		} else {
+			this.mEntity = entity;
 			this._loaded = true;
 			if (entity.properties.sideNavOpen) {
-				this._sideBarOpen(entity);
+				this._sideBarOpen();
 			}
 		}
 	}
@@ -335,7 +342,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 		} else {
 			this._sideBarClose();
 		}
-		this._updateSideBarStatus(this.mEntity);
 	}
 	_getRootHref(entity) {
 		const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
@@ -365,23 +371,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth > 929) {
 			this.$.viewframe.style.marginLeft = '437px';
-		}
-		else {
-			this.$.viewframe.style.marginLeft = '0px';
+		} else {
+			this.$.viewframe.style.marginLeft = 'auto';
 		}
 		this.$.sidebar.classList.remove('offscreen');
+
 	}
 
 	_sideBarClose() {
 		this.$.sidebar.classList.add('offscreen');
-		this.$.viewframe.style.marginLeft = '0px';
+		this.$.viewframe.style.marginLeft = 'auto';
 	}
 
-	_updateSideBarStatus() {
-		if (this.mEntity && this.mEntity.getActionByName('set-side-nav-status')) {
-			const action = this.mEntity.getActionByName('set-side-nav-status');
-			this.performSirenAction(action);
-		}
-	}
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
