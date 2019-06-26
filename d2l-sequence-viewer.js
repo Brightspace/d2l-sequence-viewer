@@ -373,16 +373,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth - offsetWidth > 929) {
 			this.$.viewframe.style.marginLeft = marginLeft;
+			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		} else {
 			this.$.viewframe.style.marginLeft = 'auto';
+			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
 	}
 
 	_sideBarClose() {
+		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
 		this.$.sidebar.classList.add('offscreen');
 		this.$.viewframe.style.marginLeft = 'auto';
+		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 	}
 
 }
