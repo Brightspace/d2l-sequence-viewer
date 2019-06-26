@@ -212,10 +212,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: String,
 				computed: '_getBackToContentLink(entity)'
 			},
-			_blurListener: {
-				type: Object
-			},
 			_loaded: Boolean,
+			_blurListener: Function,
+			_onPopStateListener: Function,
+			_resizeNavListener: Function
 		};
 	}
 	static get observers() {
@@ -231,7 +231,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.updateStyles(
 			navbarstyles
 		);
-
+		this._resizeNavListener = this._resizeSideBar.bind(this);
+		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
+		this._onPopStateListener = this._onPopState.bind(this);
 	}
 
 	async _onEntityChanged(entity) {
@@ -287,29 +289,15 @@ class D2LSequenceViewer extends mixinBehaviors([
 		// For ASV, the blur event is an indicator than an iframe took focus
 		// from our full-screen application.  Currently, the only thing that
 		// can do this is a content iframe.
-		this._blurListener = window.addEventListener('blur', () => {
-			this._closeSlidebarOnFocusContent();
-		});
-		this._onPopStateListener = window.addEventListener('popstate', (event) => {
-			if (event.state && event.state.href) {
-				this.href = event.state.href;
-				event.preventDefault();
-			}
-		});
-		this.resizeWindow = window.addEventListener('resize', () => {
-			if (this.$.sidebar.classList.contains('offscreen')) {
-				this._sideBarClose();
-			} else {
-				this._sideBarOpen();
-			}
-		});
+		window.addEventListener('blur', this._blurListener);
+		window.addEventListener('popstate', this._onPopStateListener);
+		window.addEventListener('resize', this._resizeNavListener);
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		window.removeEventListener('blur', this._blurListener);
-		this._blurListener = null;
 		window.removeEventListener('popstate', this._onPopStateListener);
-		window.removeEventListener('resize', this.resizeWindow);
+		window.removeEventListener('resize', this._resizeNavListener);
 	}
 	_closeSlidebarOnFocusContent() {
 		setTimeout(() => {
@@ -317,6 +305,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 				this._sideBarClose();
 			}
 		}, 1);
+	}
+	_onPopState(event) {
+		if (event.state && event.state.href) {
+			this.href = event.state.href;
+			event.preventDefault();
+		}
 	}
 	_onClickBack() {
 		if (!this.backToContentLink) {
@@ -395,6 +389,14 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.sidebar.classList.add('offscreen');
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
+	}
+
+	_resizeSideBar() {
+		if (this.$.sidebar.classList.contains('offscreen')) {
+			this._sideBarClose();
+		} else {
+			this._sideBarOpen();
+		}
 	}
 
 }
