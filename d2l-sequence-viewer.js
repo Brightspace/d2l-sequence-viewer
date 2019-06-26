@@ -296,12 +296,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 				event.preventDefault();
 			}
 		});
+		this.resizeWindow = window.addEventListener('resize', () => {
+			if (this.$.sidebar.classList.contains('offscreen')) {
+				this._sideBarClose();
+			} else {
+				this._sideBarOpen();
+			}
+		});
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		window.removeEventListener('blur', this._blurListener);
 		this._blurListener = null;
 		window.removeEventListener('popstate', this._onPopStateListener);
+		window.removeEventListener('resize', this.resizeWindow);
 	}
 	_closeSlidebarOnFocusContent() {
 		setTimeout(() => {
