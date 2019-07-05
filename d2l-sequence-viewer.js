@@ -158,7 +158,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 		<div id="sidebar" class="offscreen">
 			<d2l-sequence-navigator href="{{href}}" token="[[token]]" role="navigation">
 				<span slot="lesson-header">
-					<d2l-lesson-header id="sidebarHeader" href="[[_rootHref]]" current-activity="{{href}}" token="[[token]]"></d2l-lesson-header>
+					<d2l-lesson-header id="sidebarHeader"
+									   href="[[_rootHref]]"
+									   current-activity="{{href}}"
+									   moduleProperties="[[_moduleProperties]]"
+									   token="[[token]]">
+					</d2l-lesson-header>
 				</span>
 				<span slot="end-of-lesson">
 					<d2l-sequence-end href="[[_sequenceEndHref]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
@@ -201,6 +206,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 			},
 			mEntity:{
 				type: Object
+			},
+			_moduleProperties: {
+				type: Object,
+				computed: '_getModuleProperties(mEntity)'
 			},
 			returnUrl: {
 				type: String
@@ -366,6 +375,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		if (action) {
 			this.performSirenAction(action);
 		}
+	}
+
+	_getModuleProperties(mEntity) {
+		return mEntity && mEntity.properties;
 	}
 
 	_sideBarOpen() {
