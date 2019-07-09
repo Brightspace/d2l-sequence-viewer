@@ -6,7 +6,7 @@
   },
   "homepage": "https://github.com/Brightspace/sequence-viewer",
   "name": "d2l-sequence-viewer",
-  "version": "1.0.10",
+  "version": "1.3.5",
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "scripts": {
     "lint:js": "eslint . --ext .js,.html test/**/*.html demo/**/*.js demo/**/*.html",
@@ -91,18 +91,18 @@
   },
   "main": "d2l-sequence-viewer.js",
   "dependencies": {
+    "@polymer/iron-a11y-announcer": "^3.0.0",
+    "@polymer/polymer": "^3.0.0",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-link": "BrightspaceUI/link#semver:^5",
-    "d2l-sequences": "BrightspaceHypermediaComponents/sequences#semver:^1",
-    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
+    "d2l-navigation": "BrightspaceUI/navigation#semver:^3",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
+    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
+    "d2l-sequences": "github:BrightspaceHypermediaComponents/sequences#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
-    "@polymer/iron-a11y-announcer": "^3.0.0",
-    "@polymer/polymer": "^3.0.0",
-    "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1",
-    "d2l-navigation": "BrightspaceUI/navigation#semver:^3"
+    "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1"
   }
 }
