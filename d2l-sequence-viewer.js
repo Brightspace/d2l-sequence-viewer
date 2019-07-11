@@ -161,7 +161,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					<d2l-lesson-header id="sidebarHeader"
 									   href="[[_rootHref]]"
 									   current-activity="{{href}}"
-									   moduleProperties="[[_moduleProperties]]"
+									   module-properties="[[_moduleProperties]]"
 									   token="[[token]]">
 					</d2l-lesson-header>
 				</span>
