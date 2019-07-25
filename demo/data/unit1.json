@@ -4,7 +4,9 @@
 		"sequence-description"
 	],
 	"properties": {
-		"title": "Unit 1 has a very very very very very very very very long name"
+		"title": "Unit 1 has a very very very very very very very very long name",
+		"moduleIndex": 1,
+		"numberOfSiblingModules": 2
 	},
 	"entities": [
 		{
@@ -69,7 +71,7 @@
 			"rel": [
 				"https://api.brightspace.com/rels/organization"
 			],
-			"href": "data/sample2.json"
+			"href": "dummy"
 		},
 		{
 			"rel": [
@@ -87,7 +89,7 @@
 			"rel": [
 				"up"
 			],
-			"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187"
+			"href": "data/sample2.json"
 		},
 		{
 			"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],

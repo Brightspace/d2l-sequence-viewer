@@ -6,7 +6,7 @@
   },
   "homepage": "https://github.com/Brightspace/sequence-viewer",
   "name": "d2l-sequence-viewer",
-  "version": "1.3.6",
+  "version": "1.3.9",
   "appId": "urn:d2l:fra:class:sequence-viewer",
   "scripts": {
     "lint:js": "eslint . --ext .js,.html test/**/*.html demo/**/*.js demo/**/*.html",
@@ -100,7 +100,7 @@
     "d2l-navigation": "BrightspaceUI/navigation#semver:^3",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
-    "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
+    "d2l-sequence-navigator": "github:BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-sequences": "github:BrightspaceHypermediaComponents/sequences#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1"
