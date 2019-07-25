@@ -421,7 +421,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		const maxWidth = 1170;
 		const sidebarWidth = Math.round((this.offsetWidth <= maxWidth ? this.offsetWidth : maxWidth) / 3);
 		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		const marginLeft = String(sidebarWidth + offsetWidth) + 'px';
+		const marginLeft = `${sidebarWidth + offsetWidth}px`;
 		if (this.mEntity && this.mEntity.properties
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth - offsetWidth > 929) {
