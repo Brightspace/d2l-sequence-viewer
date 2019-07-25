@@ -93,8 +93,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 					overflow-y: auto;
 				}
 				.viewframe {
-					padding: 0 30px;
-					height: calc(100vh - 40px - 8px - 4px);
+					padding: 24px 30px 0 30px;
+					height: calc(100vh - 40px - 8px - 4px - 24px);
 					max-width: var(--viewer-max-width);
 					margin: auto;
 					-webkit-transition: all 0.4s ease-in-out;
@@ -136,7 +136,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 						padding: 0 24px;
 					}
 					.viewframe {
-						padding: 0 24px;
+						padding: 18px 24px 0 24px;
+						height: calc(100vh - 40px - 8px - 4px - 18px);
 					}
 				}
 				@media(max-width: 767px) {
@@ -144,7 +145,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 						padding: 0 18px;
 					}
 					.viewframe {
-						padding: 0 18px;
+						padding: 18px 18px 0 18px;
 					}
 				}
 				@media(max-width: 405px) {
@@ -395,12 +396,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_sideBarOpen() {
-		console.log(`offsetWidth: ${this.offsetWidth}`);
-		const maxWidth = 1173;
+		const maxWidth = 1170;
 		const sidebarWidth = Math.round((this.offsetWidth <= maxWidth ? this.offsetWidth : maxWidth) / 3);
 		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
 		const marginLeft = String(sidebarWidth + offsetWidth) + 'px';
-		console.log(`sidebarWidth: ${sidebarWidth}`);
 		if (this.mEntity && this.mEntity.properties
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth - offsetWidth > 929) {
