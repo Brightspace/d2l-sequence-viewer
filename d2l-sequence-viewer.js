@@ -174,7 +174,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					<d2l-lesson-header id="sidebarHeader"
 									   href="[[_rootHref]]"
 									   current-activity="{{href}}"
-									   moduleProperties="[[_moduleProperties]]"
+									   module-properties="[[_moduleProperties]]"
 									   token="[[token]]">
 					</d2l-lesson-header>
 				</span>
@@ -222,7 +222,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			},
 			_moduleProperties: {
 				type: Object,
-				computed: '_getModuleProperties(mEntity)'
+				value: function() {
+					return {};
+				}
 			},
 			returnUrl: {
 				type: String
@@ -278,6 +280,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 				this._sideBarOpen();
 			}
 		}
+
+		this._setModuleProperties(entity);
 	}
 	_hrefChanged() {
 		this.$.viewframe.focus();
@@ -390,8 +394,26 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 	}
 
-	_getModuleProperties(mEntity) {
-		return mEntity && mEntity.properties;
+	async _setModuleProperties(entity) {
+		let currEntity = entity;
+		let prevEntity, response;
+		let upLink = (currEntity.getLinkByRel('up') || {}).href;
+		let orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
+
+		while (upLink && orgLink && upLink !== orgLink) {
+			prevEntity = currEntity;
+			response = await window.D2L.Siren.EntityStore.fetch(upLink, this.token);
+			currEntity = response.entity;
+			upLink = (currEntity.getLinkByRel('up') || {}).href;
+			orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
+		}
+		const properties = {};
+		if (prevEntity) {
+			Object.assign(properties, prevEntity.properties);
+		}
+
+		properties.title = currEntity.properties.title;
+		this._moduleProperties = properties;
 	}
 
 	_sideBarOpen() {
