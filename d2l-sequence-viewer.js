@@ -79,7 +79,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 					background: white;
 					left: calc(var(--sidebar-position) - 25px);
 					transition: margin-left 0.5s;
-					padding-left: 25px;
 					display: flex;
 				}
 
@@ -120,7 +119,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 				d2l-sequence-navigator {
 					flex: 1;
-					padding-right: 30px;
+					padding: 0 30px;
 				}
 
 				@media(max-width: 1220px) {
@@ -134,7 +133,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 						width: 310px;
 					}
 					d2l-sequence-navigator {
-						padding-right: 24px;
+						padding: 0 24px;
 					}
 					.viewframe {
 						padding: 0 24px;
@@ -142,7 +141,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 				@media(max-width: 767px) {
 					d2l-sequence-navigator {
-						padding-right: 18px;
+						padding: 0 18px;
 					}
 					.viewframe {
 						padding: 0 18px;
@@ -396,18 +395,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_sideBarOpen() {
-		const sidebarWidth = Math.round(this.offsetWidth / 3);
+		console.log(`offsetWidth: ${this.offsetWidth}`);
+		const maxWidth = 1173;
+		const sidebarWidth = Math.round((this.offsetWidth <= maxWidth ? this.offsetWidth : maxWidth) / 3);
 		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		const marginLeft = String(sidebarWidth + offsetWidth + 30) + 'px';
+		const marginLeft = String(sidebarWidth + offsetWidth) + 'px';
 		console.log(`sidebarWidth: ${sidebarWidth}`);
 		if (this.mEntity && this.mEntity.properties
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth - offsetWidth > 929) {
-			this.$.sidebar.style.width = sidebarWidth;
+			this.$$('#sidebar').style.width = sidebarWidth + 'px';
 			this.$.viewframe.style.marginLeft = marginLeft;
 			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		} else {
-			this.$.sidebar.style.width = '310px';
+			this.$$('#sidebar').style.width = '310px';
 			this.$.viewframe.style.marginLeft = 'auto';
 			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		}
