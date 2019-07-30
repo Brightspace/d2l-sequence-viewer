@@ -12,5 +12,12 @@
   ],
   "sources": [
     "locales.json"
-  ]
+  ],
+  "builds": [{
+    "bundle": {
+      "inlineCss": true,
+      "inlineScripts": true,
+      "stripComments": true
+    }
+  }]
 }
