@@ -401,6 +401,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 		let prevEntity, response;
 		let upLink = (currEntity.getLinkByRel('up') || {}).href;
 		let orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
+		let i = 0;
+		console.log(`Iteration ${i}:`);
+		console.log(`currEntity: ${currEntity.properties}`);
+		console.log(`upLink: ${upLink}`);
+		console.log(`orgLink: ${orgLink}`);
 
 		while (upLink && orgLink && upLink !== orgLink) {
 			prevEntity = currEntity;
@@ -408,6 +413,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 			currEntity = response.entity;
 			upLink = (currEntity.getLinkByRel('up') || {}).href;
 			orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
+			console.log(`Iteration ${++i}:`);
+			console.log(`currEntity: ${currEntity.properties}`);
+			console.log(`prevEntity: ${prevEntity.properties}`);
+			console.log(`upLink: ${upLink}`);
+			console.log(`orgLink: ${orgLink}`);
 		}
 		const properties = {};
 		if (prevEntity) {
