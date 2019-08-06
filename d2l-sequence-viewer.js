@@ -409,6 +409,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 		while (upLink && orgLink && upLink !== orgLink) {
 			prevEntity = currEntity;
+			console.log(`upLink without embed param: ${this._removeEmbedParam(upLink)}`);
 			response = await window.D2L.Siren.EntityStore.fetch(this._removeEmbedParam(upLink), this.token);
 			currEntity = response.entity;
 			upLink = (currEntity.getLinkByRel('up') || {}).href;
