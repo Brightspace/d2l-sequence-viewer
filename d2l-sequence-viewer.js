@@ -426,6 +426,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 		properties.title = currEntity.properties.title;
 		this._moduleProperties = properties;
+		console.log(`final result: ${this._moduleProperties}`);
 	}
 
 	_removeEmbedParam(url) {
