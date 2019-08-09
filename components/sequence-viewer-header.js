@@ -227,11 +227,13 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 
 	_getNextActivityHref(entity) {
 		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
+		console.log(`Next Activity for ${((entity || {}).properties || {}).title}: ${nextActivityHref.href}`);
 		return nextActivityHref.href || null;
 	}
 
 	_getPreviousActivityHref(entity) {
 		const previousActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
+		console.log(`Previous Activity for ${((entity || {}).properties || {}).title}: ${previousActivityHref.href}`);
 		return previousActivityHref.href || null;
 	}
 
