@@ -399,44 +399,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	async _setModuleProperties(entity) {
 		let currEntity = entity;
-		let prevEntity, response;
+		let response;
 		let upLink = (currEntity.getLinkByRel('up') || {}).href;
-		let orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
 
-		while (upLink && orgLink && upLink !== orgLink) {
-			prevEntity = currEntity;
-			response = await window.D2L.Siren.EntityStore.fetch(this._removeEmbedParam(upLink), this.token);
+		while (upLink && upLink.includes('activity')) {
+			response = await window.D2L.Siren.EntityStore.fetch(upLink, this.token);
 			currEntity = response.entity;
 			upLink = (currEntity.getLinkByRel('up') || {}).href;
-			orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
 		}
 		const properties = {};
-		if (prevEntity) {
-			Object.assign(properties, prevEntity.properties);
-		}
-
-		properties.title = currEntity.properties.title;
+		Object.assign(properties, currEntity.properties);
+		properties.title = properties.courseName;
 		this._moduleProperties = properties;
-	}
-
-	_removeEmbedParam(url) {
-		const urlparts = url.split('?');
-		if (urlparts.length >= 2) {
-
-			const prefix = encodeURIComponent('deepEmbedEntities') + '=';
-			const pars = urlparts[1].split(/[&;]/g);
-
-			//reverse iteration as may be destructive
-			for (let i = pars.length; i-- > 0;) {
-				//idiom for string.startsWith
-				if (pars[i].lastIndexOf(prefix, 0) !== -1) {
-					pars.splice(i, 1);
-				}
-			}
-
-			return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
-		}
-		return url;
 	}
 
 	_sideBarOpen() {
