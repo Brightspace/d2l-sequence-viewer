@@ -9,6 +9,7 @@ import 'd2l-sequences/components/d2l-sequences-iterator.js';
 import 'd2l-sequences/components/d2l-sequences-topic-name.js';
 import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 /**
 * @polymer
@@ -17,7 +18,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 * @extends Polymer.mixinBehaviors
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
-class D2LSequenceViewerHeader extends PolymerElement {
+class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
 	static get template() {
 		return html`
 		<style>
@@ -200,14 +201,6 @@ class D2LSequenceViewerHeader extends PolymerElement {
 				reflectToAttribute: true,
 				notify: true
 			},
-			entity: {
-				type: Object,
-				value: null,
-				notify: true
-			},
-			token: {
-				type: Object
-			},
 			nextActivityHref: {
 				type: String,
 				computed: '_getNextActivityHref(entity)'
@@ -226,16 +219,19 @@ class D2LSequenceViewerHeader extends PolymerElement {
 		IronA11yAnnouncer.requestAvailability();
 		this.mode = 'polite';
 	}
+	_announceTopic() {
+		this.fire('iron-announce', {
+			text: this.$.topicName.innerText.trim()
+		});
+	}
 
 	_getNextActivityHref(entity) {
 		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
-		console.log(`Next Activity for ${JSON.stringify(((entity || {}).properties || {}).title)}:\n\n${nextActivityHref.href}\n\nLinks: ${JSON.stringify((entity || {}).links)}`);
 		return nextActivityHref.href || null;
 	}
 
 	_getPreviousActivityHref(entity) {
 		const previousActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
-		console.log(`Previous Activity for ${JSON.stringify(((entity || {}).properties || {}).title)}:\n\n${previousActivityHref.href}\n\nLinks: ${JSON.stringify((entity || {}).links)}`);
 		return previousActivityHref.href || null;
 	}
 
