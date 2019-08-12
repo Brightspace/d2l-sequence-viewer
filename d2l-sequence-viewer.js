@@ -86,10 +86,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 					margin-left: -475px;
 				}
 				.viewer {
-					position: relative;
+					position: absolute;
+					padding-top: 5px;
 					top: 56px;
 					bottom: 0px;
-					width: 100%;
+					width: calc(100% - 45px);
 					overflow-y: auto;
 				}
 				.viewframe {
