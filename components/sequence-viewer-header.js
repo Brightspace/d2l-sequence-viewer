@@ -229,13 +229,13 @@ class D2LSequenceViewerHeader extends PolymerElement {
 
 	_getNextActivityHref(entity) {
 		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
-		console.log(`Next Activity for ${JSON.stringify((entity || {}).links)}:\n\n${nextActivityHref.href}`);
+		console.log(`Next Activity for ${JSON.stringify(((entity || {}).properties || {}).title)}:\n\n${nextActivityHref.href}\n\nLinks: ${JSON.stringify((entity || {}).links)}`);
 		return nextActivityHref.href || null;
 	}
 
 	_getPreviousActivityHref(entity) {
 		const previousActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
-		console.log(`Previous Activity for ${JSON.stringify((entity || {}).links)}:\n\n${previousActivityHref.href}`);
+		console.log(`Previous Activity for ${JSON.stringify(((entity || {}).properties || {}).title)}:\n\n${previousActivityHref.href}\n\nLinks: ${JSON.stringify((entity || {}).links)}`);
 		return previousActivityHref.href || null;
 	}
 
