@@ -383,23 +383,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	async _setModuleProperties(entity) {
 		let currEntity = entity;
-		let prevEntity, response;
+		let response;
 		let upLink = (currEntity.getLinkByRel('up') || {}).href;
-		let orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
 
-		while (upLink && orgLink && upLink !== orgLink) {
-			prevEntity = currEntity;
+		while (upLink && upLink.includes('activity')) {
 			response = await window.D2L.Siren.EntityStore.fetch(upLink, this.token);
 			currEntity = response.entity;
 			upLink = (currEntity.getLinkByRel('up') || {}).href;
-			orgLink = (currEntity.getLinkByRel('https://api.brightspace.com/rels/organization') || {}).href;
 		}
 		const properties = {};
-		if (prevEntity) {
-			Object.assign(properties, prevEntity.properties);
-		}
-
-		properties.title = currEntity.properties.title;
+		Object.assign(properties, currEntity.properties);
+		properties.title = properties.courseName;
 		this._moduleProperties = properties;
 	}
 
