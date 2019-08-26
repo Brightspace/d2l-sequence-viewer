@@ -6,7 +6,8 @@
 	"properties": {
 		"title": "Unit 1 has a very very very very very very very very long name",
 		"moduleIndex": 1,
-		"numberOfSiblingModules": 2
+		"numberOfSiblingModules": 2,
+		"useNewProgressBar": true
 	},
 	"entities": [
 		{

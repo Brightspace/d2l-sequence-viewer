@@ -69,7 +69,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 				#sidebar {
 					overflow-y: auto;
-					width: 380px;
+					width: 310px;
 					height: calc(100% + 56px - 5px);
 					position: fixed;
 					z-index: 1;
@@ -79,7 +79,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					background: white;
 					left: calc(var(--sidebar-position) - 25px);
 					transition: margin-left 0.5s;
-					padding-left: 25px;
+					display: flex;
 				}
 
 				#sidebar.offscreen {
@@ -87,14 +87,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 				.viewer {
 					position: relative;
+					display: inline-block;
+					width: calc(100%);
+					height: calc(100% - 15px);
+					padding-top: 5px;
 					top: 56px;
 					bottom: 0px;
-					width: 100%;
 					overflow-y: auto;
 				}
 				.viewframe {
-					padding: 0 30px;
-					height: calc(100vh - 40px - 8px - 4px);
+					padding: 24px 30px 0 30px;
+					height: calc(100vh - 40px - 8px - 4px - 24px);
 					max-width: var(--viewer-max-width);
 					margin: auto;
 					-webkit-transition: all 0.4s ease-in-out;
@@ -117,6 +120,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 				.d2l-sequence-viewer-navicon-container {
 					height: 50px;
 				}
+				d2l-sequence-navigator {
+					flex: 1;
+					padding: 0 30px;
+				}
 
 				@media(max-width: 1220px) {
 					#sidebar {
@@ -125,13 +132,23 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 
 				@media(max-width: 929px) {
-					.viewframe {
+					#sidebar {
+						width: 310px;
+					}
+					d2l-sequence-navigator {
 						padding: 0 24px;
+					}
+					.viewframe {
+						padding: 18px 24px 0 24px;
+						height: calc(100vh - 40px - 8px - 4px - 18px);
 					}
 				}
 				@media(max-width: 767px) {
-					.viewframe {
+					d2l-sequence-navigator {
 						padding: 0 18px;
+					}
+					.viewframe {
+						padding: 18px 18px 0 18px;
 					}
 				}
 				@media(max-width: 405px) {
@@ -268,7 +285,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			}
 		}
 
-		this._setModuleProperties(entity);
+		if (!this._moduleProperties.title) {
+			this._setModuleProperties(entity);
+		}
 	}
 	_hrefChanged() {
 		this.$.viewframe.focus();
@@ -398,14 +417,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_sideBarOpen() {
+		const maxWidth = 1170;
+		const sidebarWidth = Math.round((this.offsetWidth <= maxWidth ? this.offsetWidth : maxWidth) / 3);
 		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		const marginLeft = String(376 + offsetWidth) + 'px';
+		const marginLeft = `${sidebarWidth + offsetWidth}px`;
 		if (this.mEntity && this.mEntity.properties
 			&& this.mEntity.properties.sideNavOpen !== undefined
 			&& window.innerWidth - offsetWidth > 929) {
+			this.$$('#sidebar').style.width = sidebarWidth + 'px';
 			this.$.viewframe.style.marginLeft = marginLeft;
 			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		} else {
+			this.$$('#sidebar').style.width = '310px';
 			this.$.viewframe.style.marginLeft = 'auto';
 			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 		}
