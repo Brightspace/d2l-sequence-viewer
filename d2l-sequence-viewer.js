@@ -188,7 +188,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 			</d2l-sequence-navigator>
 		</div>
 		<div id="viewframe" class="viewframe" on-click="_closeSlidebarOnFocusContent" role="main" tabindex="0">
-			<d2l-sequences-content-router id="viewer" class="viewer" on-sequences-return-mixin-click-back="_onClickBack" href="{{href}}" token="[[token]]"></d2l-sequences-content-router>
+			<d2l-sequences-content-router
+				id="viewer"
+				class="viewer"
+				on-sequences-return-mixin-click-back="_onClickBack"
+				href="{{href}}"
+				token="[[token]]"
+				redirect-cs=[[redirectCs]]
+				cs-redirect-path=[[csRedirectPath]]
+				no-redirect-query-param-string=[[noRedirectQueryParamString]]
+				>
+			</d2l-sequences-content-router>
 		</div>
 `;
 	}
@@ -243,7 +253,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_loaded: Boolean,
 			_blurListener: Function,
 			_onPopStateListener: Function,
-			_resizeNavListener: Function
+			_resizeNavListener: Function,
+			redirectCs: Boolean,
+			csRedirectPath: String,
+			noRedirectQueryParamString: String
 		};
 	}
 	static get observers() {
