@@ -2,6 +2,7 @@ import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
 import './localize-behavior.js';
+import './telemetry-behaviour.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-link/d2l-link.js';
@@ -29,7 +30,8 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
-	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior,
+	D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior,
 ], PolymerElement) {
 	static get template() {
 		return html`
@@ -384,6 +386,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return () => { return Promise.resolve(token); };
 	}
 	_toggleSlideSidebar() {
+		console.log('hamburger');
+
+		this._doSomething();
+
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
 		} else {

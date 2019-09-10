@@ -103,6 +103,7 @@
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-sequence-navigator": "github:BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-sequences": "github:BrightspaceHypermediaComponents/sequences#semver:^1",
+    "d2l-telemetry-browser-client": "Brightspace/d2l-telemetry-browser-client#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1"
   }
