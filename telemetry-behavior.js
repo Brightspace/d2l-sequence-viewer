@@ -9,9 +9,8 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
  * @polymerBehavior
  */
 D2L.PolymerBehaviors.SequenceViewer.TelemtryBehaviorImpl = {
-
-    _doSomething: function() {
-        console.log({hi: 'something'});
+    doSomething: function() {
+        console.log('telemetry behaviour called');
     },
 };
 

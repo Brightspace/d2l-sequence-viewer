@@ -2,7 +2,7 @@ import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
 import './localize-behavior.js';
-import './telemetry-behaviour.js';
+import './telemetry-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-link/d2l-link.js';
@@ -18,6 +18,7 @@ import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import TelemetryHelper from './helpers/telemetry-helper';
 
 /*
 * @polymer
@@ -25,13 +26,14 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 * @extends Polymer.Element
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 * @appliesMixin D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+* @appliesMixin D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior
 */
 
 class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
 	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior,
-	D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior,
+	D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior
 ], PolymerElement) {
 	static get template() {
 		return html`
@@ -258,7 +260,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_resizeNavListener: Function,
 			redirectCs: Boolean,
 			csRedirectPath: String,
-			noRedirectQueryParamString: String
+			noRedirectQueryParamString: String,
+			// ============
+			_telemetryData: {
+				type: Object,
+				value: null
+			}
 		};
 	}
 	static get observers() {
@@ -280,10 +287,22 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	async _onEntityChanged(entity) {
+		console.log({entity});
+
 		//entity is null or not first time loading the page
 		if (!entity || this._loaded) {
 			return;
 		}
+
+		// Don't do it this way
+		// if (entity) {
+		// 	this._telemetryData = {
+		// 		endpoint: 'placeholder endpoint',
+		// 	};
+
+		// 	console.log(this._telemetryData);
+		// }
+
 		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up').href;
@@ -386,9 +405,13 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return () => { return Promise.resolve(token); };
 	}
 	_toggleSlideSidebar() {
-		console.log('hamburger');
+		// this.doSomething();
 
-		this._doSomething();
+		console.log({TelemetryHelper});
+
+
+		TelemetryHelper.logTelemetryEvent('hamburger');
+
 
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
