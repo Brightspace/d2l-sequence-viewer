@@ -63,6 +63,7 @@
     "bower-art-resolver": "^2.0.9",
     "browserify": "^16.2.2",
     "chai-dom": "^1.8.0",
+    "chai-spies": "^1.0.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.1",
     "eslint-plugin-html": "^3.1.0",

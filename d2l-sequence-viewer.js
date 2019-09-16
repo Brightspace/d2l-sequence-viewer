@@ -2,7 +2,6 @@ import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
 import './localize-behavior.js';
-import './telemetry-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-link/d2l-link.js';
@@ -26,14 +25,12 @@ import TelemetryHelper from './helpers/telemetry-helper';
 * @extends Polymer.Element
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 * @appliesMixin D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
-* @appliesMixin D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior
 */
 
 class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
 	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior,
-	D2L.PolymerBehaviors.SequenceViewer.TelemetryBehavior
 ], PolymerElement) {
 	static get template() {
 		return html`
@@ -284,6 +281,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
+
+		// set viewer margins for animation purposes
+		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
+		this.$.viewframe.style.marginRight = `${offsetWidth}px`;
 	}
 
 	async _onEntityChanged(entity) {
@@ -405,13 +406,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return () => { return Promise.resolve(token); };
 	}
 	_toggleSlideSidebar() {
-		// this.doSomething();
-
 		console.log({TelemetryHelper});
 
-
 		TelemetryHelper.logTelemetryEvent('hamburger');
-
 
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();

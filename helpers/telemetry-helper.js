@@ -1,6 +1,6 @@
 import d2lTelemetryBrowserClient from 'd2l-telemetry-browser-client';
 
-class TelemetryHelper {
+export class TelemetryHelper {
     static logTelemetryEvent(id) {
         const client = new d2lTelemetryBrowserClient.Client({
             endpoint: '123abc',
@@ -21,8 +21,6 @@ class TelemetryHelper {
         console.log({event});
 
         client.logUserEvent(event);
-
-        // log the event here
     }
 }
 
