@@ -277,10 +277,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
-
-		// set viewer margins for animation purposes
-		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		this.$.viewframe.style.marginRight = `${offsetWidth}px`;
 	}
 
 	async _onEntityChanged(entity) {
