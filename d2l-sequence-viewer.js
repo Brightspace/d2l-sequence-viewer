@@ -232,7 +232,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: Object,
 				computed: '_getToken(token)'
 			},
-			mEntity:{
+			mEntity: {
 				type: Object
 			},
 			_moduleProperties: {
