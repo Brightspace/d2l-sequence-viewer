@@ -387,18 +387,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return () => { return Promise.resolve(token); };
 	}
 	_toggleSlideSidebar() {
-		let telemetryEventName;
-
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
-			telemetryEventName = 'sidebar-open';
 		} else {
 			this._sideBarClose();
-			telemetryEventName = 'sidebar-close';
-		}
-
-		if (this.telemetryEndpoint) {
-			TelemetryHelper.logTelemetryEvent(telemetryEventName, this.telemetryEndpoint);
 		}
 	}
 	_getRootHref(entity) {
@@ -458,6 +450,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
+		if (this.telemetryEndpoint) {
+			TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
+		}
 	}
 
 	_sideBarClose() {
@@ -465,6 +460,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.sidebar.classList.add('offscreen');
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
+
+		if (this.telemetryEndpoint) {
+			TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
+		}
 	}
 
 	_resizeSideBar() {

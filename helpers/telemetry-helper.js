@@ -8,7 +8,7 @@ class TelemetryHelper {
 
 		const eventBody = new d2lTelemetryBrowserClient.EventBody()
 			.setAction('Created')
-			.setObject(encodeURIComponent(id), 'Article', id);
+			.setObject(encodeURIComponent(id), 'Sequence Viewer', id);
 
 		const event = new d2lTelemetryBrowserClient.TelemetryEvent()
 			.setDate(new Date())
