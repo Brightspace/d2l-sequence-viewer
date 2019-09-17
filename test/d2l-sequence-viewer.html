@@ -23,6 +23,12 @@
 			</template>
 		</test-fixture>
 
+		<test-fixture id="withTelemetryEndpoint">
+			<template>
+				<d2l-sequence-viewer href="data/unit1.json" token="foo" telemetry-endpoint="mock-telemetry-endpoint"></d2l-sequence-viewer>
+			</template>
+		</test-fixture>
+
 		<script type="module">
 
 import '../d2l-sequence-viewer.js';
@@ -32,6 +38,7 @@ import TelemetryHelper from '../helpers/telemetry-helper';
 describe('d2l-sequence-viewer', () => {
 
 	let elem;
+	chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
 	describe('render', () => {
 
@@ -122,19 +129,32 @@ describe('d2l-sequence-viewer', () => {
 
 		describe('the hamburger button', () => {
 			let elem;
+			let sidebar;
 
 			beforeEach( async() => {
-				elem = await SirenFixture.load('data/unit1.json', fixture('basic'));
+				elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
 				button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+				sidebar = elem.shadowRoot.querySelector('#sidebar');
 			});
 
-			it('should call TelemetryHelper.logTelemetryEvent when clicked', () => {
-				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+			describe('on click', () => {
+				it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
+					sidebar.classList.add('offscreen');
 
-				button.click();
+					button.click();
 
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('hamburger');
+					expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+					expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
+				});
+
+				it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
+					sidebar.classList.remove('offscreen');
+
+					button.click();
+
+					expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+					expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
+				});
 			});
 		});
 	});

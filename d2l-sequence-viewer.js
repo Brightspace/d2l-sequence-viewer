@@ -258,11 +258,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			redirectCs: Boolean,
 			csRedirectPath: String,
 			noRedirectQueryParamString: String,
-			// ============
-			_telemetryData: {
-				type: Object,
-				value: null
-			}
+			telemetryEndpoint: String,
 		};
 	}
 	static get observers() {
@@ -288,21 +284,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	async _onEntityChanged(entity) {
-		console.log({entity});
-
 		//entity is null or not first time loading the page
 		if (!entity || this._loaded) {
 			return;
 		}
-
-		// Don't do it this way
-		// if (entity) {
-		// 	this._telemetryData = {
-		// 		endpoint: 'placeholder endpoint',
-		// 	};
-
-		// 	console.log(this._telemetryData);
-		// }
 
 		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
@@ -406,14 +391,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return () => { return Promise.resolve(token); };
 	}
 	_toggleSlideSidebar() {
-		console.log({TelemetryHelper});
-
-		TelemetryHelper.logTelemetryEvent('hamburger');
+		let telemetryEventName;
 
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
+			telemetryEventName = 'sidebar-open';
 		} else {
 			this._sideBarClose();
+			telemetryEventName = 'sidebar-close';
+		}
+
+		if (this.telemetryEndpoint) {
+			TelemetryHelper.logTelemetryEvent(telemetryEventName, this.telemetryEndpoint);
 		}
 	}
 	_getRootHref(entity) {
