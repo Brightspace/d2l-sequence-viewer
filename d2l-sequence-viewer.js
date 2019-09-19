@@ -450,9 +450,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
-		if (this.telemetryEndpoint) {
-			TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
-		}
+		TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
 	}
 
 	_sideBarClose() {
@@ -461,9 +459,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 
-		if (this.telemetryEndpoint) {
-			TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
-		}
+		TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
 	}
 
 	_resizeSideBar() {
