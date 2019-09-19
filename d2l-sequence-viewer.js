@@ -361,6 +361,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 	}
 	_onClickBack() {
+		TelemetryHelper.logTelemetryEvent('back-to-content', this.telemetryEndpoint);
+
 		if (!this.backToContentLink) {
 			return;
 		}
