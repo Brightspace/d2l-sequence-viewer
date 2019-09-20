@@ -457,7 +457,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	_sideBarClose() {
 		// TODO: This a temp fix because this gets called EVERY click on the document,
-		//  regardless of state. Find a better solution to handle this.
+		// regardless of state. Find a better solution to handle this.
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			return;
 		}
