@@ -161,7 +161,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}">
 			<span slot="d2l-flyout-menu">
 				<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
 				</d2l-navigation-button-notification-icon>
