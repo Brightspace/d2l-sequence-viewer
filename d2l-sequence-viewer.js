@@ -160,11 +160,13 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate">
-			<span slot="d2l-flyout-menu">
-				<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
-				</d2l-navigation-button-notification-icon>
-			</span>
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" single-topic-view="[[_singleTopicView]]">
+			<template is="dom-if" if="{{_singleTopicView}}">
+				<span slot="d2l-flyout-menu">
+					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
+					</d2l-navigation-button-notification-icon>
+				</span>
+			</template>	
 			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
 				<d2l-navigation-link-back text="[[localize('backToContent')]]" on-click="_onClickBack" href="[[backToContentLink]]">
 				</d2l-navigation-link-back>
@@ -243,6 +245,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			returnUrl: {
 				type: String
 			},
+			_singleTopicView: {
+				type: Boolean
+			},
 			/* The "back to content home" and "I'm done" buttons
 			 * will take the user to this address.
 			 */
@@ -275,6 +280,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
+		this._setSingleTopicView = this._setSingleTopicView.bind(this);
 	}
 
 	async _onEntityChanged(entity) {
@@ -328,6 +334,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 		const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
 		return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
 	}
+
+	_setSingleTopicView(entity) {
+		this._singleTopicView = true;
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
 
