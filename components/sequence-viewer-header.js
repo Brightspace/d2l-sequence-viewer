@@ -167,7 +167,9 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				<div class="col1"></div>
 					<slot name="d2l-flyout-menu" d2l-flyout-menu="" class="col2"></slot>
 				<div class="col3"></div>
-				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				<template is="dom-if" if="{{!singleTopicView}}">
+					<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				</template>
 				<div class="col5"></div>
 				<div class="hidden-small col6">
 				</div>

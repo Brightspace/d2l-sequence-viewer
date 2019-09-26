@@ -18,6 +18,15 @@
 			</template>
 		</test-fixture>
 
+		<test-fixture id="singleTopicView">
+			<template>
+				<d2l-sequence-viewer
+					single-topic-view=""
+					token="foozleberries">
+				</d2l-sequence-viewer>
+			</template>
+		</test-fixture>
+
 		<script type="module">
 import '../d2l-sequence-viewer.js';
 /* global SirenFixture */
@@ -73,6 +82,47 @@ describe('sequence-viewer-header', () => {
 		});
 	});
 
+});
+
+describe('sequence-viewer-header in singleTopicView', () => {
+	let elem;
+	let header;
+	let topicName;
+
+	beforeEach( async() => {
+		elem = await SirenFixture.load('data/single-topic-activity.json', fixture('singleTopicView'));
+		header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
+		topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
+	});
+
+	it('should set the propertly correctly', () => {
+		flush(() => {
+			expect(elem.singleTopicView).to.exist;
+			expect(elem.singleTopicView).to.equal(true);
+		});
+	});
+
+	it('should hide the previous button', () => {
+		flush(async() => {
+			const previousButton = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
+			expect(previousButton).to.not.exist;
+		})
+	});
+
+	it('should hide the next button', () =>{
+		flush(async() => {
+			const nextButton = header.shadowRoot.querySelector('.next-icon d2l-navigation-button-notification-icon');
+			expect(nextButton).to.not.exist;
+		});
+	});
+
+	it('should hide the burger menu', ()=> {
+		flush(async() => {
+			const burger = header.shadowRoot.querySelector('#d2l-flyout-menu');
+			const childNodes = burger.childNodes;
+			expect(childNodes).to.not.exist;
+		})
+	})
 });
 </script>
 	</body>

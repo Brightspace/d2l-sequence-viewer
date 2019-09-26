@@ -23,6 +23,12 @@
 			</template>
 		</test-fixture>
 
+		<test-fixture id="singleTopicView">
+			<template>
+				<d2l-sequence-viewer href="data/single-topic-activity.json" token="foo"></d2l-sequence-viewer>
+			</template>
+		</test-fixture>
+
 		<script type="module">
 import '../d2l-sequence-viewer.js';
 /* global SirenFixture */
@@ -113,13 +119,25 @@ describe('d2l-sequence-viewer', () => {
 
 				expect( button ).to.exist;
 				expect( button ).to.have.attribute('href', 'google.ca');
+				expect(elem._singleTopicView).to.exist;
+				expect(elem._singleTopicView).to.equal(false);
 
 			});
 		});
-
-
 	});
 
+	describe('single topic sequence view', () => {
+		let elem;
+
+		beforeEach( async() => {
+			elem = await SirenFixture.load('data/single-topic-activity.json', fixture('singleTopicView'));
+		});
+
+		it('should set the singleTopicView property correctly', () => {
+			expect(elem._singleTopicView).to.exist;
+			expect(elem._singleTopicView).to.equal(true);
+		});
+	});
 });
 </script>
 	</body>

@@ -246,7 +246,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: String
 			},
 			_singleTopicView: {
-				type: Boolean
+				type: Boolean,
+				computed: '_setSingleTopicView(entity)'
 			},
 			/* The "back to content home" and "I'm done" buttons
 			 * will take the user to this address.
@@ -280,7 +281,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
-		this._setSingleTopicView = this._setSingleTopicView.bind(this);
 	}
 
 	async _onEntityChanged(entity) {
@@ -336,7 +336,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_setSingleTopicView(entity) {
-		this._singleTopicView = true;
+		return entity && entity.hasClass('single-topic-sequence') || false;
 	}
 
 	connectedCallback() {
