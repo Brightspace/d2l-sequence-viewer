@@ -30,7 +30,8 @@
 			<template>
 				<d2l-sequence-viewer
 					single-topic-view=""
-					token="foozleberries">
+					token="mock-token"
+					href="data/single-topic-activity.json">
 				</d2l-sequence-viewer>
 			</template>
 		</test-fixture>
@@ -106,7 +107,7 @@ describe('sequence-viewer-header in singleTopicView', () => {
 	let topicName;
 
 	beforeEach( async() => {
-		elem = await SirenFixture.load('data/single-topic-activity.json', fixture('singleTopicView'));
+		elem = await fixture('singleTopicView');
 		header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
 		topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
 	});

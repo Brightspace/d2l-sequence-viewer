@@ -216,7 +216,8 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				computed: '_getPreviousActivityHref(entity)'
 			},
 			singleTopicView: {
-				type: Boolean
+				type: Boolean,
+				value: false
 			},
 			telemetryEndpoint: String,
 		};
