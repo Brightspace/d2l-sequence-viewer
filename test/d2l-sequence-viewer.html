@@ -42,6 +42,7 @@
 		describe('d2l-sequence-viewer', () => {
 
 			let elem;
+			TelemetryHelper.logTelemetryEvent = () => {};
 			chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
 			describe('render', () => {
@@ -85,20 +86,19 @@
 				});
 			});
 
-
 			describe('back button', () => {
-				var originalDocumentReferrer;
+				let originalDocumentReferrer;
 				let elem;
 				let button;
-				beforeEach(function () {
+
+				beforeEach(() => {
 					// store original value of document.referrer for future use.
 					originalDocumentReferrer = document.referrer;
 					// set document.referrer = '' for purposes of the following tests.
 					Object.defineProperty(document, 'referrer', { configurable: true, get: function () { return ''; } });
-
 				});
 
-				afterEach(function () {
+				afterEach(() => {
 					// set document.referrer to its original value after tests are done.
 					Object.defineProperty(document, 'referrer', { configurable: true, get: function () { return originalDocumentReferrer; } });
 				});
@@ -116,53 +116,63 @@
 				});
 
 				describe('basic fixture', () => {
-					let elem;
-
 					beforeEach(async () => {
 						elem = await SirenFixture.load('data/unit1.json', fixture('basic'));
 						button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
 					});
 
 					it('should be visible when given return url', () => {
-
 						expect(button).to.exist;
 						expect(button).to.have.attribute('href', 'google.ca');
-
 					});
 				});
 
-				describe('the hamburger button', () => {
-					let elem;
-					let sidebar;
-
+				describe('on click', () => {
 					beforeEach(async () => {
 						elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
-						button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
-						sidebar = elem.shadowRoot.querySelector('#sidebar');
+						button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
 					});
 
-					describe('on click', () => {
-						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
-							sidebar.classList.add('offscreen');
+					it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+						button.click();
 
-							button.click();
-
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
-						});
-
-						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
-							sidebar.classList.remove('offscreen');
-
-							button.click();
-
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
-						});
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('back-to-content', 'mock-telemetry-endpoint');
 					});
 				});
 			});
 
+			describe('the hamburger button', () => {
+				let elem;
+				let sidebar;
+				let button;
+
+				beforeEach(async () => {
+					elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
+					button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+					sidebar = elem.shadowRoot.querySelector('#sidebar');
+				});
+
+				describe('on click', () => {
+					it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
+						sidebar.classList.add('offscreen');
+
+						button.click();
+
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
+					});
+
+					it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
+						sidebar.classList.remove('offscreen');
+
+						button.click();
+
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+						expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
+					});
+				});
+			});
 		});
 	</script>
 </body>
