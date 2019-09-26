@@ -8,13 +8,21 @@
 		<script src="../../wct-browser-legacy/browser.js"></script>
 		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
 		<script type="module" src="../d2l-sequence-viewer.js"></script>
+		<script src="../node_modules/chai-dom/chai-dom.js"></script>
+		<script src="../node_modules/chai-spies/chai-spies.js"></script>
 	</head>
 	<body>
-		<test-fixture id="lesson">
+		<test-fixture id="basic">
 			<template>
-				<d2l-sequence-viewer
-					token="foozleberries">
-				</d2l-sequence-viewer>
+				<d2l-sequence-viewer-header token="mock-token" href="data/unit1.json">
+				</d2l-sequence-viewer-header>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="withTelemetryEndpoint">
+			<template>
+				<d2l-sequence-viewer-header telemetry-endpoint="mock-telemetry-endpoint">
+				</d2l-sequence-viewer-header>
 			</template>
 		</test-fixture>
 
@@ -28,60 +36,68 @@
 		</test-fixture>
 
 		<script type="module">
-import '../d2l-sequence-viewer.js';
+
+import '../components/sequence-viewer-header.js';
+import TelemetryHelper from '../helpers/telemetry-helper';
+
 /* global SirenFixture */
+// TODO: This test suite is missing a lot of test cases.
+// The previous tests that existed were all false positives.
 describe('sequence-viewer-header', () => {
 
 	let elem;
-	let header;
-	let topicName;
+	TelemetryHelper.logTelemetryEvent = () => {};
+	chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
-	beforeEach( async() => {
-		elem = await SirenFixture.load('data/m2-activity2.json', fixture('lesson'));
-		header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
-		topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
-	});
+	describe('render', () => {
+		beforeEach( async() => {
+			elem = await fixture('basic');
+		});
 
-	it('should create a header and topic name element', () => {
-		flush(() => {
-			expect(header).to.exist;
-			expect(topicName).to.exist;
-			expect( topicName.shadowRoot ).to.have.text('Zombies');
+		it('should instantiate the element with the correct attributes', () => {
+			expect(elem).to.exist;
+			expect(elem).to.have.attribute('href', 'data/unit1.json');
+			expect(elem).to.have.attribute('token', 'mock-token');
 		});
 	});
 
-	it('should have a functional prev button', () => {
-		flush(() => {
-			const prevBtn = header.shadowRoot.querySelector('.prev-button d2l-navigation-button-notification-icon');
-			expect(prevBtn).to.exist;
-			prevBtn.click();
-			expect(prevBtn.disabled).to.be.true;
-			expect(topicName.shadowRoot).to.have.text('HTML Sample');
+	describe('the previous nav button', () => {
+
+		let prevButton;
+
+		describe('on click', () => {
+			beforeEach( async() => {
+				elem = await fixture('withTelemetryEndpoint');
+				prevButton = elem.shadowRoot.querySelector('.prev-button');
+			});
+
+			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+				prevButton.click();
+
+				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+			});
 		});
 	});
 
-	it('should have a functional next button', () => {
-		flush(() => {
-			const nextBtn = header.shadowRoot.querySelector('.next-button d2l-navigation-button-notification-icon');
-			expect(nextBtn).to.exist;
-			nextBtn.click();
-			nextBtn.click();
-			nextBtn.click();
-			nextBtn.click();
-			expect(nextBtn.disabled).to.be.true;
-			expect(topicName.shadowRoot).to.have.text('Google Optional Topic');
+	describe('the next nav button', () => {
+
+		let nextButton;
+
+		describe('on click', () => {
+			beforeEach( async() => {
+				elem = await fixture('withTelemetryEndpoint');
+				nextButton = elem.shadowRoot.querySelector('.next-button');
+			});
+
+			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+				nextButton.click();
+
+				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
+			});
 		});
 	});
-
-	it('should have a functional back button', () => {
-		flush(() => {
-			const backBtn = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
-			expect(backBtn).to.exist;
-			backBtn.click();
-			expect( topicName.shadowRoot ).to.have.text('Module 2');
-		});
-	});
-
 });
 
 describe('sequence-viewer-header in singleTopicView', () => {

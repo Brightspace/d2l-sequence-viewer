@@ -17,6 +17,7 @@ import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import TelemetryHelper from './helpers/telemetry-helper';
 
 /*
 * @polymer
@@ -29,7 +30,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 class D2LSequenceViewer extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
-	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior,
 ], PolymerElement) {
 	static get template() {
 		return html`
@@ -160,7 +161,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" single-topic-view="[[_singleTopicView]]">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" single-topic-view="[[_singleTopicView]]">
 			<template is="dom-if" if="{{!_singleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
@@ -233,7 +234,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: Object,
 				computed: '_getToken(token)'
 			},
-			mEntity:{
+			mEntity: {
 				type: Object
 			},
 			_moduleProperties: {
@@ -262,7 +263,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_resizeNavListener: Function,
 			redirectCs: Boolean,
 			csRedirectPath: String,
-			noRedirectQueryParamString: String
+			noRedirectQueryParamString: String,
+			telemetryEndpoint: String,
 		};
 	}
 	static get observers() {
@@ -288,6 +290,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		if (!entity || this._loaded) {
 			return;
 		}
+
 		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up').href;
@@ -369,6 +372,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 	}
 	_onClickBack() {
+		TelemetryHelper.logTelemetryEvent('back-to-content', this.telemetryEndpoint);
+
 		if (!this.backToContentLink) {
 			return;
 		}
@@ -458,13 +463,22 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
+		TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
 	}
 
 	_sideBarClose() {
+		// TODO: This a temp fix because this gets called EVERY click on the document,
+		// regardless of state. Find a better solution to handle this.
+		if (this.$.sidebar.classList.contains('offscreen')) {
+			return;
+		}
+
 		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
 		this.$.sidebar.classList.add('offscreen');
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
+
+		TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
 	}
 
 	_resizeSideBar() {
