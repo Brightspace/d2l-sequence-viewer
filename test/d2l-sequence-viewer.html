@@ -42,6 +42,7 @@
 		describe('d2l-sequence-viewer', () => {
 
 			let elem;
+			TelemetryHelper.logTelemetryEvent = () => {};
 			chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
 			describe('render', () => {
