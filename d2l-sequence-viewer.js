@@ -89,7 +89,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				.viewer {
 					position: relative;
 					display: inline-block;
-					width: calc(100%);
+					width: 100%;
 					height: calc(100% - 15px);
 					padding-top: 5px;
 					top: 56px;
@@ -171,8 +171,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				</d2l-navigation-link-back>
 			</div>
 		</d2l-sequence-viewer-header>
-		<div id="sidebar-occlude">
-		</div>
+		<div id="sidebar-occlude"></div>
 		<div id="sidebar" class="offscreen">
 			<d2l-sequence-navigator href="{{href}}" token="[[token]]" role="navigation">
 				<span slot="lesson-header">
