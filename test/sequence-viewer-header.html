@@ -107,7 +107,7 @@
 				let header;
 				let topicName;
 
-				beforeEach(() => {
+				beforeEach(async () => {
 					elem = await fixture('singleTopicView');
 					header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
 					topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
