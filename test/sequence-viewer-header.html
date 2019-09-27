@@ -38,109 +38,110 @@
 
 		<script type="module">
 
-import '../components/sequence-viewer-header.js';
-import TelemetryHelper from '../helpers/telemetry-helper';
+			import '../components/sequence-viewer-header.js';
+			import TelemetryHelper from '../helpers/telemetry-helper';
 
-/* global SirenFixture */
-// TODO: This test suite is missing a lot of test cases.
-// The previous tests that existed were all false positives.
-describe('sequence-viewer-header', () => {
+			/* global SirenFixture */
+			// TODO: This test suite is missing a lot of test cases.
+			// The previous tests that existed were all false positives.
 
-	let elem;
-	TelemetryHelper.logTelemetryEvent = () => {};
-	chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+			describe('sequence-viewer-header', () => {
 
-	describe('render', () => {
-		beforeEach( async() => {
-			elem = await fixture('basic');
-		});
+				let elem;
+				TelemetryHelper.logTelemetryEvent = () => {};
+				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
-		it('should instantiate the element with the correct attributes', () => {
-			expect(elem).to.exist;
-			expect(elem).to.have.attribute('href', 'data/unit1.json');
-			expect(elem).to.have.attribute('token', 'mock-token');
-		});
-	});
+				describe('render', () => {
+					beforeEach( async() => {
+						elem = await fixture('basic');
+					});
 
-	describe('the previous nav button', () => {
+					it('should instantiate the element with the correct attributes', () => {
+						expect(elem).to.exist;
+						expect(elem).to.have.attribute('href', 'data/unit1.json');
+						expect(elem).to.have.attribute('token', 'mock-token');
+					});
+				});
 
-		let prevButton;
+				describe('the previous nav button', () => {
 
-		describe('on click', () => {
-			beforeEach( async() => {
-				elem = await fixture('withTelemetryEndpoint');
-				prevButton = elem.shadowRoot.querySelector('.prev-button');
+					let prevButton;
+
+					describe('on click', () => {
+						beforeEach( async() => {
+							elem = await fixture('withTelemetryEndpoint');
+							prevButton = elem.shadowRoot.querySelector('.prev-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							prevButton.click();
+
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+						});
+					});
+				});
+
+				describe('the next nav button', () => {
+
+					let nextButton;
+
+					describe('on click', () => {
+						beforeEach( async() => {
+							elem = await fixture('withTelemetryEndpoint');
+							nextButton = elem.shadowRoot.querySelector('.next-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							nextButton.click();
+
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
+						});
+					});
+				});
 			});
 
-			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				prevButton.click();
+			describe('sequence-viewer-header in singleTopicView', () => {
+				let elem;
+				let header;
+				let topicName;
 
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+				beforeEach(() => {
+					elem = await fixture('singleTopicView');
+					header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
+					topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
+				});
+
+				it('should set the propertly correctly', () => {
+					flush(() => {
+						expect(elem.singleTopicView).to.exist;
+						expect(elem.singleTopicView).to.equal(true);
+					});
+				});
+
+				it('should hide the previous button', () => {
+					flush(() => {
+						const previousButton = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
+						expect(previousButton).to.not.exist;
+					})
+				});
+
+				it('should hide the next button', () =>{
+					flush(() => {
+						const nextButton = header.shadowRoot.querySelector('.next-icon d2l-navigation-button-notification-icon');
+						expect(nextButton).to.not.exist;
+					});
+				});
+
+				it('should hide the burger menu', ()=> {
+					flush(() => {
+						const burger = header.shadowRoot.querySelector('#d2l-flyout-menu');
+						const childNodes = burger.childNodes;
+						expect(childNodes).to.not.exist;
+					})
+				})
 			});
-		});
-	});
-
-	describe('the next nav button', () => {
-
-		let nextButton;
-
-		describe('on click', () => {
-			beforeEach( async() => {
-				elem = await fixture('withTelemetryEndpoint');
-				nextButton = elem.shadowRoot.querySelector('.next-button');
-			});
-
-			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				nextButton.click();
-
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
-			});
-		});
-	});
-});
-
-describe('sequence-viewer-header in singleTopicView', () => {
-	let elem;
-	let header;
-	let topicName;
-
-	beforeEach( async() => {
-		elem = await fixture('singleTopicView');
-		header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
-		topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
-	});
-
-	it('should set the propertly correctly', () => {
-		flush(() => {
-			expect(elem.singleTopicView).to.exist;
-			expect(elem.singleTopicView).to.equal(true);
-		});
-	});
-
-	it('should hide the previous button', () => {
-		flush(async() => {
-			const previousButton = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
-			expect(previousButton).to.not.exist;
-		})
-	});
-
-	it('should hide the next button', () =>{
-		flush(async() => {
-			const nextButton = header.shadowRoot.querySelector('.next-icon d2l-navigation-button-notification-icon');
-			expect(nextButton).to.not.exist;
-		});
-	});
-
-	it('should hide the burger menu', ()=> {
-		flush(async() => {
-			const burger = header.shadowRoot.querySelector('#d2l-flyout-menu');
-			const childNodes = burger.childNodes;
-			expect(childNodes).to.not.exist;
-		})
-	})
-});
-</script>
+		</script>
 	</body>
 </html>
