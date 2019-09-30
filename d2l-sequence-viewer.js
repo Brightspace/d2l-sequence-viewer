@@ -161,8 +161,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" single-topic-view="[[_singleTopicView]]">
-			<template is="dom-if" if="{{!_singleTopicView}}">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" single-topic-view="[[_isSingleTopicView]]">
+			<template is="dom-if" if="{{!_isSingleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
 					</d2l-navigation-button-notification-icon>
@@ -245,9 +245,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			returnUrl: {
 				type: String
 			},
-			_singleTopicView: {
+			_isSingleTopicView: {
 				type: Boolean,
-				computed: '_setSingleTopicView(entity)'
+				computed: '_getSingleTopicView(entity)'
 			},
 			/* The "back to content home" and "I'm done" buttons
 			 * will take the user to this address.
@@ -337,7 +337,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
 	}
 
-	_setSingleTopicView(entity) {
+	_getSingleTopicView(entity) {
 		return entity && entity.hasClass('single-topic-sequence') || false;
 	}
 
