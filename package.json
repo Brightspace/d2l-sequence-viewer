@@ -12,6 +12,7 @@
     "lint:js": "eslint . --ext .js,.html test/**/*.html demo/**/*.js demo/**/*.html",
     "lint": "npm run lint:js",
     "test": "npm run lint && polymer test --skip-plugin sauce",
+    "test-sauce": "polymer test --skip-plugin local",
     "prebuild": "rimraf build && rimraf dist",
     "prestart": "gulp && polymer analyze > analysis.json",
     "build:polymer": "polymer build",
