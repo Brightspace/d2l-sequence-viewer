@@ -17,7 +17,6 @@
 				<d2l-sequence-viewer-header \
 				token="mock-token" 
 				href="data/unit1.json"
-				is-single-topic-view
 				>
 				</d2l-sequence-viewer-header>
 			</template>
@@ -34,9 +33,10 @@
 
 		<test-fixture id="singleTopicView">
 			<template>
-				<d2l-sequence-viewer
+				<d2l-sequence-viewer-header
 					token="mock-token"
-					href="data/single-topic-activity.json">
+					is-single-topic-view="true"
+					>
 				</d2l-sequence-viewer>
 			</template>
 		</test-fixture>
@@ -76,11 +76,9 @@
 						beforeEach( async() => {
 							elem = await fixture('withTelemetryEndpoint');
 							prevButton = elem.shadowRoot.querySelector('.prev-button');
-							debugger;
 						});
 
 						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-							debugger;
 							prevButton.click();
 
 							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
@@ -89,63 +87,55 @@
 					});
 				});
 
-				// describe('the next nav button', () => {
+				describe('the next nav button', () => {
 
-				// 	let nextButton;
+					let nextButton;
 
-				// 	describe('on click', () => {
-				// 		beforeEach( async() => {
-				// 			elem = await fixture('withTelemetryEndpoint');
-				// 			nextButton = elem.shadowRoot.querySelector('.next-button');
-				// 		});
+					describe('on click', () => {
+						beforeEach( async() => {
+							elem = await fixture('withTelemetryEndpoint');
+							nextButton = elem.shadowRoot.querySelector('.next-button');
+						});
 
-				// 		it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				// 			nextButton.click();
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							nextButton.click();
 
-				// 			expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				// 			expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
-				// 		});
-				// 	});
-				// });
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
+						});
+					});
+				});
 			});
 
 			describe('sequence-viewer-header in singleTopicView', () => {
 				let elem;
-				let header;
-				let topicName;
 
 				beforeEach(async () => {
 					elem = await fixture('singleTopicView');
-					header = elem.shadowRoot.querySelector('d2l-sequence-viewer-header');
-					topicName = header.shadowRoot.querySelector('d2l-sequences-topic-name');
 				});
 
-				it('should set the property correctly', () => {
+				it('should hide the previous button', (done) => {
 					flush(() => {
-						expect(elem._isSingleTopicView).to.exist;
-						expect(elem._isSingleTopicView).to.equal(true);
-					});
-				});
-
-				it('should hide the previous button', () => {
-					flush(() => {
-						const previousButton = header.shadowRoot.querySelector('.back-icon d2l-navigation-button-notification-icon');
-						expect(previousButton).to.not.exist;
+						const previousButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.prev-button');
+						console.log(`previousButton: ${previousButton}`);
+						expect(previousButton).to.be.null;
+						done();
 					})
 				});
 
-				it('should hide the next button', () =>{
+				it('should hide the next button', (done) =>{
 					flush(() => {
-						const nextButton = header.shadowRoot.querySelector('.next-icon d2l-navigation-button-notification-icon');
-						expect(nextButton).to.not.exist;
+						const nextButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.next-button');
+						expect(nextButton).to.be.null;
+						done();
 					});
 				});
 
-				it('should hide the burger menu', ()=> {
+				it('should hide the burger menu', (done)=> {
 					flush(() => {
-						const burger = header.shadowRoot.querySelector('#d2l-flyout-menu');
-						const childNodes = burger.childNodes;
-						expect(childNodes).to.not.exist;
+						const burger = elem.shadowRoot.querySelector('d2l-icon.flyout-divider.hidden-small');
+						expect(burger).to.be.null;
+						done();
 					})
 				})
 			});
