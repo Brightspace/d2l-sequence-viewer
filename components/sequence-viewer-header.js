@@ -11,6 +11,8 @@ import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announ
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import TelemetryHelper from '../helpers/telemetry-helper';
+
 /**
 * @polymer
 * @customelement
@@ -180,11 +182,11 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</h1>
 				</div>
 				<div class="col9"></div>
-				<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous=""></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous="" on-click="_onPreviousPress"></d2l-sequences-iterator>
 				<div class="col11"></div>
 				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
 				<div class="col13"></div>
-				<d2l-sequences-iterator class="iterator-icon next-button col14" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next=""></d2l-sequences-iterator>
+				<d2l-sequences-iterator class="iterator-icon next-button col14" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next="" on-click="_onNextPress"></d2l-sequences-iterator>
 				<div class="col15"></div>
 			</div>
 			<div class="pad-side"></div>
@@ -208,7 +210,8 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 			previousActivityHref: {
 				type: String,
 				computed: '_getPreviousActivityHref(entity)'
-			}
+			},
+			telemetryEndpoint: String,
 		};
 	}
 	static get observers() {
@@ -235,5 +238,12 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 		return previousActivityHref.href || null;
 	}
 
+	_onPreviousPress() {
+		TelemetryHelper.logTelemetryEvent('prev-nav-button', this.telemetryEndpoint);
+	}
+
+	_onNextPress() {
+		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
+	}
 }
 customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);

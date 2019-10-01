@@ -12,6 +12,7 @@
     "lint:js": "eslint . --ext .js,.html test/**/*.html demo/**/*.js demo/**/*.html",
     "lint": "npm run lint:js",
     "test": "npm run lint && polymer test --skip-plugin sauce",
+    "test-sauce": "polymer test --skip-plugin local",
     "prebuild": "rimraf build && rimraf dist",
     "prestart": "gulp && polymer analyze > analysis.json",
     "build:polymer": "polymer build",
@@ -63,6 +64,7 @@
     "bower-art-resolver": "^2.0.9",
     "browserify": "^16.2.2",
     "chai-dom": "^1.8.0",
+    "chai-spies": "^1.0.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.1",
     "eslint-plugin-html": "^3.1.0",
@@ -103,6 +105,7 @@
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-sequence-navigator": "github:BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-sequences": "github:BrightspaceHypermediaComponents/sequences#semver:^1",
+    "d2l-telemetry-browser-client": "Brightspace/d2l-telemetry-browser-client#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "polymer-frau-jwt": "Brightspace/polymer-frau-jwt#semver:^1"
   }
