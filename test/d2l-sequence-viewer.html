@@ -37,160 +37,160 @@
 			</template>
 		</test-fixture>
 
-<script type="module">
-	import '../d2l-sequence-viewer.js';
-	import TelemetryHelper from '../helpers/telemetry-helper';
-	/* global SirenFixture */
-	describe('d2l-sequence-viewer', () => {
+		<script type="module">
+			import '../d2l-sequence-viewer.js';
+			import TelemetryHelper from '../helpers/telemetry-helper';
+			/* global SirenFixture */
+			describe('d2l-sequence-viewer', () => {
 
-	let elem;
-	TelemetryHelper.logTelemetryEvent = () => {};
-	chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+				let elem;
+				TelemetryHelper.logTelemetryEvent = () => {};
+				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
-	describe('render', () => {
+				describe('render', () => {
 
-		beforeEach( async() => {
-			elem = await fixture('basic');
-		});
+					beforeEach( async() => {
+						elem = await fixture('basic');
+					});
 
-		it('should instantiate the element', () => {
-			expect(elem).to.have.attribute('href', 'data/unit1.json');
-			expect(elem).to.have.attribute('token', 'foo');
-		});
+					it('should instantiate the element', () => {
+						expect(elem).to.have.attribute('href', 'data/unit1.json');
+						expect(elem).to.have.attribute('token', 'foo');
+					});
 
-		describe('sidebar tests', () => {
+					describe('sidebar tests', () => {
 
-			let sidebar;
+						let sidebar;
 
-			beforeEach( () => {
-				sidebar = elem.shadowRoot.querySelector('#sidebar');
+						beforeEach( () => {
+							sidebar = elem.shadowRoot.querySelector('#sidebar');
+						});
+
+						it('should create sidebar element containing d2l-sequence-navigator', () => {
+							expect( sidebar ).to.exist;
+							expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
+						});
+
+						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', () => {
+							const button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+							expect( button ).to.exist;
+							expect( sidebar ).to.have.class('offscreen');
+							button.click();
+							expect(sidebar).not.to.have.class('offscreen');
+							button.click();
+							expect(sidebar).to.have.class('offscreen');
+						});
+					});
+
+					it('should show the content router component', () => {
+						const contentRouter = elem.shadowRoot.querySelector('.viewer');
+						expect(contentRouter).to.exist;
+					});
+				});
+
+
+				describe('back button', () => {
+					var originalDocumentReferrer;
+					let elem;
+					let button;
+
+					beforeEach( function() {
+						// store original value of document.referrer for future use.
+						originalDocumentReferrer = document.referrer;
+						// set document.referrer = '' for purposes of the following tests.
+						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return ''; } } );
+
+					});
+
+					afterEach( function() {
+						// set document.referrer to its original value after tests are done.
+						Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return originalDocumentReferrer; } } );
+					});
+
+					describe('withReturnUrl',() => {
+						beforeEach( async() => {
+							elem = await fixture('withReturnUrl');
+							button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+						});
+
+						it('should be visible and have a default when no return url given', () => {
+							expect( button ).to.exist;
+							expect( button ).to.have.attribute('href', 'https://www.google.ca');
+						});
+					});
+
+					describe('basic fixture',() => {
+						let elem;
+
+						beforeEach( async() => {
+							elem = await SirenFixture.load('data/unit1.json', fixture('basic'));
+							button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+						});
+
+						it('should be visible when given return url', () => {
+
+							expect( button ).to.exist;
+							expect( button ).to.have.attribute('href', 'google.ca');
+							expect(elem._isSingleTopicView).to.exist;
+							expect(elem._isSingleTopicView).to.equal(false);
+
+						});
+					});
+
+
+
+					describe('on click', () => {
+						beforeEach(async () => {
+							elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
+							button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
+						});
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							button.click();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('back-to-content', 'mock-telemetry-endpoint');
+						});
+					});
+				});
+
+				describe('the hamburger button', () => {
+					let elem;
+					let sidebar;
+					let button;
+					beforeEach(async () => {
+						elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
+						button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+						sidebar = elem.shadowRoot.querySelector('#sidebar');
+					});
+					describe('on click', () => {
+						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
+							sidebar.classList.add('offscreen');
+							button.click();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
+						});
+						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
+							sidebar.classList.remove('offscreen');
+							button.click();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
+						});
+					});
+				});
+
+
+				describe('single topic sequence view', () => {
+					let elem;
+
+					beforeEach( async() => {
+						elem = await SirenFixture.load('data/single-topic-activity.json', fixture('singleTopicView'));
+					});
+
+					it('should set the singleTopicView property correctly', () => {
+						expect(elem._isSingleTopicView).to.exist;
+						expect(elem._isSingleTopicView).to.equal(true);
+					});
+				});
 			});
-
-			it('should create sidebar element containing d2l-sequence-navigator', () => {
-				expect( sidebar ).to.exist;
-				expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
-			});
-
-			it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', () => {
-				const button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
-				expect( button ).to.exist;
-				expect( sidebar ).to.have.class('offscreen');
-				button.click();
-				expect(sidebar).not.to.have.class('offscreen');
-				button.click();
-				expect(sidebar).to.have.class('offscreen');
-			});
-		});
-
-		it('should show the content router component', () => {
-			const contentRouter = elem.shadowRoot.querySelector('.viewer');
-			expect(contentRouter).to.exist;
-		});
-	});
-
-
-	describe('back button', () => {
-		var originalDocumentReferrer;
-		let elem;
-		let button;
-
-		beforeEach( function() {
-			// store original value of document.referrer for future use.
-			originalDocumentReferrer = document.referrer;
-			// set document.referrer = '' for purposes of the following tests.
-			Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return ''; } } );
-
-		});
-
-		afterEach( function() {
-			// set document.referrer to its original value after tests are done.
-			Object.defineProperty( document, 'referrer', { configurable: true, get : function() { return originalDocumentReferrer; } } );
-		});
-
-		describe('withReturnUrl',() => {
-			beforeEach( async() => {
-				elem = await fixture('withReturnUrl');
-				button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
-			});
-
-			it('should be visible and have a default when no return url given', () => {
-				expect( button ).to.exist;
-				expect( button ).to.have.attribute('href', 'https://www.google.ca');
-			});
-		});
-
-		describe('basic fixture',() => {
-			let elem;
-
-			beforeEach( async() => {
-				elem = await SirenFixture.load('data/unit1.json', fixture('basic'));
-				button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
-			});
-
-			it('should be visible when given return url', () => {
-
-				expect( button ).to.exist;
-				expect( button ).to.have.attribute('href', 'google.ca');
-				expect(elem._singleTopicView).to.exist;
-				expect(elem._singleTopicView).to.equal(false);
-
-			});
-		});
-
-
-
-		describe('on click', () => {
-			beforeEach(async () => {
-				elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
-				button = elem.shadowRoot.querySelector('d2l-navigation-link-back');
-			});
-			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				button.click();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('back-to-content', 'mock-telemetry-endpoint');
-			});
-		});
-	});
-
-	describe('the hamburger button', () => {
-		let elem;
-		let sidebar;
-		let button;
-		beforeEach(async () => {
-			elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
-			button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
-			sidebar = elem.shadowRoot.querySelector('#sidebar');
-		});
-		describe('on click', () => {
-			it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
-				sidebar.classList.add('offscreen');
-				button.click();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
-			});
-			it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
-				sidebar.classList.remove('offscreen');
-				button.click();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
-			});
-		});
-	});
-
-
-	describe('single topic sequence view', () => {
-		let elem;
-
-		beforeEach( async() => {
-			elem = await SirenFixture.load('data/single-topic-activity.json', fixture('singleTopicView'));
-		});
-
-		it('should set the singleTopicView property correctly', () => {
-			expect(elem._singleTopicView).to.exist;
-			expect(elem._singleTopicView).to.equal(true);
-		});
-	});
-});
-</script>
+		</script>
 	</body>
 </html>
