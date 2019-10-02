@@ -180,7 +180,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					</d2l-lesson-header>
 				</span>
 				<span slot="end-of-lesson">
-					<d2l-sequence-end href="[[_sequenceEndHref]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
+					<d2l-sequence-end href="[[_sequenceEndHref]]" current-activity="{{href}}" text="[[endOfSequenceLangTerm]]"></d2l-sequence-end>
 				</span>
 			</d2l-sequence-navigator>
 		</div>
@@ -259,6 +259,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 			csRedirectPath: String,
 			noRedirectQueryParamString: String,
 			telemetryEndpoint: String,
+			endOfSequenceLangTerm: {
+				type: String,
+				computed: '_getEndOfSequenceLangTerm(entity)'
+			}
 		};
 	}
 	static get observers() {
@@ -481,6 +485,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		} else {
 			this._sideBarOpen();
 		}
+	}
+
+	_getEndOfSequenceLangTerm(entity) {
+		return entity && entity.properties && entity.properties.sequenceFinishedLangTerm || '';
 	}
 
 }
