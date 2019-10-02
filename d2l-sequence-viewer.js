@@ -80,9 +80,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					background: white;
 					left: calc(var(--sidebar-position) - 25px);
 					transition: margin-left 0.5s;
-					display: flex;
 				}
-
 				#sidebar.offscreen {
 					margin-left: -475px;
 				}
@@ -117,7 +115,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 					display: block;
 					height: 50px;
 				}
-
 				.d2l-sequence-viewer-navicon-container {
 					height: 50px;
 				}
@@ -125,13 +122,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex: 1;
 					--d2l-sequence-nav-padding: 30px;
 				}
-
 				@media(max-width: 1220px) {
 					#sidebar {
 						left: 0;
 					}
 				}
-
 				@media(max-width: 929px) {
 					#sidebar {
 						width: 310px;
