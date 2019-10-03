@@ -14,82 +14,131 @@
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<d2l-sequence-viewer-header token="mock-token" href="data/unit1.json">
+				<d2l-sequence-viewer-header \
+				token="mock-token" 
+				href="data/unit1.json"
+				>
 				</d2l-sequence-viewer-header>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="withTelemetryEndpoint">
 			<template>
-				<d2l-sequence-viewer-header telemetry-endpoint="mock-telemetry-endpoint">
+				<d2l-sequence-viewer-header 
+				telemetry-endpoint="mock-telemetry-endpoint"
+				>
 				</d2l-sequence-viewer-header>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="singleTopicView">
+			<template>
+				<d2l-sequence-viewer-header
+					token="mock-token"
+					is-single-topic-view="true"
+					>
+				</d2l-sequence-viewer>
 			</template>
 		</test-fixture>
 
 		<script type="module">
 
-import '../components/sequence-viewer-header.js';
-import TelemetryHelper from '../helpers/telemetry-helper';
+			import '../components/sequence-viewer-header.js';
+			import TelemetryHelper from '../helpers/telemetry-helper';
 
-/* global SirenFixture */
-// TODO: This test suite is missing a lot of test cases.
-// The previous tests that existed were all false positives.
-describe('sequence-viewer-header', () => {
+			/* global SirenFixture */
+			// TODO: This test suite is missing a lot of test cases.
+			// The previous tests that existed were all false positives.
 
-	let elem;
-	TelemetryHelper.logTelemetryEvent = () => {};
-	chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+			describe('sequence-viewer-header', () => {
 
-	describe('render', () => {
-		beforeEach( async() => {
-			elem = await fixture('basic');
-		});
+				let elem;
+				TelemetryHelper.logTelemetryEvent = () => {};
+				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
-		it('should instantiate the element with the correct attributes', () => {
-			expect(elem).to.exist;
-			expect(elem).to.have.attribute('href', 'data/unit1.json');
-			expect(elem).to.have.attribute('token', 'mock-token');
-		});
-	});
+				describe('render', () => {
+					beforeEach( async() => {
+						elem = await fixture('basic');
+					});
 
-	describe('the previous nav button', () => {
+					it('should instantiate the element with the correct attributes', () => {
+						expect(elem).to.exist;
+						expect(elem).to.have.attribute('href', 'data/unit1.json');
+						expect(elem).to.have.attribute('token', 'mock-token');
+					});
+				});
 
-		let prevButton;
+				describe('the previous nav button', () => {
 
-		describe('on click', () => {
-			beforeEach( async() => {
-				elem = await fixture('withTelemetryEndpoint');
-				prevButton = elem.shadowRoot.querySelector('.prev-button');
+					let prevButton;
+
+					describe('on click', () => {
+						beforeEach( async() => {
+							elem = await fixture('withTelemetryEndpoint');
+							prevButton = elem.shadowRoot.querySelector('.prev-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							prevButton.click();
+
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+						});
+					});
+				});
+
+				describe('the next nav button', () => {
+
+					let nextButton;
+
+					describe('on click', () => {
+						beforeEach( async() => {
+							elem = await fixture('withTelemetryEndpoint');
+							nextButton = elem.shadowRoot.querySelector('.next-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							nextButton.click();
+
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
+						});
+					});
+				});
 			});
 
-			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				prevButton.click();
+			describe('sequence-viewer-header in singleTopicView', () => {
+				let elem;
 
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+				beforeEach(async () => {
+					elem = await fixture('singleTopicView');
+				});
+
+				it('should hide the previous button', (done) => {
+					flush(() => {
+						const previousButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.prev-button');
+						console.log(`previousButton: ${previousButton}`);
+						expect(previousButton).to.be.null;
+						done();
+					})
+				});
+
+				it('should hide the next button', (done) =>{
+					flush(() => {
+						const nextButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.next-button');
+						expect(nextButton).to.be.null;
+						done();
+					});
+				});
+
+				it('should hide the burger menu', (done)=> {
+					flush(() => {
+						const burger = elem.shadowRoot.querySelector('d2l-icon.flyout-divider.hidden-small');
+						expect(burger).to.be.null;
+						done();
+					})
+				})
 			});
-		});
-	});
-
-	describe('the next nav button', () => {
-
-		let nextButton;
-
-		describe('on click', () => {
-			beforeEach( async() => {
-				elem = await fixture('withTelemetryEndpoint');
-				nextButton = elem.shadowRoot.querySelector('.next-button');
-			});
-
-			it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
-				nextButton.click();
-
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-				expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
-			});
-		});
-	});
-});
-</script>
+		</script>
 	</body>
 </html>

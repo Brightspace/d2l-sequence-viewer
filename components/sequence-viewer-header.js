@@ -169,7 +169,9 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				<div class="col1"></div>
 					<slot name="d2l-flyout-menu" d2l-flyout-menu="" class="col2"></slot>
 				<div class="col3"></div>
-				<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				<template is="dom-if" if="[[!isSingleTopicView]]">
+					<d2l-icon class="flyout-divider hidden-small col4" icon="d2l-tier2:divider-big"></d2l-icon>
+				</template>
 				<div class="col5"></div>
 				<div class="hidden-small col6">
 				</div>
@@ -182,15 +184,17 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</h1>
 				</div>
 				<div class="col9"></div>
-				<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous="" on-click="_onPreviousPress"></d2l-sequences-iterator>
-				<div class="col11"></div>
-				<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
-				<div class="col13"></div>
-				<d2l-sequences-iterator class="iterator-icon next-button col14" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next="" on-click="_onNextPress"></d2l-sequences-iterator>
-				<div class="col15"></div>
+				<template is="dom-if" if="[[!isSingleTopicView]]">
+					<d2l-sequences-iterator class="iterator-icon prev-button col10" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous="" on-click="_onPreviousPress"></d2l-sequences-iterator>
+					<div class="col11"></div>
+					<d2l-icon class="flyout-divider col12" icon="d2l-tier2:divider-big"></d2l-icon>
+					<div class="col13"></div>
+					<d2l-sequences-iterator class="iterator-icon next-button col14" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next="" on-click="_onNextPress"></d2l-sequences-iterator>
+					<div class="col15"></div>
+				</template>
 			</div>
 			<div class="pad-side"></div>
-`;
+		`;
 	}
 
 	static get is() {
@@ -210,6 +214,10 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 			previousActivityHref: {
 				type: String,
 				computed: '_getPreviousActivityHref(entity)'
+			},
+			isSingleTopicView: {
+				type: Boolean,
+				value: false
 			},
 			telemetryEndpoint: String,
 		};
