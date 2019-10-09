@@ -2,5 +2,7 @@
 	"backToContent": "Back to Content",
 	"toggleNavMenu": "Toggle navigational slide out sidebar",
 	"goBack": "Go Back",
-	"activity": "Activity"
+	"activity": "Activity",
+	"titleEndOfSequence": "End of Unit",
+	"sequenceFinished": "You have completed all the activities in this unit. Great Job!"
 }

@@ -391,7 +391,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.viewframe.focus();
 	}
 	_getTitle(entity) {
-		return entity && entity.properties && entity.properties.title || '';
+		return entity && entity.properties && entity.properties.title || localize('titleEndOfSequence');
 	}
 	//function for refetching the jwt token
 	_getToken(token) {
@@ -488,7 +488,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_getEndOfSequenceLangTerm(entity) {
-		return entity && entity.properties && entity.properties.sequenceFinishedLangTerm || '';
+		return entity && entity.properties && entity.properties.sequenceFinishedLangTerm || localize('sequenceFinished');
 	}
 
 }
