@@ -431,10 +431,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 		let currEntity = entity;
 		let response;
 		let upLink = (currEntity.getLinkByRel('up') || {}).href;
+		let currLink = (currEntity.getLinkByRel('self') || {}).href;
 
-		while (upLink && upLink.includes('activity')) {
+		while (upLink && upLink.includes('activity') && currLink !== this._rootHref) {
 			response = await window.D2L.Siren.EntityStore.fetch(upLink, this.token);
 			currEntity = response.entity;
+			currLink = (currEntity.getLinkByRel('self') || {}).href;
 			upLink = (currEntity.getLinkByRel('up') || {}).href;
 		}
 		const properties = {};
