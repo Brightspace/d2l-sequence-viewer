@@ -73,7 +73,7 @@
 
 						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', async() => {
 							let button;
-							for (let index = 0; index < 10 && !button; index++) {
+							for (let index = 0; index < 50 && !button; index++) {
 								button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
 								if(button) {
 									break
