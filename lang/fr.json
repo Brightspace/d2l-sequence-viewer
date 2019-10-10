@@ -1,6 +1,7 @@
 {
     "activity" : "Actividad",
     "backToContent" : "Retour au contenu",
+    "endOfSequence" : "Término de la unidad",
     "goBack" : "Regresar",
     "toggleNavMenu" : "Toggle navigational slide out sidebar"
  }

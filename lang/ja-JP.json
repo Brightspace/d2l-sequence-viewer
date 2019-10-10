@@ -1,6 +1,7 @@
 {
    "activity" : "アクティビティ",
    "backToContent" : "コンテンツに戻る",
+   "endOfSequence" : "ユニットの末尾",
    "goBack" : "戻る",
    "toggleNavMenu" : "ナビゲーションのスライドアウトサイドバーの切り替え"
 }
