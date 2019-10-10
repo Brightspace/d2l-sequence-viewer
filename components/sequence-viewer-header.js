@@ -180,7 +180,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</div>
 				<div class="topic-name col8 hidden-small">
 				<h1>
-					<d2l-sequences-topic-name id="topicName" href="[[href]]" token="[[token]]"></d2l-sequences-topic-name>
+					[[endOfSequenceLangTerm]]
 				</h1>
 				</div>
 				<div class="col9"></div>
@@ -220,6 +220,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				value: false
 			},
 			telemetryEndpoint: String,
+			endOfSequenceLangTerm: String
 		};
 	}
 	static get observers() {
