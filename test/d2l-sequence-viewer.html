@@ -71,8 +71,15 @@
 							expect( sidebar.querySelector('d2l-sequence-navigator') ).to.exist;
 						});
 
-						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', () => {
-							const button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+						it('should have a sidebar element that shows/hides via clicking on the flyout-menu button', async() => {
+							let button;
+							for (let index = 0; index < 10 && !button; index++) {
+								button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
+								if(button) {
+									break
+								};
+								await sleep(10);
+							}
 							expect( button ).to.exist;
 							expect( sidebar ).to.have.class('offscreen');
 							button.click();
@@ -191,6 +198,9 @@
 					});
 				});
 			});
+			function sleep(ms) {
+  				return new Promise(resolve => setTimeout(resolve, ms));
+			}
 		</script>
 	</body>
 </html>
