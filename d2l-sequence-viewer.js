@@ -337,7 +337,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_getSingleTopicView(entity) {
-		return entity && entity.hasClass('single-topic-sequence') || false;
+		return !(entity) || entity.hasClass('single-topic-sequence') || false;
 	}
 
 	connectedCallback() {
