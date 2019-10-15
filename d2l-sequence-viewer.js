@@ -288,10 +288,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up').href;
+
+			console.log({moduleLink});
+			// TODO: This is the first api call?
+			TelemetryHelper.perfMark('mark-load-start');
 			const result = await window.D2L.Siren.EntityStore.fetch(moduleLink, this.token);
+			TelemetryHelper.perfMark('mark-load-end');
+			console.log({result});
+
 			if (result && result.entity && result.entity.properties) {
 				this.mEntity = result.entity;
 				this._loaded = true;
+				console.log('loaaaddeeddeded');
+				TelemetryHelper.perfMeasure('mark-load-end', 'mark-load-start');
+				TelemetryHelper.logPerformanceEvent2();
 			}
 		} else {
 			this.mEntity = entity;
