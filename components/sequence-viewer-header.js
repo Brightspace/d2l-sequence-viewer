@@ -237,7 +237,6 @@ PolymerElement) {
 		super.connectedCallback();
 		IronA11yAnnouncer.requestAvailability();
 		this.mode = 'polite';
-		this.loadResources(this.resolveUrl('./locales.json'));
 	}
 	_announceTopic() {
 		this.fire('iron-announce', {
