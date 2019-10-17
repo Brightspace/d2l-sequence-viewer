@@ -268,7 +268,7 @@ PolymerElement) {
 		}
 		return entity && entity.hasClass('end-of-sequence') && this._getLangTerm('endOfSequence') || '';
 	}
- 
+
 	_getLangTerm(langTermKey) {
 		return this.localize ? this.localize(langTermKey) : '';
 	}
