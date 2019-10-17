@@ -14,29 +14,30 @@
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<sequence-viewer-header \
+				<d2l-sequence-viewer-header \
 				token="mock-token"
 				href="data/unit1.json"
 				>
-				</sequence-viewer-header>
+				</d2l-sequence-viewer-header>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="withTelemetryEndpoint">
 			<template>
-				<sequence-viewer-header
+				<d2l-sequence-viewer-header
 				telemetry-endpoint="mock-telemetry-endpoint"
 				>
-				</sequence-viewer-header>
+				</d2l-sequence-viewer-header>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="singleTopicView">
 			<template>
-				<sequence-viewer-header
+				<d2l-sequence-viewer-header
 					token="mock-token"
 					is-single-topic-view="true"
-					>
+				>
+				</d2l-sequence-viewer-header>
 				</d2l-sequence-viewer>
 			</template>
 		</test-fixture>

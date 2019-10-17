@@ -157,7 +157,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
 			<template is="dom-if" if="{{!_isSingleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
@@ -168,7 +168,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				<d2l-navigation-link-back text="[[localize('backToContent')]]" on-click="_onClickBack" href="[[backToContentLink]]">
 				</d2l-navigation-link-back>
 			</div>
-		</sequence-viewer-header>
+		</d2l-sequence-viewer-header>
 		<div id="sidebar-occlude"></div>
 		<div id="sidebar" class="offscreen">
 			<d2l-sequence-navigator href="{{href}}" token="[[token]]" role="navigation">
