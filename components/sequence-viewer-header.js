@@ -266,7 +266,7 @@ PolymerElement) {
 		if (title) {
 			return title;
 		}
-		return this._getLangTerm('endOfSequence') || '';
+		return entity && entity.hasClass('end-of-sequence') && this._getLangTerm('endOfSequence') || '';
 	}
  
 	_getLangTerm(langTermKey) {
