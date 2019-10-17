@@ -14,26 +14,26 @@
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<d2l-sequence-viewer-header \
+				<sequence-viewer-header \
 				token="mock-token"
 				href="data/unit1.json"
 				>
-				</d2l-sequence-viewer-header>
+				</sequence-viewer-header>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="withTelemetryEndpoint">
 			<template>
-				<d2l-sequence-viewer-header
+				<sequence-viewer-header
 				telemetry-endpoint="mock-telemetry-endpoint"
 				>
-				</d2l-sequence-viewer-header>
+				</sequence-viewer-header>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="singleTopicView">
 			<template>
-				<d2l-sequence-viewer-header
+				<sequence-viewer-header
 					token="mock-token"
 					is-single-topic-view="true"
 					>
@@ -43,14 +43,14 @@
 
 		<script type="module">
 
-			import '../components/d2l-sequence-viewer-header.js';
+			import '../components/sequence-viewer-header.js';
 			import TelemetryHelper from '../helpers/telemetry-helper';
 
 			/* global SirenFixture */
 			// TODO: This test suite is missing a lot of test cases.
 			// The previous tests that existed were all false positives.
 
-			describe('d2l-sequence-viewer-header', () => {
+			describe('sequence-viewer-header', () => {
 
 				let elem;
 				TelemetryHelper.logTelemetryEvent = () => {};
@@ -107,7 +107,7 @@
 				});
 			});
 
-			describe('d2l-sequence-viewer-header in singleTopicView', () => {
+			describe('sequence-viewer-header in singleTopicView', () => {
 				let elem;
 
 				beforeEach(async () => {

@@ -1,5 +1,5 @@
 import d2lTelemetryBrowserClient from 'd2l-telemetry-browser-client';
-import { clearMeasure } from './performance-helper';
+import PerformanceHelper from './performance-helper';
 
 class TelemetryHelper {
 	static logTelemetryEvent(id, endpoint) {
@@ -24,13 +24,12 @@ class TelemetryHelper {
 		client.logUserEvent(event);
 	}
 
-	static logPerformanceEvent(id, measureName, endpoint = 'temp') {
+	static logPerformanceEvent(id, measureName, endpoint) {
 		if (!endpoint || !window.performance || !window.performance.getEntriesByName) {
 			return;
 		}
 
 		const measures = window.performance.getEntriesByName(measureName);
-		console.log({measures});
 
 		const client = new d2lTelemetryBrowserClient.Client({
 			endpoint,
@@ -47,11 +46,9 @@ class TelemetryHelper {
 			.setSourceId('learnerexperience')
 			.setBody(eventBody);
 
-		console.log({event});
-
 		client.logUserEvent(event);
 
-		clearMeasure(measureName);
+		PerformanceHelper.clearMeasure(measureName);
 	}
 }
 

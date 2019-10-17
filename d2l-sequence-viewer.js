@@ -1,6 +1,6 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
-import './components/d2l-sequence-viewer-header.js';
+import './components/sequence-viewer-header.js';
 import './localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
@@ -18,7 +18,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import TelemetryHelper from './helpers/telemetry-helper';
-import { perfMark, perfMeasure } from './helpers/performance-helper';
+import PerformanceHelper from './helpers/performance-helper';
 
 /*
 * @polymer
@@ -157,7 +157,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
+		<sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
 			<template is="dom-if" if="{{!_isSingleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
@@ -168,7 +168,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				<d2l-navigation-link-back text="[[localize('backToContent')]]" on-click="_onClickBack" href="[[backToContentLink]]">
 				</d2l-navigation-link-back>
 			</div>
-		</d2l-sequence-viewer-header>
+		</sequence-viewer-header>
 		<div id="sidebar-occlude"></div>
 		<div id="sidebar" class="offscreen">
 			<d2l-sequence-navigator href="{{href}}" token="[[token]]" role="navigation">
@@ -325,11 +325,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 
 		if (!entity) {
-			perfMark('mark-api-call-start');
+			PerformanceHelper.perfMark('mark-api-call-start');
 		} else {
 			this._contentReady = true;
-			perfMark('mark-api-call-end');
-			perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
+			PerformanceHelper.perfMark('mark-api-call-end');
+			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
 			TelemetryHelper.logPerformanceEvent('on-content-load', 'api-call-finish', this.telemetryEndpoint);
 		}
 	}

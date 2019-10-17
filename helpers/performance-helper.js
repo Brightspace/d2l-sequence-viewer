@@ -1,32 +1,36 @@
-export function perfMeasure(measureName, startMark, endMark) {
-	if (!window.performance || !window.performance.measure || window.performance.getEntriesByName(measureName).length) {
-		return;
+class PerformanceHelper {
+	static perfMeasure(measureName, startMark, endMark) {
+		if (!window.performance || !window.performance.measure || window.performance.getEntriesByName(measureName).length) {
+			return;
+		}
+
+		window.performance.measure(measureName, startMark, endMark);
+		this.clearMarks([startMark, endMark]);
 	}
 
-	window.performance.measure(measureName, startMark, endMark);
-	clearMarks([startMark, endMark]);
-}
+	static clearMeasure(measureName) {
+		if (!window.performance || !window.performance.clearMeasures) {
+			return;
+		}
 
-export function clearMeasure(measureName) {
-	if (!window.performance || !window.performance.clearMeasures) {
-		return;
+		window.performance.clearMeasures(measureName);
 	}
 
-	window.performance.clearMeasures(measureName);
-}
+	static perfMark(markName) {
+		if (!window.performance || !window.performance.mark) {
+			return;
+		}
 
-export function perfMark(markName) {
-	if (!window.performance || !window.performance.mark) {
-		return;
+		window.performance.mark(markName);
 	}
 
-	window.performance.mark(markName);
-}
+	static clearMarks(markNames) {
+		if (!window.performance || !window.performance.clearMeasures) {
+			return;
+		}
 
-function clearMarks(markNames) {
-	if (!window.performance || !window.performance.clearMeasures) {
-		return;
+		markNames.forEach((mark) => window.performance.clearMarks(mark));
 	}
-
-	markNames.forEach((mark) => window.performance.clearMarks(mark));
 }
+
+export default PerformanceHelper;

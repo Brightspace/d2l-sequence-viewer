@@ -20,7 +20,7 @@ import TelemetryHelper from '../helpers/telemetry-helper';
 * @extends Polymer.mixinBehaviors
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
-class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
+class SequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
 	static get template() {
 		return html`
 		<style>
@@ -198,7 +198,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 	}
 
 	static get is() {
-		return 'd2l-sequence-viewer-header';
+		return 'sequence-viewer-header';
 	}
 	static get properties() {
 		return {
@@ -254,4 +254,4 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
 	}
 }
-customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
+customElements.define(SequenceViewerHeader.is, SequenceViewerHeader);

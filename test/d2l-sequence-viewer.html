@@ -40,11 +40,16 @@
 		<script type="module">
 			import '../d2l-sequence-viewer.js';
 			import TelemetryHelper from '../helpers/telemetry-helper';
+			import PerformanceHelper from '../helpers/performance-helper';
 			/* global SirenFixture */
 			describe('d2l-sequence-viewer', () => {
 
 				let elem;
+				// FixMe: Find better testing library to mock this better
 				TelemetryHelper.logTelemetryEvent = () => {};
+				TelemetryHelper.logPerformanceEvent = () => {};
+				PerformanceHelper.perfMark = () => {};
+				PerformanceHelper.perfMeasure = () => {};
 				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
 
 				describe('render', () => {
