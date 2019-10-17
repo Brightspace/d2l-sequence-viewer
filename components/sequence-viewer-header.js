@@ -21,10 +21,10 @@ import '../localize-behavior.js';
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
 class D2LSequenceViewerHeader extends mixinBehaviors([
-		D2L.PolymerBehaviors.Siren.EntityBehavior,
-		D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
-	],
-	PolymerElement) {
+	D2L.PolymerBehaviors.Siren.EntityBehavior,
+	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+],
+PolymerElement) {
 	static get template() {
 		return html`
 		<style>
