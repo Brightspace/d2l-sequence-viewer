@@ -262,11 +262,11 @@ PolymerElement) {
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
 	}
 	_getCurrentContentName(entity) {
-		const title = entity && entity.properties && entity.properties.title || '';
+		const title = entity && entity.properties.title;
 		if (title) {
 			return title;
 		}
-		return entity && entity.hasClass('end-of-sequence') && this._getLangTerm('endOfSequence') || '';
+		return entity && entity.hasClass('end-of-sequence') && this._getLangTerm('endOfSequence');
 	}
 
 	_getLangTerm(langTermKey) {
