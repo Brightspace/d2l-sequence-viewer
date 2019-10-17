@@ -1,6 +1,6 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
-import './components/sequence-viewer-header.js';
+import './components/d2l-sequence-viewer-header.js';
 import './localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
@@ -18,6 +18,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import TelemetryHelper from './helpers/telemetry-helper';
+import { perfMark, perfMeasure } from './helpers/performance-helper';
 
 /*
 * @polymer
@@ -262,21 +263,32 @@ class D2LSequenceViewer extends mixinBehaviors([
 		};
 	}
 	static get observers() {
-		return ['_pushState(href)', '_setLastViewedContentObject(entity)', '_onEntityChanged(entity)'];
+		return ['_pushState(href)', '_setLastViewedContentObject(entity)', '_onEntityChanged(entity)', '_onContentReady(entity)'];
 	}
 	ready() {
 		super.ready();
+
 		const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-		const navbarstyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
-		this.updateStyles(
-			styles
-		);
-		this.updateStyles(
-			navbarstyles
-		);
+		const navBarStyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		this.updateStyles({...styles, ...navBarStyles});
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
+	}
+	connectedCallback() {
+		super.connectedCallback();
+		// For ASV, the blur event is an indicator than an iframe took focus
+		// from our full-screen application.  Currently, the only thing that
+		// can do this is a content iframe.
+		window.addEventListener('blur', this._blurListener);
+		window.addEventListener('popstate', this._onPopStateListener);
+		window.addEventListener('resize', this._resizeNavListener);
+	}
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('blur', this._blurListener);
+		window.removeEventListener('popstate', this._onPopStateListener);
+		window.removeEventListener('resize', this._resizeNavListener);
 	}
 
 	async _onEntityChanged(entity) {
@@ -288,20 +300,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 		// topic entity need to fetch module entity
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up').href;
-
-			console.log({moduleLink});
-			// TODO: This is the first api call?
-			TelemetryHelper.perfMark('mark-load-start');
 			const result = await window.D2L.Siren.EntityStore.fetch(moduleLink, this.token);
-			TelemetryHelper.perfMark('mark-load-end');
-			console.log({result});
 
 			if (result && result.entity && result.entity.properties) {
 				this.mEntity = result.entity;
 				this._loaded = true;
-				console.log('loaaaddeeddeded');
-				TelemetryHelper.perfMeasure('mark-load-end', 'mark-load-start');
-				TelemetryHelper.logPerformanceEvent2();
 			}
 		} else {
 			this.mEntity = entity;
@@ -315,9 +318,26 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._setModuleProperties(entity);
 		}
 	}
+
+	_onContentReady(entity) {
+		if (this._contentReady) {
+			return;
+		}
+
+		if (!entity) {
+			perfMark('mark-api-call-start');
+		} else {
+			this._contentReady = true;
+			perfMark('mark-api-call-end');
+			perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
+			TelemetryHelper.logPerformanceEvent('on-content-load', 'api-call-finish', this.telemetryEndpoint);
+		}
+	}
+
 	_hrefChanged() {
 		this.$.viewframe.focus();
 	}
+
 	_titleChanged(title) {
 		document.title = title;
 	}
@@ -344,23 +364,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	_getSingleTopicView(entity) {
 		return !(entity) || entity.hasClass('single-topic-sequence') || false;
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-
-		// For ASV, the blur event is an indicator than an iframe took focus
-		// from our full-screen application.  Currently, the only thing that
-		// can do this is a content iframe.
-		window.addEventListener('blur', this._blurListener);
-		window.addEventListener('popstate', this._onPopStateListener);
-		window.addEventListener('resize', this._resizeNavListener);
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-		window.removeEventListener('blur', this._blurListener);
-		window.removeEventListener('popstate', this._onPopStateListener);
-		window.removeEventListener('resize', this._resizeNavListener);
 	}
 	_closeSlidebarOnFocusContent() {
 		setTimeout(() => {
@@ -494,6 +497,5 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._sideBarOpen();
 		}
 	}
-
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
