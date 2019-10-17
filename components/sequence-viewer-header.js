@@ -6,7 +6,6 @@ import 'd2l-icons/tier2-icons.js';
 import 'd2l-icons/tier3-icons.js';
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-sequences/components/d2l-sequences-iterator.js';
-import 'd2l-sequences/components/d2l-sequences-topic-name.js';
 import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
