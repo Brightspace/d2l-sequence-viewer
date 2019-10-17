@@ -184,7 +184,7 @@ PolymerElement) {
 				</div>
 				<div class="topic-name col8 hidden-small">
 				<h1>
-					[[endOfSequenceLangTerm]]
+					[[currentContentName]]
 				</h1>
 				</div>
 				<div class="col9"></div>
@@ -224,9 +224,9 @@ PolymerElement) {
 				value: false
 			},
 			telemetryEndpoint: String,
-			endOfSequenceLangTerm: {
+			currentContentName: {
 				type: String,
-				computed: '_getEndOfSequenceLangTerm(entity)'
+				computed: '_getCurrentContentName(entity)'
 			}
 		};
 	}
@@ -240,7 +240,7 @@ PolymerElement) {
 	}
 	_announceTopic() {
 		this.fire('iron-announce', {
-			text: this.endOfSequenceLangTerm
+			text: this.currentContentName
 		});
 	}
 
@@ -261,7 +261,7 @@ PolymerElement) {
 	_onNextPress() {
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
 	}
-	_getEndOfSequenceLangTerm(entity) {
+	_getCurrentContentName(entity) {
 		if (entity && entity.hasClass('end-of-sequence')) {
 			return entity && entity.properties && entity.properties.title || this._getLangTerm('endOfSequence') || '';
 		}
@@ -269,10 +269,7 @@ PolymerElement) {
 	}
 
 	_getLangTerm(langTermKey) {
-		if (this.localize) {
-			return this.localize(langTermKey);
-		}
-		return '';
+		return this.localize ? this.localize(langTermKey) : '';
 	}
 }
 customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
