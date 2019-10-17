@@ -262,12 +262,13 @@ PolymerElement) {
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
 	}
 	_getCurrentContentName(entity) {
-		if (entity && entity.hasClass('end-of-sequence')) {
-			return entity.properties && entity.properties.title || this._getLangTerm('endOfSequence') || '';
+		const title = entity && entity.properties && entity.properties.title || '';
+		if (title) {
+			return title;
 		}
-		return entity && entity.properties && entity.properties.title || '';
+		return this._getLangTerm('endOfSequence') || '';
 	}
-
+ 
 	_getLangTerm(langTermKey) {
 		return this.localize ? this.localize(langTermKey) : '';
 	}
