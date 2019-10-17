@@ -12,6 +12,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import TelemetryHelper from '../helpers/telemetry-helper';
+import '../localize-behavior.js';
 
 /**
 * @polymer
@@ -20,7 +21,11 @@ import TelemetryHelper from '../helpers/telemetry-helper';
 * @extends Polymer.mixinBehaviors
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
-class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
+class D2LSequenceViewerHeader extends mixinBehaviors([
+		D2L.PolymerBehaviors.Siren.EntityBehavior,
+		D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+	],
+	PolymerElement) {
 	static get template() {
 		return html`
 		<style>
@@ -180,7 +185,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</div>
 				<div class="topic-name col8 hidden-small">
 				<h1>
-					<d2l-sequences-topic-name id="topicName" href="[[href]]" token="[[token]]"></d2l-sequences-topic-name>
+					[[endOfSequenceLangTerm]]
 				</h1>
 				</div>
 				<div class="col9"></div>
@@ -220,6 +225,10 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				value: false
 			},
 			telemetryEndpoint: String,
+			endOfSequenceLangTerm: {
+				type: String,
+				computed: '_getEndOfSequenceLangTerm(entity)'
+			}
 		};
 	}
 	static get observers() {
@@ -229,10 +238,11 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 		super.connectedCallback();
 		IronA11yAnnouncer.requestAvailability();
 		this.mode = 'polite';
+		this.loadResources(this.resolveUrl('./locales.json'));
 	}
 	_announceTopic() {
 		this.fire('iron-announce', {
-			text: this.$.topicName.innerText.trim()
+			text: this.endOfSequenceLangTerm
 		});
 	}
 
@@ -252,6 +262,19 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 
 	_onNextPress() {
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
+	}
+	_getEndOfSequenceLangTerm(entity) {
+		if (entity && entity.hasClass('end-of-sequence')) {
+			return entity && entity.properties && entity.properties.title || this._getLangTerm('endOfSequence') || '';
+		}
+		return entity && entity.properties && entity.properties.title || '';
+	}
+
+	_getLangTerm(langTermKey) {
+		if (this.localize) {
+			return this.localize(langTermKey);
+		}
+		return '';
 	}
 }
 customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);

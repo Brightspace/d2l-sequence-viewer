@@ -180,7 +180,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					</d2l-lesson-header>
 				</span>
 				<span slot="end-of-lesson">
-					<d2l-sequence-end href="[[_sequenceEndHref]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
+					<d2l-sequence-end href="[[_sequenceEndHref]]" token="[[token]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
 				</span>
 			</d2l-sequence-navigator>
 		</div>
@@ -484,6 +484,5 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._sideBarOpen();
 		}
 	}
-
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
