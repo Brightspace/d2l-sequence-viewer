@@ -1,12 +1,12 @@
 import d2lTelemetryBrowserClient from 'd2l-telemetry-browser-client';
-import PerformanceHelper from './performance-helper';
+import PerformanceHelper from './performance-helper.js';
 
 class TelemetryHelper {
-	static _createClient(endpoint) {
-		return new d2lTelemetryBrowserClient.Client({endpoint});
+	constructor(endpoint) {
+		this._client = !!endpoint && new d2lTelemetryBrowserClient.Client({endpoint});
 	}
 
-	static _createEvent(eventType, eventBody) {
+	_createEvent(eventType, eventBody) {
 		return new d2lTelemetryBrowserClient.TelemetryEvent()
 			.setDate(new Date())
 			.setType(eventType)
@@ -14,12 +14,10 @@ class TelemetryHelper {
 			.setBody(eventBody);
 	}
 
-	static logTelemetryEvent(id, endpoint) {
-		if (!endpoint) {
+	logTelemetryEvent(id) {
+		if (!this._client) {
 			return;
 		}
-
-		const client = this._createClient(endpoint);
 
 		const eventBody = new d2lTelemetryBrowserClient.EventBody()
 			.setAction('Created')
@@ -27,19 +25,15 @@ class TelemetryHelper {
 
 		const event = this._createEvent('TelemetryEvent', eventBody);
 
-		client.logUserEvent(event);
+		this._client.logUserEvent(event);
 	}
 
-	static logPerformanceEvent(id, measureName, endpoint) {
-		if (!endpoint || !window.performance || !window.performance.getEntriesByName) {
+	logPerformanceEvent(id, measureName) {
+		if (!this._client || !window.performance || !window.performance.getEntriesByName) {
 			return;
 		}
 
-		const measures = window.performance.getEntriesByName(measureName);
-
-		const client = new d2lTelemetryBrowserClient.Client({
-			endpoint,
-		});
+		const measures = PerformanceHelper.getPerformanceMeasureByName(measureName);
 
 		const eventBody = new d2lTelemetryBrowserClient.PerformanceEventBody()
 			.setAction('Created')
@@ -48,7 +42,7 @@ class TelemetryHelper {
 
 		const event = this._createEvent('PerformanceEvent', eventBody);
 
-		client.logUserEvent(event);
+		this._client.logUserEvent(event);
 
 		PerformanceHelper.clearMeasure(measureName);
 	}

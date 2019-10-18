@@ -16,6 +16,16 @@ class PerformanceHelper {
 		window.performance.clearMeasures(measureName);
 	}
 
+	static getPerformanceMeasureByName(measureName) {
+		const measures = [];
+
+		if (window.performance && window.performance.getEntriesByName) {
+			measures.push(...window.performance.getEntriesByName(measureName));
+		}
+
+		return measures;
+	}
+
 	static perfMark(markName) {
 		if (!window.performance || !window.performance.mark) {
 			return;

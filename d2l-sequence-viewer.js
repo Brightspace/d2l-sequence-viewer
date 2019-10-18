@@ -17,8 +17,8 @@ import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import TelemetryHelper from './helpers/telemetry-helper';
-import PerformanceHelper from './helpers/performance-helper';
+import TelemetryHelper from './helpers/telemetry-helper.js';
+import PerformanceHelper from './helpers/performance-helper.js';
 
 /*
 * @polymer
@@ -157,7 +157,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-client="{{telemetryClient}}" is-single-topic-view="[[_isSingleTopicView]]">
 			<template is="dom-if" if="{{!_isSingleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
@@ -261,6 +261,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 			csRedirectPath: String,
 			noRedirectQueryParamString: String,
 			telemetryEndpoint: String,
+			telemetryClient: {
+				type: TelemetryHelper,
+				computed: '_getTelemetryClient(telemetryEndpoint)',
+				value: new TelemetryHelper()
+			}
 		};
 	}
 	static get observers() {
@@ -331,7 +336,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._contentReady = true;
 			PerformanceHelper.perfMark('mark-api-call-end');
 			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
-			TelemetryHelper.logPerformanceEvent('on-content-load', 'api-call-finish', this.telemetryEndpoint);
+			this.telemetryClient.logPerformanceEvent('on-content-load', 'api-call-finish');
 		}
 	}
 
@@ -342,6 +347,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	_titleChanged(title) {
 		document.title = title;
 	}
+
 	_pushState(href) {
 		const stateObject = {
 			href: href,
@@ -358,6 +364,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			history.replaceState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
 		}
 	}
+
 	_getBackToContentLink(entity) {
 		const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
 		return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
@@ -366,6 +373,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 	_getSingleTopicView(entity) {
 		return !(entity) || entity.hasClass('single-topic-sequence') || false;
 	}
+
+	_getTelemetryClient(telemetryEndpoint) {
+		return new TelemetryHelper(telemetryEndpoint);
+	}
+
 	_closeSlidebarOnFocusContent() {
 		setTimeout(() => {
 			if (document.hasFocus() && window.innerWidth <= 929) {
@@ -373,14 +385,16 @@ class D2LSequenceViewer extends mixinBehaviors([
 			}
 		}, 1);
 	}
+
 	_onPopState(event) {
 		if (event.state && event.state.href) {
 			this.href = event.state.href;
 			event.preventDefault();
 		}
 	}
+
 	_onClickBack() {
-		TelemetryHelper.logTelemetryEvent('back-to-content', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('back-to-content');
 
 		if (!this.backToContentLink) {
 			return;
@@ -397,16 +411,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 			returnUrl: this.backToContentLink
 		}), '*');
 	}
+
 	_onIterate() {
 		this.$.viewframe.focus();
 	}
+
 	_getTitle(entity) {
 		return entity && entity.properties && entity.properties.title || '';
 	}
+
 	//function for refetching the jwt token
 	_getToken(token) {
 		return () => { return Promise.resolve(token); };
 	}
+
 	_toggleSlideSidebar() {
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
@@ -414,14 +432,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._sideBarClose();
 		}
 	}
+
 	_getRootHref(entity) {
 		const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
 		return rootLink && rootLink.href || '';
 	}
+
 	_getSequenceEndHref(entity) {
 		const endOfSequenceLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/end-of-sequence');
 		return endOfSequenceLink && endOfSequenceLink.href || '';
 	}
+
 	_setLastViewedContentObject(entity) {
 		let action;
 		const actionSubEntity = entity && entity.getSubEntityByRel('about');
@@ -473,7 +494,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
-		TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('sidebar-open');
 	}
 
 	_sideBarClose() {
@@ -488,7 +509,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 
-		TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('sidebar-close');
 	}
 
 	_resizeSideBar() {

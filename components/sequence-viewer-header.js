@@ -10,8 +10,8 @@ import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announ
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import TelemetryHelper from '../helpers/telemetry-helper';
 import '../localize-behavior.js';
+import TelemetryHelper from '../helpers/telemetry-helper';
 
 /**
 * @polymer
@@ -223,7 +223,7 @@ PolymerElement) {
 				type: Boolean,
 				value: false
 			},
-			telemetryEndpoint: String,
+			telemetryClient: TelemetryHelper,
 			currentContentName: {
 				type: String,
 				computed: '_getCurrentContentName(entity)'
@@ -255,11 +255,11 @@ PolymerElement) {
 	}
 
 	_onPreviousPress() {
-		TelemetryHelper.logTelemetryEvent('prev-nav-button', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('prev-nav-button');
 	}
 
 	_onNextPress() {
-		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('next-nav-button');
 	}
 	_getCurrentContentName(entity) {
 		const title = entity && entity.properties.title;
