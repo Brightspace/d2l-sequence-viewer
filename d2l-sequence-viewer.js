@@ -253,6 +253,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				computed: '_getBackToContentLink(entity)'
 			},
 			_loaded: Boolean,
+			_contentReady: Boolean,
 			_blurListener: Function,
 			_onPopStateListener: Function,
 			_resizeNavListener: Function,
