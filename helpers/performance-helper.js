@@ -1,6 +1,6 @@
 class PerformanceHelper {
 	static perfMeasure(measureName, startMark, endMark) {
-		if (!window.performance || !window.performance.measure || window.performance.getEntriesByName(measureName).length) {
+		if (!window.performance || !window.performance.measure || !window.performance.getEntriesByName || window.performance.getEntriesByName(measureName).length) {
 			return;
 		}
 
@@ -25,7 +25,7 @@ class PerformanceHelper {
 	}
 
 	static clearMarks(markNames) {
-		if (!window.performance || !window.performance.clearMeasures) {
+		if (!window.performance || !window.performance.clearMarks) {
 			return;
 		}
 
