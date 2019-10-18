@@ -264,7 +264,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			telemetryClient: {
 				type: typeof TelemetryHelper,
 				computed: '_getTelemetryClient(telemetryEndpoint)',
-				value: new TelemetryHelper()
+				value: function() {
+					return new TelemetryHelper();
+				}
 			}
 		};
 	}

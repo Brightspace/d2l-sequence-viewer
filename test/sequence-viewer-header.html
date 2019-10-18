@@ -45,7 +45,14 @@
 			describe('sequence-viewer-header', () => {
 
 				let elem;
-				chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
+
+				beforeEach(() => {
+					chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
+				});
+
+				afterEach(() => {
+					chai.spy.restore();
+				});
 
 				describe('render', () => {
 					beforeEach( async() => {

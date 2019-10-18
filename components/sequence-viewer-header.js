@@ -225,7 +225,9 @@ PolymerElement) {
 			},
 			telemetryClient: {
 				type: typeof TelemetryHelper,
-				value: new TelemetryHelper()
+				value: function() {
+					return new TelemetryHelper();
+				}
 			},
 			currentContentName: {
 				type: String,
