@@ -40,17 +40,12 @@
 		<script type="module">
 			import '../d2l-sequence-viewer.js';
 			import TelemetryHelper from '../helpers/telemetry-helper';
-			import PerformanceHelper from '../helpers/performance-helper';
 			/* global SirenFixture */
 			describe('d2l-sequence-viewer', () => {
 
 				let elem;
 				// FixMe: Find better testing library to mock this better
-				TelemetryHelper.logTelemetryEvent = () => {};
-				TelemetryHelper.logPerformanceEvent = () => {};
-				PerformanceHelper.perfMark = () => {};
-				PerformanceHelper.perfMeasure = () => {};
-				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+				chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
 
 				describe('render', () => {
 
@@ -158,8 +153,8 @@
 						});
 						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('back-to-content', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('back-to-content');
 						});
 					});
 				});
@@ -177,14 +172,14 @@
 						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
 							sidebar.classList.add('offscreen');
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('sidebar-open');
 						});
 						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
 							sidebar.classList.remove('offscreen');
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('sidebar-close');
 						});
 					});
 				});

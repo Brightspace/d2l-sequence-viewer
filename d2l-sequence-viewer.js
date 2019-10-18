@@ -262,7 +262,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			noRedirectQueryParamString: String,
 			telemetryEndpoint: String,
 			telemetryClient: {
-				type: TelemetryHelper,
+				type: typeof TelemetryHelper,
 				computed: '_getTelemetryClient(telemetryEndpoint)',
 				value: new TelemetryHelper()
 			}

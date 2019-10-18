@@ -22,15 +22,6 @@
 			</template>
 		</test-fixture>
 
-		<test-fixture id="withTelemetryEndpoint">
-			<template>
-				<d2l-sequence-viewer-header
-				telemetry-endpoint="mock-telemetry-endpoint"
-				>
-				</d2l-sequence-viewer-header>
-			</template>
-		</test-fixture>
-
 		<test-fixture id="singleTopicView">
 			<template>
 				<d2l-sequence-viewer-header
@@ -54,8 +45,7 @@
 			describe('sequence-viewer-header', () => {
 
 				let elem;
-				TelemetryHelper.logTelemetryEvent = () => {};
-				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+				chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
 
 				describe('render', () => {
 					beforeEach( async() => {
@@ -75,15 +65,15 @@
 
 					describe('on click', () => {
 						beforeEach( async() => {
-							elem = await fixture('withTelemetryEndpoint');
+							elem = await fixture('basic');
 							prevButton = elem.shadowRoot.querySelector('.prev-button');
 						});
 
 						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
 							prevButton.click();
 
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('prev-nav-button', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('prev-nav-button');
 						});
 					});
 				});
@@ -94,15 +84,15 @@
 
 					describe('on click', () => {
 						beforeEach( async() => {
-							elem = await fixture('withTelemetryEndpoint');
+							elem = await fixture('basic');
 							nextButton = elem.shadowRoot.querySelector('.next-button');
 						});
 
 						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
 							nextButton.click();
 
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('next-nav-button', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('next-nav-button');
 						});
 					});
 				});

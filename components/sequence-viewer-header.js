@@ -223,7 +223,10 @@ PolymerElement) {
 				type: Boolean,
 				value: false
 			},
-			telemetryClient: TelemetryHelper,
+			telemetryClient: {
+				type: typeof TelemetryHelper,
+				value: new TelemetryHelper()
+			},
 			currentContentName: {
 				type: String,
 				computed: '_getCurrentContentName(entity)'
