@@ -6,12 +6,12 @@ import 'd2l-icons/tier2-icons.js';
 import 'd2l-icons/tier3-icons.js';
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-sequences/components/d2l-sequences-iterator.js';
-import 'd2l-sequences/components/d2l-sequences-topic-name.js';
 import { IronA11yAnnouncer } from '@polymer/iron-a11y-announcer/iron-a11y-announcer.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import TelemetryHelper from '../helpers/telemetry-helper';
+import '../localize-behavior.js';
 
 /**
 * @polymer
@@ -20,7 +20,11 @@ import TelemetryHelper from '../helpers/telemetry-helper';
 * @extends Polymer.mixinBehaviors
 * @appliesMixin D2L.PolymerBehaviors.Siren.EntityBehavior
 */
-class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
+class D2LSequenceViewerHeader extends mixinBehaviors([
+	D2L.PolymerBehaviors.Siren.EntityBehavior,
+	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
+],
+PolymerElement) {
 	static get template() {
 		return html`
 		<style>
@@ -180,7 +184,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				</div>
 				<div class="topic-name col8 hidden-small">
 				<h1>
-					<d2l-sequences-topic-name id="topicName" href="[[href]]" token="[[token]]"></d2l-sequences-topic-name>
+					[[currentContentName]]
 				</h1>
 				</div>
 				<div class="col9"></div>
@@ -220,6 +224,10 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 				value: false
 			},
 			telemetryEndpoint: String,
+			currentContentName: {
+				type: String,
+				computed: '_getCurrentContentName(entity)'
+			}
 		};
 	}
 	static get observers() {
@@ -232,7 +240,7 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 	}
 	_announceTopic() {
 		this.fire('iron-announce', {
-			text: this.$.topicName.innerText.trim()
+			text: this.currentContentName
 		});
 	}
 
@@ -252,6 +260,17 @@ class D2LSequenceViewerHeader extends mixinBehaviors([D2L.PolymerBehaviors.Siren
 
 	_onNextPress() {
 		TelemetryHelper.logTelemetryEvent('next-nav-button', this.telemetryEndpoint);
+	}
+	_getCurrentContentName(entity) {
+		const title = entity && entity.properties.title;
+		if (title) {
+			return title;
+		}
+		return entity && entity.hasClass('end-of-sequence') && this._getLangTerm('endOfSequence');
+	}
+
+	_getLangTerm(langTermKey) {
+		return this.localize ? this.localize(langTermKey) : '';
 	}
 }
 customElements.define(D2LSequenceViewerHeader.is, D2LSequenceViewerHeader);
