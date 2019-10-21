@@ -389,6 +389,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_onPopState(event) {
+		this.telemetryClient.logTelemetryEvent('browser-back-press');
+
 		if (event.state && event.state.href) {
 			this.href = event.state.href;
 			event.preventDefault();
