@@ -525,7 +525,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_onEndOfLessonClick() {
-		this.telemetryClient.logTelemetryEvent('end-of-unit-press');
+		this.telemetryClient.logTelemetryEvent('end-of-lesson-press');
 	}
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);
