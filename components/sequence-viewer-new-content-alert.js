@@ -244,7 +244,7 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 							};
 						});
 						// Rather than preventing any newly release content from being shown in the alert,
-						// why not add whatever new stuff comes out to the list of links?
+						// why not add whatever new stuff that comes out to the list of links?
 						this._newContent = this._newContent.concat(newContent);
 					}
 
