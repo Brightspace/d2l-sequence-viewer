@@ -18,7 +18,8 @@ import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import TelemetryHelper from './helpers/telemetry-helper';
+import TelemetryHelper from './helpers/telemetry-helper.js';
+import PerformanceHelper from './helpers/performance-helper.js';
 
 /*
 * @polymer
@@ -160,7 +161,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</custom-style>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
-		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-endpoint="{{telemetryEndpoint}}" is-single-topic-view="[[_isSingleTopicView]]">
+		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-client="[[telemetryClient]]" is-single-topic-view="[[_isSingleTopicView]]">
 			<template is="dom-if" if="{{!_isSingleTopicView}}">
 				<span slot="d2l-flyout-menu">
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
@@ -183,8 +184,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 									   token="[[token]]">
 					</d2l-lesson-header>
 				</span>
-				<span slot="end-of-lesson">
-					<d2l-sequence-end href="[[_sequenceEndHref]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
+				<span slot="end-of-lesson" on-click="_onEndOfLessonClick">
+					<d2l-sequence-end href="[[_sequenceEndHref]]" token="[[token]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
 				</span>
 			</d2l-sequence-navigator>
 		</div>
@@ -261,6 +262,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				computed: '_getBackToContentLink(entity)'
 			},
 			_loaded: Boolean,
+			_contentReady: Boolean,
 			_blurListener: Function,
 			_onPopStateListener: Function,
 			_resizeNavListener: Function,
@@ -269,24 +271,42 @@ class D2LSequenceViewer extends mixinBehaviors([
 			noRedirectQueryParamString: String,
 			telemetryEndpoint: String,
 			latestMetSetEndpoint: String,
+			telemetryClient: {
+				type: typeof TelemetryHelper,
+				computed: '_getTelemetryClient(telemetryEndpoint)',
+				value: function() {
+					return new TelemetryHelper();
+				}
+			}
 		};
 	}
 	static get observers() {
-		return ['_pushState(href)', '_setLastViewedContentObject(entity)', '_onEntityChanged(entity)'];
+		return ['_pushState(href)', '_setLastViewedContentObject(entity)', '_onEntityChanged(entity)', '_onContentReady(entity)'];
 	}
 	ready() {
 		super.ready();
+
 		const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-		const navbarstyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
-		this.updateStyles(
-			styles
-		);
-		this.updateStyles(
-			navbarstyles
-		);
+		const navBarStyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		this.updateStyles({...styles, ...navBarStyles});
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
+	}
+	connectedCallback() {
+		super.connectedCallback();
+		// For ASV, the blur event is an indicator than an iframe took focus
+		// from our full-screen application.  Currently, the only thing that
+		// can do this is a content iframe.
+		window.addEventListener('blur', this._blurListener);
+		window.addEventListener('popstate', this._onPopStateListener);
+		window.addEventListener('resize', this._resizeNavListener);
+	}
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('blur', this._blurListener);
+		window.removeEventListener('popstate', this._onPopStateListener);
+		window.removeEventListener('resize', this._resizeNavListener);
 	}
 
 	async _onEntityChanged(entity) {
@@ -299,6 +319,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		if (entity.hasClass('sequenced-activity')) {
 			const moduleLink = entity.getLinkByRel('up').href;
 			const result = await window.D2L.Siren.EntityStore.fetch(moduleLink, this.token);
+
 			if (result && result.entity && result.entity.properties) {
 				this.mEntity = result.entity;
 				this._loaded = true;
@@ -315,12 +336,30 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._setModuleProperties(entity);
 		}
 	}
+
+	_onContentReady(entity) {
+		if (this._contentReady) {
+			return;
+		}
+
+		if (!entity) {
+			PerformanceHelper.perfMark('mark-api-call-start');
+		} else {
+			this._contentReady = true;
+			PerformanceHelper.perfMark('mark-api-call-end');
+			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
+			this.telemetryClient.logPerformanceEvent('on-content-load', 'api-call-finish');
+		}
+	}
+
 	_hrefChanged() {
 		this.$.viewframe.focus();
 	}
+
 	_titleChanged(title) {
 		document.title = title;
 	}
+
 	_pushState(href) {
 		const stateObject = {
 			href: href,
@@ -337,6 +376,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			history.replaceState(stateObject, null, '?url=' + encodeURIComponent(href) || '');
 		}
 	}
+
 	_getBackToContentLink(entity) {
 		const defaultReturnUrl = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/default-return-url') || '';
 		return this.returnUrl || defaultReturnUrl && defaultReturnUrl.href || document.referrer || '';
@@ -346,22 +386,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return !(entity) || entity.hasClass('single-topic-sequence') || false;
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
+	_getTelemetryClient(telemetryEndpoint) {
+		return new TelemetryHelper(telemetryEndpoint);
+	}
 
-		// For ASV, the blur event is an indicator than an iframe took focus
-		// from our full-screen application.  Currently, the only thing that
-		// can do this is a content iframe.
-		window.addEventListener('blur', this._blurListener);
-		window.addEventListener('popstate', this._onPopStateListener);
-		window.addEventListener('resize', this._resizeNavListener);
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-		window.removeEventListener('blur', this._blurListener);
-		window.removeEventListener('popstate', this._onPopStateListener);
-		window.removeEventListener('resize', this._resizeNavListener);
-	}
 	_closeSlidebarOnFocusContent() {
 		setTimeout(() => {
 			if (document.hasFocus() && window.innerWidth <= 929) {
@@ -369,14 +397,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 			}
 		}, 1);
 	}
+
 	_onPopState(event) {
+		this.telemetryClient.logTelemetryEvent('browser-back-press');
+
 		if (event.state && event.state.href) {
 			this.href = event.state.href;
 			event.preventDefault();
 		}
 	}
+
 	_onClickBack() {
-		TelemetryHelper.logTelemetryEvent('back-to-content', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('back-to-content');
 
 		if (!this.backToContentLink) {
 			return;
@@ -393,16 +425,20 @@ class D2LSequenceViewer extends mixinBehaviors([
 			returnUrl: this.backToContentLink
 		}), '*');
 	}
+
 	_onIterate() {
 		this.$.viewframe.focus();
 	}
+
 	_getTitle(entity) {
 		return entity && entity.properties && entity.properties.title || '';
 	}
+
 	//function for refetching the jwt token
 	_getToken(token) {
 		return () => { return Promise.resolve(token); };
 	}
+
 	_toggleSlideSidebar() {
 		if (this.$.sidebar.classList.contains('offscreen')) {
 			this._sideBarOpen();
@@ -410,14 +446,17 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._sideBarClose();
 		}
 	}
+
 	_getRootHref(entity) {
 		const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
 		return rootLink && rootLink.href || '';
 	}
+
 	_getSequenceEndHref(entity) {
 		const endOfSequenceLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/end-of-sequence');
 		return endOfSequenceLink && endOfSequenceLink.href || '';
 	}
+
 	_setLastViewedContentObject(entity) {
 		let action;
 		const actionSubEntity = entity && entity.getSubEntityByRel('about');
@@ -469,7 +508,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		this.$.sidebar.classList.remove('offscreen');
 
-		TelemetryHelper.logTelemetryEvent('sidebar-open', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('sidebar-open');
 	}
 
 	_sideBarClose() {
@@ -484,7 +523,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this.$.viewframe.style.marginLeft = 'auto';
 		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
 
-		TelemetryHelper.logTelemetryEvent('sidebar-close', this.telemetryEndpoint);
+		this.telemetryClient.logTelemetryEvent('sidebar-close');
 	}
 
 	_resizeSideBar() {
@@ -495,5 +534,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 	}
 
+	_onEndOfLessonClick() {
+		this.telemetryClient.logTelemetryEvent('end-of-lesson-press');
+	}
 }
 customElements.define(D2LSequenceViewer.is, D2LSequenceViewer);

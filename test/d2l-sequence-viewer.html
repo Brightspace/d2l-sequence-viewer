@@ -44,8 +44,14 @@
 			describe('d2l-sequence-viewer', () => {
 
 				let elem;
-				TelemetryHelper.logTelemetryEvent = () => {};
-				chai.spy.on(TelemetryHelper, 'logTelemetryEvent');
+
+				beforeEach(() => {
+					chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
+				});
+
+				afterEach(() => {
+					chai.spy.restore();
+				});
 
 				describe('render', () => {
 
@@ -153,8 +159,8 @@
 						});
 						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('back-to-content', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('back-to-content');
 						});
 					});
 				});
@@ -172,14 +178,14 @@
 						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
 							sidebar.classList.add('offscreen');
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-open', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('sidebar-open');
 						});
 						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar does not have offscreen class', () => {
 							sidebar.classList.remove('offscreen');
 							button.click();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called();
-							expect(TelemetryHelper.logTelemetryEvent).to.have.been.called.with('sidebar-close', 'mock-telemetry-endpoint');
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('sidebar-close');
 						});
 					});
 				});
