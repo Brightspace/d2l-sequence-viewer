@@ -22,12 +22,13 @@ To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/pol
 polymer analyze > analysis.json && polymer serve
 ```
 
-The demo will be available at [http://127.0.0.1:port/demo/](http://127.0.0.1:port/demo/). Port is printed to console after the server starts. Alternatively, you can run the following command and then add `/demo` to the end of the URL:
+The demo will be available at [http://127.0.0.1:<port>/components/d2l-sequence-viewer](http://127.0.0.1:8081/components/d2l-sequence-viewer). Port is printed to console after the server starts. Alternatively, you can run the following command and then add `/demo` to the end of the URL:
 
 ```shell
 polymer analyze > analysis.json && polymer serve --open
 ```
 
+A demo with the new content alert enabled is available at this URL: [http://127.0.0.1:<port>/components/d2l-sequence-viewer/demo/with-alert.html](http://127.0.0.1:8081/components/d2l-sequence-viewer/demo/with-alert.html)
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
 
