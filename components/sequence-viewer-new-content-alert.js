@@ -210,18 +210,15 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 	}
 
 	_resetPolling() {
-		console.log(`${new Date()}\tit's time to reset pollin`); //eslint-disable-line
 		this._pollInterval = 0;
 		this._poll();
 	}
 
 	_stopPolling() {
-		console.log(`${new Date()}\tit's time to STAHP`); //eslint-disable-line
 		this._poller.teardownPolling();
 	}
 
 	_poll() {
-		console.log(`${new Date()}\tpollin pollin pollin`); //eslint-disable-line
 		this._fetchLatestReleasedContent();
 		if (this._pollInterval < POLL_MAX) {
 			this._pollInterval += POLL_INCREMENT;
@@ -233,19 +230,13 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 		this._newContent = [];
 	}
 
-	_goToContent(contentHref) {
-		return contentHref;
-	}
-
 	_fetchLatestReleasedContent() {
 		if (this.latestMetSetEndpoint) {
-			console.log(`${new Date()}\tget dat newly released content`); //eslint-disable-line
 			return window.D2L.Siren.EntityStore.fetch(this.latestMetSetEndpoint, this.token)
 				.then(response => {
 					const { entity } = response;
 					if (entity.properties.newConditionsSetsAreMet) {
 						const newContentEntities = entity.getSubEntitiesByRel('newly-released-object') || [];
-						console.log(`${new Date()}\tey new content:\n${JSON.stringify(newContentEntities)}`); //eslint-disable-line
 						const newContent = newContentEntities.map(content => {
 							return {
 								href: content.getLinkByRel('self').href,
@@ -255,9 +246,8 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 						// Rather than preventing any newly release content from being shown in the alert,
 						// why not add whatever new stuff comes out to the list of links?
 						this._newContent = this._newContent.concat(newContent);
-					} else {
-						console.log(`${new Date()}\tno new content`); //eslint-disable-line
 					}
+
 					this.latestMetSetEndpoint = entity.getLinkByRel('next').href;
 				});
 		}
