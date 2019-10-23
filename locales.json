@@ -35,11 +35,14 @@
 		"toggleNavMenu": "Navigationsfolie aus Seitenleiste aktivieren"
 	},
 	"en": {
-		"backToContent": "Back to Content",
-		"toggleNavMenu": "Toggle navigational slide out sidebar",
-		"goBack": "Go Back",
 		"activity": "Activity",
-		"endOfSequence": "End of Unit"
+		"backToContent": "Back to Content",
+		"close": "Close",
+		"contentLinkText": "Click to visit new content",
+		"endOfSequence": "End of Unit",
+		"goBack": "Go Back",
+		"newContentAvailable": "New content is available!",
+		"toggleNavMenu": "Toggle navigational slide out sidebar"
 	},
 	"es-ES": {
 		"activity": "Actividad",

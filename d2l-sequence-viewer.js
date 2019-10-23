@@ -1,6 +1,7 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
+import './components/sequence-viewer-new-content-alert.js';
 import './localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
@@ -43,6 +44,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 					display: block;
 					color: var(--d2l-color-ferrite);
 					@apply --d2l-body-standard-text;
+					position: relative;
+					width: 100%;
+					height: 100%;
 				}
 				.back-icon {
 					padding-bottom: 0.2rem;
@@ -162,7 +166,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
 					</d2l-navigation-button-notification-icon>
 				</span>
-			</template>	
+			</template>
 			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
 				<d2l-navigation-link-back text="[[localize('backToContent')]]" on-click="_onClickBack" href="[[backToContentLink]]">
 				</d2l-navigation-link-back>
@@ -197,6 +201,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 				>
 			</d2l-sequences-content-router>
 		</div>
+		<d2l-sequence-viewer-new-content-alert
+			href-for-observing="[[href]]"
+			latest-met-set-endpoint="[[latestMetSetEndpoint]]"
+			token="[[token]]">
+		</d2l-sequence-viewer-new-content-alert>
 `;
 	}
 
@@ -259,6 +268,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			csRedirectPath: String,
 			noRedirectQueryParamString: String,
 			telemetryEndpoint: String,
+			latestMetSetEndpoint: String,
 		};
 	}
 	static get observers() {
