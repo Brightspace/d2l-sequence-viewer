@@ -1,7 +1,7 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
 import './components/sequence-viewer-header.js';
-import './components/sequence-viewer-new-content-alert.js';
+import './components/d2l-sequence-viewer-new-content-alert.js';
 import './localize-behavior.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';

@@ -42,29 +42,26 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 						visibility: visible;
 					}
 
-					.new-content-alert {
+					#new-content-alert {
 						--d2l-alert-icon-dimensions: 18px;
 						background: white;
 						border: 1px solid var(--d2l-color-titanius);
 						border-left: 6px solid var(--d2l-color-celestine);
 						border-radius: 7px;
-						padding-left: 30px;
-						padding-right: var(--d2l-alert-icon-dimensions);
-						padding-top: 12px;
-						padding-bottom: 12px;
+						padding: 12px var(--d2l-alert-icon-dimensions) 12px 30px;
 						display: flex;
 						align-items: center;
 						justify-content: space-between;
 					}
 
-					:host(:dir(rtl)) .new-content-alert {
+					:host(:dir(rtl)) #new-content-alert {
 						border-left: 1px solid var(--d2l-color-titanius);
 						border-right: 6px solid var(--d2l-color-celestine);
 						padding-right: 30px;
 						padding-left: var(--d2l-alert-icon-dimensions);
 					}
 
-					.new-content-alert-message {
+					#new-content-alert-message {
 						display: flex;
 						flex-direction: column;
 						max-width: calc(100% - var(--d2l-alert-icon-dimensions) - var(--d2l-alert-icon-dimensions));
@@ -72,18 +69,8 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 						word-break: break-word;
 					}
 
-					:host([single-link]) .new-content-alert-message {
+					:host([is-single-link]) #new-content-alert-message {
 						flex-direction: row;
-					}
-
-					@media screen and (min-width: 768px) {
-						:host([single-link]) {
-							max-width: 615px;
-						}
-						:host([single-link]) a.alert-link {
-							margin: 0 0.5rem;
-						}
-
 					}
 
 					@media screen and (max-width: 767px) {
@@ -91,37 +78,41 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 							--d2l-alert-icon-dimensions: 24px;
 						}
 
-						.new-content-alert-message div {
+						#new-content-alert-message div,a.alert-link {
 							padding: 4px 0;
 							align-self: center;
 							text-align: center;
 						}
 
-						:host([single-link]) .new-content-alert-message {
+						:host([is-single-link]) #new-content-alert-message {
 							flex-direction: column;
 						}
+					}
 
-						:host([single-link]) a.alert-link {
-							align-self: center;
-							text-align: center;
+					@media screen and (min-width: 768px) {
+						:host([is-single-link]) {
+							max-width: 615px;
+						}
+						:host([is-single-link]) a.alert-link {
+							margin: 0 0.5rem;
 						}
 					}
 				</style>
 			</custom-style>
-			<div class="new-content-alert">
-				<div class="new-content-alert-message">
+			<div id="new-content-alert">
+				<div id="new-content-alert-message">
 					<div>[[localize('newContentAvailable')]]</div>
-					<template is="dom-if" if="[[!singleLink]]">
+					<template is="dom-if" if="[[!isSingleLink]]">
 						<template is="dom-repeat" items="[[_newContent]]">
-							<div><a class="alert-link" href="[[item.href]]" tabindex="1">
+							<a class="alert-link" href="[[item.href]]" tabindex="1">
 								[[item.name]]
-							</a></div>
+							</a>
 						</template>
 					</template>
-					<template is="dom-if" if="[[singleLink]]">
-						<div><a class="alert-link" href="[[_firstContent.href]]" tabindex="1">
+					<template is="dom-if" if="[[isSingleLink]]">
+						<a class="alert-link" href="[[_firstContent.href]]" tabindex="1">
 							[[localize('contentLinkText')]]
-						</a></div>
+						</a>
 					</template>
 				</div>
 				<d2l-button-icon
@@ -144,11 +135,10 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 			latestMetSetEndpoint: String,
 			newContentReleased: {
 				type: Boolean,
-				value: false,
 				reflectToAttribute: true,
 				computed: '_isNewContentReleased(_newContent)'
 			},
-			singleLink: {
+			isSingleLink: {
 				type: Boolean,
 				reflectToAttribute: true,
 				computed: '_hasSingleLink(_newContent)'
@@ -198,7 +188,7 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 	}
 
 	_isNewContentReleased(newContent) {
-		return newContent.length !== 0;
+		return newContent.length > 0;
 	}
 
 	_getFirstContent([first]) {
@@ -233,18 +223,15 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 	_fetchLatestReleasedContent() {
 		if (this.latestMetSetEndpoint) {
 			return window.D2L.Siren.EntityStore.fetch(this.latestMetSetEndpoint, this.token)
-				.then(response => {
-					const { entity } = response;
+				.then(({ entity }) => {
 					if (entity.properties.newConditionsSetsAreMet) {
-						const newContentEntities = entity.getSubEntitiesByRel('newly-released-object') || [];
+						const newContentEntities = entity.getSubEntitiesByRel('newly-released-object');
 						const newContent = newContentEntities.map(content => {
 							return {
 								href: content.getLinkByRel('self').href,
 								name: content.properties.name
 							};
 						});
-						// Rather than preventing any newly release content from being shown in the alert,
-						// why not add whatever new stuff that comes out to the list of links?
 						this._newContent = this._newContent.concat(newContent);
 					}
 
