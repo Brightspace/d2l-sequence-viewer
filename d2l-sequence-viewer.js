@@ -171,7 +171,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 		</d2l-sequence-viewer-header>
 		<div id="sidebar-occlude"></div>
 		<div id="sidebar" class="offscreen">
-			<d2l-sequence-navigator href="{{href}}" token="[[token]]" role="navigation">
+			<d2l-sequence-navigator
+			href="{{href}}"
+			token="[[token]]"
+			role="navigation"
+			style="[[dataAsvCssVars]]"
+			>
 				<span slot="lesson-header">
 					<d2l-lesson-header id="sidebarHeader"
 									   href="[[_rootHref]]"
@@ -276,8 +281,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 	ready() {
 		super.ready();
-		const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-		const navBarStyles = this.dataAsvCssVars && JSON.parse(this.dataAsvCssVars) || JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		const styles =
+			this.dataAsvCssVars && JSON.parse(this.dataAsvCssVars) ||
+			JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
+		const navBarStyles =  JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
 		this.updateStyles({...styles, ...navBarStyles});
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
