@@ -163,7 +163,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					<d2l-navigation-button-notification-icon icon="d2l-tier3:menu-hamburger" class="flyout-icon" on-click="_toggleSlideSidebar" aria-label$="[[localize('toggleNavMenu')]]">[[localize('toggleNavMenu')]]
 					</d2l-navigation-button-notification-icon>
 				</span>
-			</template>	
+			</template>
 			<div slot="d2l-back-to-module" class="d2l-sequence-viewer-navicon-container">
 				<d2l-navigation-link-back text="[[localize('backToContent')]]" on-click="_onClickBack" href="[[backToContentLink]]">
 				</d2l-navigation-link-back>
@@ -206,6 +206,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 	static get properties() {
 		return {
+			dataAsvCssVars: String,
 			href: {
 				type: String,
 				reflectToAttribute: true,
@@ -275,9 +276,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 	ready() {
 		super.ready();
-
 		const styles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-		const navBarStyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		const navBarStyles = this.dataAsvCssVars && JSON.parse(this.dataAsvCssVars) || JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
 		this.updateStyles({...styles, ...navBarStyles});
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
