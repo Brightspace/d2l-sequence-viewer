@@ -284,7 +284,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		const styles =
 			this.dataAsvCssVars && JSON.parse(this.dataAsvCssVars) ||
 			JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
-		const navBarStyles =  JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
+		const navBarStyles = JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-css-vars'));
 		this.updateStyles({...styles, ...navBarStyles});
 		this._resizeNavListener = this._resizeSideBar.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
