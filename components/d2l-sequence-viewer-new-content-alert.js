@@ -16,9 +16,6 @@ import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
  * @appliesMixin D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
  */
 
-const POLL_INCREMENT = 60000;
-const POLL_MAX = POLL_INCREMENT * 10;
-
 class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 	D2L.PolymerBehaviors.SequenceViewer.LocalizeBehavior
 ], PolymerElement) {
@@ -153,6 +150,14 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 				computed: '_getFirstContent(_newContent)'
 			},
 			_poller: Object,
+			_pollIncrement: {
+				type: Number,
+				value: 60000
+			},
+			_pollMax: {
+				type: Number,
+				value: 600000
+			},
 			_pollInterval: {
 				type: Number,
 				value: 0
@@ -210,8 +215,8 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 
 	_poll() {
 		this._fetchLatestReleasedContent();
-		if (this._pollInterval < POLL_MAX) {
-			this._pollInterval += POLL_INCREMENT;
+		if (this._pollInterval < this._pollMax) {
+			this._pollInterval += this._pollIncrement;
 			this._poller.setupPolling(this._pollInterval);
 		}
 	}

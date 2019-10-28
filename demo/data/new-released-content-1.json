@@ -20,7 +20,7 @@
 			"rel": [
 				"self"
 			],
-			"href": "http://127.0.0.1:8081/components/d2l-sequence-viewer/demo/?url=data%2Fl1-m2-activity3.json"
+			"href": "http://127.0.0.1:8081/components/d2l-sequence-viewer/demo/with-alert.html?url=data%2Fl1-m2-activity3.json"
 		}]
 	}],
 	"links": [{
