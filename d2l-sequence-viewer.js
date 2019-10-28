@@ -175,7 +175,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 				href="{{href}}"
 				token="[[token]]"
 				role="navigation"
-				style="[[dataAsvCssVars]]"
+				dataAsvCssVars="[[dataAsvCssVars]]"
 				>
 				<span slot="lesson-header">
 					<d2l-lesson-header id="sidebarHeader"
