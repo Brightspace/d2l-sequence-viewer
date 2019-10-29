@@ -52,7 +52,7 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 					}
 
 					:host(:dir(rtl)) #new-content-alert {
-						border-left: 1px solid var(--d2l-color-titanius);
+						border-left: 2px solid var(--d2l-color-titanius);
 						border-right: 6px solid var(--d2l-color-celestine);
 						padding-right: 30px;
 						padding-left: var(--d2l-alert-icon-dimensions);
