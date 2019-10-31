@@ -204,17 +204,17 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 		return newContent.length === 1;
 	}
 
-	_resetPolling() {
+	async _resetPolling() {
 		this._pollInterval = 0;
-		this._poll();
+		await this._poll();
 	}
 
 	_stopPolling() {
 		this._poller.teardownPolling();
 	}
 
-	_poll() {
-		this._fetchLatestReleasedContent();
+	async _poll() {
+		await this._fetchLatestReleasedContent();
 		if (this._pollInterval < this._pollMax) {
 			this._pollInterval += this._pollIncrement;
 			this._poller.setupPolling(this._pollInterval);
@@ -225,9 +225,9 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 		this._newContent = [];
 	}
 
-	_fetchLatestReleasedContent() {
+	async _fetchLatestReleasedContent() {
 		if (this.latestMetSetEndpoint) {
-			return window.D2L.Siren.EntityStore.fetch(this.latestMetSetEndpoint, this.token)
+			await window.D2L.Siren.EntityStore.fetch(this.latestMetSetEndpoint, this.token, true)
 				.then(({ entity }) => {
 					if (entity.properties.newConditionsSetsAreMet) {
 						const newContentEntities = entity.getSubEntitiesByRel('newly-released-object');

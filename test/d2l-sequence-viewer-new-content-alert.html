@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-viewer test</title>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../wct-browser-legacy/browser.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+		<script src="../node_modules/chai-dom/chai-dom.js"></script>
+		<script src="../node_modules/chai-spies/chai-spies.js"></script>
+		<script type="module" src="../d2l-sequence-viewer.js"></script>
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<d2l-sequence-viewer-new-content-alert
+					token="mock-token"
+					href-for-observing="http://testeroni.biz">
+				</d2l-sequence-viewer-new-content-alert>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="no-content">
+			<template>
+				<d2l-sequence-viewer-new-content-alert
+					token="mock-token"
+					latest-met-set-endpoint="data/new-released-content-0.json">
+				</d2l-sequence-viewer-new-content-alert>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="one-content">
+			<template>
+				<d2l-sequence-viewer-new-content-alert
+					token="mock-token"
+					latest-met-set-endpoint="data/new-released-content-1.json">
+				</d2l-sequence-viewer-new-content-alert>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="two-content">
+			<template>
+				<d2l-sequence-viewer-new-content-alert
+					token="mock-token"
+					latest-met-set-endpoint="data/new-released-content-2.json">
+				</d2l-sequence-viewer-new-content-alert>
+			</template>
+		</test-fixture>
+
+		<script type="module">
+			import '../components/d2l-sequence-viewer-new-content-alert.js';
+			import TelemetryHelper from '../helpers/telemetry-helper';
+			/* global SirenFixture */
+
+			describe('d2l-sequence-viewer-new-content-alert', () => {
+				let elem;
+
+				describe('render', () => {
+					beforeEach( async() => {
+						elem = await fixture('basic');
+					});
+
+					it('should instantiate the element with the correct attributes', () => {
+						expect(elem).to.exist;
+						expect(elem).to.have.attribute('href-for-observing', 'http://testeroni.biz');
+						expect(elem).to.have.attribute('token', 'mock-token');
+					});
+				});
+
+				describe('no new content released', () => {
+					beforeEach( async() => {
+						elem = await SirenFixture.load('data/new-released-content-0.json', fixture('no-content'));
+						elem._pollInterval = elem._pollMax;
+					});
+
+					it('should not display at all', async () => {
+						elem._dismissAlert();
+						await elem._poll();
+						expect(elem.newContentReleased).to.equal(false);
+						expect(elem.isSingleLink).to.equal(false);
+						expect(elem.shadowRoot.querySelector('a.alert-link')).to.equal(null);
+					});
+				});
+
+				describe('one new piece of content released', () => {
+					beforeEach( async() => {
+						elem = await SirenFixture.load('data/new-released-content-1.json', fixture('one-content'));
+						elem._pollInterval = elem._pollMax;
+					});
+
+					it('should display a single link', async () => {
+						elem._dismissAlert();
+						await elem._poll();
+						expect(elem.newContentReleased).to.equal(true);
+						expect(elem.isSingleLink).to.equal(true);
+						const link = elem.shadowRoot.querySelector('a.alert-link');
+						expect(link.innerText).to.equal("Click to visit new content");
+					});
+				});
+
+				describe('more than one new piece of content released', () => {
+					beforeEach( async() => {
+						elem = await SirenFixture.load('data/new-released-content-2.json', fixture('two-content'));
+						elem._pollInterval = elem._pollMax;
+					});
+
+					it('should display multiple links', async () => {
+						elem._dismissAlert();
+						await elem._poll();
+						expect(elem.newContentReleased).to.equal(true);
+						expect(elem.isSingleLink).to.equal(false);
+						const [link1, link2] = elem.shadowRoot.querySelectorAll('a.alert-link');
+						expect(link1.innerText).to.equal('My file');
+						expect(link2.innerText).to.equal('bower-logo');
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

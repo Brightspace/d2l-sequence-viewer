@@ -1,0 +1,24 @@
+{
+	"class": [
+		"condition-sets"
+	],
+	"properties": {
+		"newConditionsSetsAreMet": false
+	},
+	"links": [{
+			"rel": [
+				"self"
+			],
+			"href": "data/new-released-content-0.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/new-released-content-0.json"
+		}
+	],
+	"rel": [
+		"conditions-set-status"
+	]
+}

@@ -1,0 +1,59 @@
+{
+	"class": [
+		"condition-sets"
+	],
+	"properties": {
+		"newConditionsSetsAreMet": true
+	},
+	"entities": [{
+		"class": [
+			"content",
+			"topic"
+		],
+		"rel": [
+			"newly-released-object"
+		],
+		"properties": {
+			"name": "My file"
+		},
+		"links": [{
+			"rel": [
+				"self"
+			],
+			"href": "http://127.0.0.1:8081/components/d2l-sequence-viewer/demo/with-alert.html?url=data%2Fl1-m2-activity4.json"
+		}]
+	}, {
+		"class": [
+			"content",
+			"topic"
+		],
+		"rel": [
+			"newly-released-object"
+		],
+		"properties": {
+			"name": "bower-logo"
+		},
+		"links": [{
+			"rel": [
+				"self"
+			],
+			"href": "http://127.0.0.1:8081/components/d2l-sequence-viewer/demo/with-alert.html?url=data%2Fl1-m2-activity5.json"
+		}]
+	}],
+	"links": [{
+			"rel": [
+				"self"
+			],
+			"href": "data/new-released-content-2.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/new-released-content-2.json"
+		}
+	],
+	"rel": [
+		"conditions-set-status"
+	]
+}
