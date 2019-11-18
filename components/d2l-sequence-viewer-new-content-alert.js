@@ -230,14 +230,17 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 			await window.D2L.Siren.EntityStore.fetch(this.latestMetSetEndpoint, this.token, true)
 				.then(({ entity }) => {
 					if (entity.properties.newConditionsSetsAreMet) {
+						const existingContentHrefs = this._newContent.map(({href}) => href);
 						const newContentEntities = entity.getSubEntitiesByRel('newly-released-object');
-						const newContent = newContentEntities.map(content => {
-							return {
-								href: content.getLinkByRel('self').href,
-								name: content.properties.name
-							};
-						});
-						this._newContent = this._newContent.concat(newContent);
+						const uniqueNewContent = newContentEntities
+							.filter(content => existingContentHrefs.indexOf(content.getLinkByRel('self').href) < 0)
+							.map(content => {
+								return {
+									href: content.getLinkByRel('self').href,
+									name: content.properties.name
+								};
+							});
+						this._newContent = this._newContent.concat(uniqueNewContent);
 					}
 
 					this.latestMetSetEndpoint = entity.getLinkByRel('next').href;
