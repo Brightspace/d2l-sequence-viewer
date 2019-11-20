@@ -48,6 +48,15 @@
 			</template>
 		</test-fixture>
 
+		<test-fixture id="duplicate-content">
+			<template>
+				<d2l-sequence-viewer-new-content-alert
+					token="mock-token"
+					latest-met-set-endpoint="data/new-released-content-3.json">
+				</d2l-sequence-viewer-new-content-alert>
+			</template>
+		</test-fixture>
+
 		<script type="module">
 			import '../components/d2l-sequence-viewer-new-content-alert.js';
 			import TelemetryHelper from '../helpers/telemetry-helper';
@@ -95,7 +104,7 @@
 						expect(elem.newContentReleased).to.equal(true);
 						expect(elem.isSingleLink).to.equal(true);
 						const link = elem.shadowRoot.querySelector('a.alert-link');
-						expect(link.innerText).to.equal("Click to visit new content");
+						expect(link.innerText).to.equal('Click to visit new content');
 					});
 				});
 
@@ -112,6 +121,28 @@
 						expect(elem.isSingleLink).to.equal(false);
 						const [link1, link2] = elem.shadowRoot.querySelectorAll('a.alert-link');
 						expect(link1.innerText).to.equal('My file');
+						expect(link2.innerText).to.equal('bower-logo');
+					});
+				});
+
+				describe('duplicate content', () => {
+					beforeEach( async() => {
+						elem = await SirenFixture.load('data/new-released-content-3.json', fixture('duplicate-content'));
+						elem._pollInterval = elem._pollMax;
+					});
+
+					it('should not display duplicate links', async () => {
+						elem._dismissAlert();
+						await elem._poll();
+
+						const [link1] = elem.shadowRoot.querySelectorAll('a.alert-link');
+						expect(link1.innerText).to.equal('Click to visit new content');
+
+						elem.latestMetSetEndpoint = 'data/new-released-content-4.json';
+						await elem._poll();
+
+						const [sameLink1, link2] = elem.shadowRoot.querySelectorAll('a.alert-link');
+						expect(sameLink1.innerText).to.equal('My file');
 						expect(link2.innerText).to.equal('bower-logo');
 					});
 				});
