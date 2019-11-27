@@ -1,10 +1,10 @@
 {
    "activity" : "활동",
    "backToContent" : "콘텐츠로 돌아가기",
-   "close": "닫기",
-   "contentLinkText": "새 콘텐츠를 보려면 클릭하십시오.",
+   "close" : "닫기",
+   "contentLinkText" : "새 콘텐츠를 보려면 클릭하십시오.",
    "endOfSequence" : "단위 종료",
    "goBack" : "돌아가기",
-   "newContentAvailable": "이제 새로운 콘텐츠를 사용할 수 있습니다!",
+   "newContentAvailable" : "새로운 콘텐츠를 사용할 수 있습니다!",
    "toggleNavMenu" : "탐색 슬라이드 아웃 사이드바 설정/해제"
 }

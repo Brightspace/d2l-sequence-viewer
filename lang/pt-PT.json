@@ -1,10 +1,10 @@
 {
    "activity" : "Atividade",
    "backToContent" : "Voltar ao conteúdo",
-   "close": "Fechar",
-   "contentLinkText": "Clique para visitar o novo conteúdo",
+   "close" : "Fechar",
+   "contentLinkText" : "Clique aqui para acessar o novo conteúdo",
    "endOfSequence" : "Fim da unidade",
    "goBack" : "Voltar",
-   "newContentAvailable": "Há um novo conteúdo disponível!",
+   "newContentAvailable" : "Novo conteúdo disponível!",
    "toggleNavMenu" : "Alternar barra lateral deslizante de navegação"
 }

@@ -1,10 +1,10 @@
 {
    "activity" : "Activiteit",
    "backToContent" : "Terug naar inhoud",
-   "close": "Sluiten",
-   "contentLinkText": "Klik om naar nieuwe content te gaan",
+   "close" : "Sluiten",
+   "contentLinkText" : "Klik om naar nieuwe content te gaan",
    "endOfSequence" : "Einde van eenheid",
    "goBack" : "Ga terug",
-   "newContentAvailable": "Nieuwe content is nu beschikbaar!",
+   "newContentAvailable" : "Er is nieuwe content beschikbaar!",
    "toggleNavMenu" : "Navigatiezijbalk in-/uitschakelen"
 }

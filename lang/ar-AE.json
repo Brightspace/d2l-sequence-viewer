@@ -1,10 +1,10 @@
 {
    "activity" : "النشاط",
    "backToContent" : "العودة إلى المحتوى",
-   "close": "إغلاق",
-   "contentLinkText": "انقر للانتقال إلى المحتوى الجديد",
+   "close" : "إغلاق",
+   "contentLinkText" : "انقر للانتقال إلى المحتوى الجديد",
    "endOfSequence" : "نهاية الوحدة",
    "goBack" : "العودة للخلف",
-   "newContentAvailable": "يتوفر محتوى جديد الآن!",
+   "newContentAvailable" : "يتوفر محتوى جديد!",
    "toggleNavMenu" : "تبديل شريحة التنقل من الشريط الجانبي"
 }

@@ -1,10 +1,10 @@
 {
    "activity" : "活動",
    "backToContent" : "返回「內容」",
-   "close": "關閉",
-   "contentLinkText": "按一下以造訪新內容",
+   "close" : "關閉",
+   "contentLinkText" : "按一下以造訪新內容",
    "endOfSequence" : "單元結束",
    "goBack" : "返回",
-   "newContentAvailable": "現在可以使用新內容了！",
+   "newContentAvailable" : "可以使用新內容了！",
    "toggleNavMenu" : "切換滑出式導覽側邊列"
 }

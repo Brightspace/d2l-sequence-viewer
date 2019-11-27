@@ -1,10 +1,10 @@
 {
    "activity" : "Aktivitet",
    "backToContent" : "Tillbaka till innehåll",
-   "close": "Stäng",
-   "contentLinkText": "Klicka för att gå till nytt innehåll",
+   "close" : "Stäng",
+   "contentLinkText" : "Klicka för att gå till nytt innehåll",
    "endOfSequence" : "Slutet av en period",
    "goBack" : "Gå tillbaka",
-   "newContentAvailable": "Nytt innehåll finns nu tillgängligt!",
+   "newContentAvailable" : "Nytt innehåll är nu tillgängligt!",
    "toggleNavMenu" : "Växla utdragbart navigeringssidofält"
 }

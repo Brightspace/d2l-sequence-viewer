@@ -1,10 +1,10 @@
 {
    "activity" : "Actividad",
    "backToContent" : "Back to Content",
-   "close": "Cerrar",
-   "contentLinkText": "Haga clic para visitar el nuevo contenido.",
+   "close" : "Cerrar",
+   "contentLinkText" : "Haga clic para visitar el nuevo contenido",
    "endOfSequence" : "Término de la unidad",
    "goBack" : "Regresar",
-   "newContentAvailable": "¡El nuevo contenido ya está disponible!",
+   "newContentAvailable" : "Nuevo contenido ya disponible.",
    "toggleNavMenu" : "Toggle navigational slide out sidebar"
 }

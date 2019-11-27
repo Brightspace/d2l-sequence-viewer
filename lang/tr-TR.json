@@ -1,10 +1,10 @@
 {
    "activity" : "Etkinlik",
    "backToContent" : "İçeriğe Dön",
-   "close": "Kapat",
-   "contentLinkText": "Yeni içeriği ziyaret etmek için tıklayın",
+   "close" : "Kapat",
+   "contentLinkText" : "Yeni içeriği ziyaret etmek için tıklayın",
    "endOfSequence" : "Ünite Sonu",
    "goBack" : "Geri Dön",
-   "newContentAvailable": "Yeni içerik şimdi mevcut!",
+   "newContentAvailable" : "Yeni içerik mevcut!",
    "toggleNavMenu" : "Kayan gezinti kenar çubuğunu aç/kapat"
 }
