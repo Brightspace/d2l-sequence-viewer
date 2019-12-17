@@ -4,6 +4,10 @@
 
 [Polymer](https://www.polymer-project.org)-based web component for viewing sequences in Brightspace.
 
+Frontend for the New Learner Experience (LX/NLE)/Enhanced ASV product.
+
+More details and discussion can be found in the #team-phoenix slack channel.
+
 ## Usage
 
 ## Developing, Testing and Contributing
