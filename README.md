@@ -6,7 +6,7 @@
 
 Frontend for the New Learner Experience (LX/NLE)/Enhanced ASV product.
 
-More details and discussion can be found in the #team-phoenix slack channel.
+Additional details and discussion can be found in the #team-phoenix slack channel.
 
 ## Usage
 
