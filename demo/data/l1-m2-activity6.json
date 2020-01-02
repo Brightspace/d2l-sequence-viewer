@@ -80,6 +80,16 @@
 							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104495/file?stream=true"
 						},
 						{
+							"rel": [
+								"alternate"
+							],
+							"class": [
+								"embed"
+							],
+							"type": "application/pdf",
+							"href": "https://pdfjs-dist-modules-test.s3.us-east-2.amazonaws.com/annual_report_2009.pdf"
+						},
+						{
 							"class": [
 								"view"
 							],
