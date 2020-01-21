@@ -152,11 +152,11 @@ class D2LSequenceViewerNewContentAlert extends mixinBehaviors([
 			_poller: Object,
 			_pollIncrement: {
 				type: Number,
-				value: 60000
+				value: 5000
 			},
 			_pollMax: {
 				type: Number,
-				value: 600000
+				value: 60000
 			},
 			_pollInterval: {
 				type: Number,
