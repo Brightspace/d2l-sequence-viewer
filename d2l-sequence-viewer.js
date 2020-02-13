@@ -42,7 +42,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 					--viewer-max-width: 1170px;
 					--sidebar-position: calc(50% - var(--viewer-max-width) / 2);
 
-					display: block;
 					color: var(--d2l-color-ferrite);
 					@apply --d2l-body-standard-text;
 					position: relative;
@@ -62,43 +61,63 @@ class D2LSequenceViewer extends mixinBehaviors([
 					box-shadow: 2px 0px 3px 2px rgba(214,220,229,0.5); /* 50% D6DCE5 */
 					flex-flow: row;
 				}
-				#sidebar-occlude {
-					width: calc(var(--sidebar-position) - 25px);
-					height: 100%;
+				#view-container {
+					flex: 1 1 0px;
+					display: flex;
+					position: relative;
+					overflow: hidden;
+					max-width: var(--viewer-max-width);
+					margin: auto;
+					width: 100%;
+					margin-top: 56px;
+				}
+				#sidebar-container {
+					z-index: 1;
+					flex: 1;
+					max-width: 390px;
+					position: relative;
+					overflow: hidden;
 					background: white;
-					position: fixed;
-					top: 56px;
-					left: 0px;
-					z-index: 2;
+					-webkit-transition: max-width 0.4s ease-in-out;
+					-moz-transition: max-width 0.4s ease-in-out;
+					-o-transition: max-width 0.4s ease-in-out;
+					transition: max-width 0.4s ease-in-out;
+				}
+				#sidebar-container.offscreen {
+					max-width: 0;
+					-webkit-transition: max-width 0.4s ease-in-out;
+					-moz-transition: max-width 0.4s ease-in-out;
+					-o-transition: max-width 0.4s ease-in-out;
+					transition: max-width 0.4s ease-in-out;
 				}
 				#sidebar {
 					overflow-y: none;
-					width: 310px;
 					height: calc(100% + 56px - 5px);
-					position: fixed;
-					z-index: 1;
-					top: 56px;
-					bottom: 0px;
 					padding: 0px;
 					background: white;
-					left: calc(var(--sidebar-position) - 25px);
-					transition: margin-left 0.5s;
+					position: absolute;
+					right: 0;
+					left: 0;
+					-webkit-transition: left 0.4s ease-in-out;
+					-moz-transition: left 0.4s ease-in-out;
+					-o-transition: left 0.4s ease-in-out;
+					transition: left 0.4s ease-in-out;
 				}
-				#sidebar.offscreen {
-					margin-left: -475px;
+				#sidebar-container.offscreen #sidebar {
+					left: -310px;
+					-webkit-transition: left 0.4s ease-in-out;
+					-moz-transition: left 0.4s ease-in-out;
+					-o-transition: left 0.4s ease-in-out;
+					transition: left 0.4s ease-in-out;
 				}
-				.viewframe {
+				#viewframe {
 					padding: 24px 30px 0 30px;
-					max-width: var(--viewer-max-width);
-					margin: auto;
 					-webkit-transition: all 0.4s ease-in-out;
 					-webkit-overflow-scrolling: auto;
 					-moz-transition: all 0.4s ease-in-out;
 					-o-transition: all 0.4s ease-in-out;
 					transition: all 0.4s ease-in-out;
-					width: 100%;
-					flex: 1 1 0px;
-					margin-top: 56px;
+					flex: 2;
 					box-sizing: border-box;
 					overflow: auto;
 				}
@@ -111,7 +130,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					bottom: 0px;
 					overflow-y: auto;
 				}
-				.viewframe:focus {
+				#viewframe:focus {
 					outline: none;
 				}
 				.hide {
@@ -129,19 +148,40 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex: 1;
 					--d2l-sequence-nav-padding: 30px;
 				}
-				@media(max-width: 1220px) {
-					#sidebar {
-						left: 0;
-					}
-				}
 				@media(max-width: 929px) {
-					#sidebar {
+					#sidebar-container {
+						position: absolute;
 						width: 310px;
+						max-width: unset;
+						flex: unset;
+						height: 100%;
+						left: 0;
+						-webkit-transition: left 0.4s ease-in-out;
+						-moz-transition: left 0.4s ease-in-out;
+						-o-transition: left 0.4s ease-in-out;
+						transition: left 0.4s ease-in-out;
 					}
+
+					#sidebar-container.offscreen {
+						max-width: unset;
+						left: -310px;
+						-webkit-transition: left 0.4s ease-in-out;
+						-moz-transition: left 0.4s ease-in-out;
+						-o-transition: left 0.4s ease-in-out;
+						transition: left 0.4s ease-in-out;
+					}
+
+					#sidebar {
+						position: unset;
+						width: 100%;
+						right: unset;
+						left: unset;
+					}
+
 					d2l-sequence-navigator {
 						--d2l-sequence-nav-padding: 24px;
 					}
-					.viewframe {
+					#viewframe {
 						padding: 18px 24px 0 24px;
 					}
 				}
@@ -149,7 +189,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					d2l-sequence-navigator {
 						--d2l-sequence-nav-padding: 18px;
 					}
-					.viewframe {
+					#viewframe {
 						padding: 18px 18px 0 18px;
 					}
 				}
@@ -174,39 +214,42 @@ class D2LSequenceViewer extends mixinBehaviors([
 				</d2l-navigation-link-back>
 			</div>
 		</d2l-sequence-viewer-header>
-		<div id="sidebar-occlude"></div>
-		<div id="sidebar" class="offscreen">
-			<d2l-sequence-navigator
-				href="{{href}}"
-				token="[[token]]"
-				role="navigation"
-				data-asv-css-vars="[[dataAsvCssVars]]"
-				>
-				<span slot="lesson-header">
-					<d2l-lesson-header id="sidebarHeader"
-									   href="[[_rootHref]]"
-									   current-activity="{{href}}"
-									   module-properties="[[_moduleProperties]]"
-									   token="[[token]]">
-					</d2l-lesson-header>
-				</span>
-				<span slot="end-of-lesson" on-click="_onEndOfLessonClick">
-					<d2l-sequence-end href="[[_sequenceEndHref]]" token="[[token]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
-				</span>
-			</d2l-sequence-navigator>
-		</div>
-		<div id="viewframe" class="viewframe" on-click="_closeSlidebarOnFocusContent" role="main" tabindex="0">
-			<d2l-sequences-content-router
-				id="viewer"
-				class="viewer"
-				on-sequences-return-mixin-click-back="_onClickBack"
-				href="{{href}}"
-				token="[[token]]"
-				redirect-cs=[[redirectCs]]
-				cs-redirect-path=[[csRedirectPath]]
-				no-redirect-query-param-string=[[noRedirectQueryParamString]]
-				>
-			</d2l-sequences-content-router>
+		<div id="view-container">
+			<div id="sidebar-container" class="offscreen">
+				<div id="sidebar">
+					<d2l-sequence-navigator
+						href="{{href}}"
+						token="[[token]]"
+						role="navigation"
+						data-asv-css-vars="[[dataAsvCssVars]]"
+						>
+						<span slot="lesson-header">
+							<d2l-lesson-header id="sidebarHeader"
+											href="[[_rootHref]]"
+											current-activity="{{href}}"
+											module-properties="[[_moduleProperties]]"
+											token="[[token]]">
+							</d2l-lesson-header>
+						</span>
+						<span slot="end-of-lesson" on-click="_onEndOfLessonClick">
+							<d2l-sequence-end href="[[_sequenceEndHref]]" token="[[token]]" current-activity="{{href}}" text="[[localize('endOfSequence')]]"></d2l-sequence-end>
+						</span>
+					</d2l-sequence-navigator>
+				</div>
+			</div>
+			<div id="viewframe" on-click="_closeSlidebarOnFocusContent" role="main" tabindex="0">
+				<d2l-sequences-content-router
+					id="viewer"
+					class="viewer"
+					on-sequences-return-mixin-click-back="_onClickBack"
+					href="{{href}}"
+					token="[[token]]"
+					redirect-cs=[[redirectCs]]
+					cs-redirect-path=[[csRedirectPath]]
+					no-redirect-query-param-string=[[noRedirectQueryParamString]]
+					>
+				</d2l-sequences-content-router>
+			</div>
 		</div>
 		<d2l-sequence-viewer-new-content-alert
 			href-for-observing="[[href]]"
@@ -453,7 +496,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_toggleSlideSidebar() {
-		if (this.$.sidebar.classList.contains('offscreen')) {
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+		if (sidebarContainer.classList.contains('offscreen')) {
 			this._sideBarOpen();
 		} else {
 			this._sideBarClose();
@@ -504,43 +548,27 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_sideBarOpen() {
-		const maxWidth = 1170;
-		const sidebarWidth = Math.round((this.offsetWidth <= maxWidth ? this.offsetWidth : maxWidth) / 3);
-		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		const marginLeft = `${sidebarWidth + offsetWidth}px`;
-		if (this.mEntity && this.mEntity.properties
-			&& this.mEntity.properties.sideNavOpen !== undefined
-			&& window.innerWidth - offsetWidth > 929) {
-			this.$$('#sidebar').style.width = sidebarWidth + 'px';
-			this.$.viewframe.style.marginLeft = marginLeft;
-			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
-		} else {
-			this.$$('#sidebar').style.width = '310px';
-			this.$.viewframe.style.marginLeft = 'auto';
-			this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
-		}
-		this.$.sidebar.classList.remove('offscreen');
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+		sidebarContainer.classList.remove('offscreen');
 
 		this.telemetryClient.logTelemetryEvent('sidebar-open');
 	}
 
 	_sideBarClose() {
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
 		// TODO: This a temp fix because this gets called EVERY click on the document,
 		// regardless of state. Find a better solution to handle this.
-		if (this.$.sidebar.classList.contains('offscreen')) {
+		if (sidebarContainer.classList.contains('offscreen')) {
 			return;
 		}
-
-		const offsetWidth = this.$$('#sidebar-occlude').offsetWidth;
-		this.$.sidebar.classList.add('offscreen');
-		this.$.viewframe.style.marginLeft = 'auto';
-		this.$.viewframe.style.marginRight = String(offsetWidth) + 'px';
+		sidebarContainer.classList.add('offscreen');
 
 		this.telemetryClient.logTelemetryEvent('sidebar-close');
 	}
 
 	_resizeElements() {
-		if (this.$.sidebar.classList.contains('offscreen')) {
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+		if (sidebarContainer.classList.contains('offscreen')) {
 			this._sideBarClose();
 		} else {
 			this._sideBarOpen();
