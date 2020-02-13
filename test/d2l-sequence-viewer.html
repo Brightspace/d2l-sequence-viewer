@@ -69,7 +69,7 @@
 						let sidebar;
 
 						beforeEach( () => {
-							sidebar = elem.shadowRoot.querySelector('#sidebar');
+							sidebar = elem.shadowRoot.querySelector('#sidebar-container');
 						});
 
 						it('should create sidebar element containing d2l-sequence-navigator', () => {
@@ -172,7 +172,7 @@
 					beforeEach(async () => {
 						elem = await SirenFixture.load('data/unit1.json', fixture('withTelemetryEndpoint'));
 						button = elem.shadowRoot.querySelector('d2l-navigation-button-notification-icon');
-						sidebar = elem.shadowRoot.querySelector('#sidebar');
+						sidebar = elem.shadowRoot.querySelector('#sidebar-container');
 					});
 					describe('on click', () => {
 						it('should call TelemetryHelper.logTelemetryEvent with correct params when sideBar has offscreen class', () => {
