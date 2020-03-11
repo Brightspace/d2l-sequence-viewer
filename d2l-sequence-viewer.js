@@ -15,6 +15,7 @@ import 'd2l-navigation/d2l-navigation-band.js';
 import 'd2l-navigation/d2l-navigation-link-back.js';
 import 'polymer-frau-jwt/frau-jwt-local.js';
 import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
+import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
@@ -147,6 +148,30 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex: 1;
 					--d2l-sequence-nav-padding: 30px;
 				}
+				#loadingscreen {
+					position: absolute;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					left: 0;
+					right: 0;
+					width: 100vw;
+					height: 100vh;
+					background: white;
+					z-index: 4;
+					opacity: 1;
+					transition-property: opacity, z-index;
+					transition-duration: 0.5s, 0s;
+					transition-timing-function: linear, linear;
+					transition-delay: 0s, 0.5s;
+				}
+				#loadingscreen.finished {
+					opacity: 0;
+					z-index: -1;
+				}
+				#loadingscreen d2l-loading-spinner {
+					flex: 1;
+				}
 				@media(max-width: 929px) {
 					#sidebar-container {
 						position: absolute;
@@ -199,6 +224,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 				}
 			</style>
 		</custom-style>
+		<div id="loadingscreen">
+			<d2l-loading-spinner size="300"></d2l-loading-spinner>
+		</div>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
 		<d2l-sequence-viewer-header class="topbar" href="{{href}}" token="[[token]]" role="banner" on-iterate="_onIterate" telemetry-client="[[telemetryClient]]" is-single-topic-view="[[_isSingleTopicView]]">
@@ -330,7 +358,12 @@ class D2LSequenceViewer extends mixinBehaviors([
 		};
 	}
 	static get observers() {
-		return ['_pushState(href)', '_setLastViewedContentObject(entity)', '_onEntityChanged(entity)', '_onContentReady(entity)'];
+		return [
+			'_pushState(href)',
+			'_setLastViewedContentObject(entity)',
+			'_onEntityChanged(entity)',
+			'_onContentReady(entity)'
+		];
 	}
 	ready() {
 		super.ready();
@@ -400,6 +433,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		if (!entity) {
 			PerformanceHelper.perfMark('mark-api-call-start');
 		} else {
+			this.$.loadingscreen.classList.add('finished');
 			this._contentReady = true;
 			PerformanceHelper.perfMark('mark-api-call-end');
 			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');

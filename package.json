@@ -94,6 +94,7 @@
   },
   "main": "d2l-sequence-viewer.js",
   "dependencies": {
+    "@brightspace-ui/core": "^1.36.0",
     "@polymer/iron-a11y-announcer": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
