@@ -225,7 +225,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			</style>
 		</custom-style>
 		<div id="loadingscreen">
-			<d2l-loading-spinner size="300"></d2l-loading-spinner>
+			<d2l-loading-spinner size="75"></d2l-loading-spinner>
 		</div>
 		<frau-jwt-local token="{{token}}" scope="*:*:* content:files:read content:topics:read content:topics:mark-read"></frau-jwt-local>
 		<d2l-navigation-band></d2l-navigation-band>
