@@ -45,10 +45,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 					color: var(--d2l-color-ferrite);
 					@apply --d2l-body-standard-text;
 					position: relative;
-					width: 100%;
 					display: flex;
 					flex-direction: column;
-					min-width: 100vw;
 					overflow: hidden;
 					height: var(--dynamic-viewframe-height);
 				}
