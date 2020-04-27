@@ -44,10 +44,6 @@
       "files": "./dist/**",
       "moduleType": "app",
       "targetDirectory": "d2l-sequence-viewer",
-      "creds": {
-        "key": "AKIAJSUZXLSOWGASCTAQ",
-        "secretVar": "CDN_SECRET"
-      },
       "devTagVar": "TRAVIS_COMMIT",
       "versionVar": "TRAVIS_TAG"
     }
