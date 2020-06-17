@@ -108,6 +108,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 					padding: 18px 0;
 
 					flex-direction: column;
+
+					background: cornflowerblue;
 				}
 				d2l-button-subtle {
 					margin: 0 0 12px var(--viewframe-horizontal-margin);
@@ -485,7 +487,27 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_getDocReaderHref(entity) {
-		const docReaderLink = entity && entity.getLinkByClass('docreader') || {};
+		if (!entity) {
+			return '';
+		}
+
+		const fileActivityEntity = entity.getSubEntityByClass('file-activity');
+
+		console.log({fileActivityEntity});
+
+		if (!fileActivityEntity) {
+			return '';
+		}
+
+		const fileEntity = fileActivityEntity.getSubEntityByClass('file');
+
+		console.log({fileEntity});
+
+		if (!fileEntity) {
+			return '';
+		}
+
+		const docReaderLink = fileEntity.getLinkByClass('docreader') || {};
 
 		return docReaderLink.href;
 	}
