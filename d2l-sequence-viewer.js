@@ -409,6 +409,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	async _onEntityChanged(entity) {
+		this._showDocReaderContent = false;
+
 		//entity is null or not first time loading the page
 		if (!entity || this._loaded) {
 			return;
