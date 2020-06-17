@@ -110,7 +110,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex-direction: column;
 				}
 				d2l-button-subtle {
-					padding: 0 0 12px var(--viewframe-horizontal-margin);
+					margin: 0 0 12px var(--viewframe-horizontal-margin);
+					width: min-content;
 				}
 				.viewer {
 					position: relative;
@@ -241,22 +242,38 @@ class D2LSequenceViewer extends mixinBehaviors([
 			</div>
 			<div id="viewframe-fog-of-war" on-click="_closeSlidebarOnFocusContent"></div>
 			<div id="viewframe" role="main" tabindex="0">
-				<d2l-button-subtle
-					text="Open DocReader"
-					icon="tier1:file-audio"
-				>
-				</d2l-button-subtle>
-				<d2l-sequences-content-router
-					id="viewer"
-					class="viewer"
-					on-sequences-return-mixin-click-back="_onClickBack"
-					href="{{href}}"
-					token="[[token]]"
-					redirect-cs=[[redirectCs]]
-					cs-redirect-path=[[csRedirectPath]]
-					no-redirect-query-param-string=[[noRedirectQueryParamString]]
-				>
-				</d2l-sequences-content-router>
+				<template is="dom-if" if="{{_docReaderHref}}">
+					<d2l-button-subtle
+						text="Open DocReader"
+						icon="tier1:file-audio"
+						on-click="_toggleDocReaderView"
+					>
+					</d2l-button-subtle>
+				</template>
+				<template is="dom-if" if="{{!_showDocReaderContent}}">
+					<d2l-sequences-content-router
+						class="viewer"
+						on-sequences-return-mixin-click-back="_onClickBack"
+						href="{{href}}"
+						token="[[token]]"
+						redirect-cs=[[redirectCs]]
+						cs-redirect-path=[[csRedirectPath]]
+						no-redirect-query-param-string=[[noRedirectQueryParamString]]
+					>
+					</d2l-sequences-content-router>
+				</template>
+				<template is="dom-if" if="{{_showDocReaderContent}}">
+					<d2l-sequences-content-router
+						class="viewer"
+						on-sequences-return-mixin-click-back="_onClickBack"
+						href="{{_docReaderHref}}"
+						token="[[token]]"
+						redirect-cs=[[redirectCs]]
+						cs-redirect-path=[[csRedirectPath]]
+						no-redirect-query-param-string=[[noRedirectQueryParamString]]
+					>
+					</d2l-sequences-content-router>
+				</template>
 			</div>
 		</div>
 		<d2l-sequence-viewer-new-content-alert
@@ -342,6 +359,15 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_navBackText: {
 				type: String,
 				value: ''
+			},
+			_docReaderHref: {
+				type: String,
+				value: '',
+				computed: '_getDocReaderHref(entity)'
+			},
+			_showDocReaderContent: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
@@ -461,8 +487,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 		return !(entity) || entity.hasClass('single-topic-sequence') || false;
 	}
 
+	_getDocReaderHref(entity) {
+		const docReaderLink = entity && entity.getLinkByClass('docreader') || {};
+
+		return docReaderLink.href;
+	}
+
 	_getTelemetryClient(telemetryEndpoint) {
 		return new TelemetryHelper(telemetryEndpoint);
+	}
+
+	_toggleDocReaderView() {
+		this._showDocReaderContent = !this._showDocReaderContent;
 	}
 
 	_closeSlidebarOnFocusContent() {
