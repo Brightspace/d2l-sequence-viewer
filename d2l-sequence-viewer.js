@@ -119,7 +119,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					/*width: 100%;*/
 					height: 100%;
 					overflow-y: auto;
-					padding: 0 var(--viewframe-horizontal-margin);
+					margin: 0 var(--viewframe-horizontal-margin);
 				}
 				#viewframe:focus {
 					outline: none;
@@ -263,16 +263,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 					</d2l-sequences-content-router>
 				</template>
 				<template is="dom-if" if="{{_showDocReaderContent}}">
-					<d2l-sequences-content-router
+					<iframe
 						class="viewer"
-						on-sequences-return-mixin-click-back="_onClickBack"
-						href="{{_docReaderHref}}"
-						token="[[token]]"
-						redirect-cs=[[redirectCs]]
-						cs-redirect-path=[[csRedirectPath]]
-						no-redirect-query-param-string=[[noRedirectQueryParamString]]
+						src="{{_docReaderHref}}"
 					>
-					</d2l-sequences-content-router>
+					</iframe>
 				</template>
 			</div>
 		</div>
