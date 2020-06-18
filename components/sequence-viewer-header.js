@@ -117,10 +117,10 @@ PolymerElement) {
 						<div class="flyout-menu">
 							<template is="dom-if" if="[[!isSingleTopicView]]">
 								<d2l-icon class="flyout-divider" icon="d2l-tier2:divider-big"></d2l-icon>
+								<div class="d2l-flyout-menu">
+									<slot name="d2l-flyout-menu" d2l-flyout-menu=""></slot>
+								</div>
 							</template>
-							<div class="d2l-flyout-menu">
-								<slot name="d2l-flyout-menu" d2l-flyout-menu=""></slot>
-							</div>
 						</div>
 					</div>
 				</div>
