@@ -245,7 +245,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 			<div id="viewframe" role="main" tabindex="0">
 				<template is="dom-if" if="{{_docReaderHref}}">
 					<d2l-button-subtle
-						text="Open DocReader"
+						text=[[localize('docReader')]]
+						aria-label$="[[localize('docReader')]]"
 						icon="tier1:file-audio"
 						on-click="_toggleDocReaderView"
 					>

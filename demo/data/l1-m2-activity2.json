@@ -155,16 +155,6 @@
 		{
 			"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],
 			"href":"http://google.ca"
-		},
-		{
-			"rel": [
-				"alternate"
-			],
-			"class": [
-				"docreader",
-				"viewer-url-provider"
-			],
-			"href": "https://wikipedia.org"
 		}
 	],
 	"rel": [

@@ -3,9 +3,10 @@
     "backToContent" : "Tillbaka till innehåll",
     "close": "Stäng",
     "contentLinkText": "Klicka för att gå till nytt innehåll",
-    "endOfSequence" : "Slutet av en period",
+    "docReader": "Open DocReader",
+	"endOfSequence" : "Slutet av en period",
     "goBack" : "Gå tillbaka",
     "newContentAvailable": "Nytt innehåll finns nu tillgängligt!",
     "toggleNavMenu" : "Växla utdragbart navigeringssidofält"
  }
- 
+

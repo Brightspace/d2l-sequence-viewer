@@ -3,9 +3,10 @@
     "backToContent" : "Retour au contenu",
     "close": "Fermer",
     "contentLinkText": "Cliquer pour voir le nouveau contenu.",
+	"docReader": "Open DocReader",
     "endOfSequence" : "Unité terminée",
     "goBack" : "Retourner",
     "newContentAvailable": "Le nouveau contenu est maintenant disponible!",
     "toggleNavMenu" : "Activer/Désactiver la barre de navigation latérale coulissante"
  }
- 
+
