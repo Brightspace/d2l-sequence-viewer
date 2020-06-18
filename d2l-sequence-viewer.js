@@ -106,10 +106,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex: 2;
 					margin: 0 auto;
 					padding: 18px 0;
-
 					flex-direction: column;
-
-					background: cornflowerblue;
 				}
 				d2l-button-subtle {
 					margin: 0 0 12px var(--viewframe-horizontal-margin);
@@ -118,7 +115,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 				.viewer {
 					position: relative;
 					display: inline-block;
-					/*width: 100%;*/
 					height: 100%;
 					overflow-y: auto;
 					margin: 0 var(--viewframe-horizontal-margin);
@@ -359,7 +355,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			},
 			_docReaderHref: {
 				type: String,
-				value: '',
+				value: null,
 				computed: '_getDocReaderHref(entity)'
 			},
 			_showDocReaderContent: {
@@ -488,23 +484,19 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	_getDocReaderHref(entity) {
 		if (!entity) {
-			return '';
+			return null;
 		}
 
 		const fileActivityEntity = entity.getSubEntityByClass('file-activity');
 
-		console.log({fileActivityEntity});
-
 		if (!fileActivityEntity) {
-			return '';
+			return null;
 		}
 
 		const fileEntity = fileActivityEntity.getSubEntityByClass('file');
 
-		console.log({fileEntity});
-
 		if (!fileEntity) {
-			return '';
+			return null;
 		}
 
 		const docReaderLink = fileEntity.getLinkByClass('docreader') || {};
