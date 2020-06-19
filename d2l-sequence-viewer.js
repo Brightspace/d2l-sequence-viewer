@@ -243,7 +243,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			</div>
 			<div id="viewframe-fog-of-war" on-click="_closeSlidebarOnFocusContent"></div>
 			<div id="viewframe" role="main" tabindex="0">
-				<template is="dom-if" if="{{_docReaderHref}}">
+				<template is="dom-if" if="[[_docReaderHref]]">
 					<d2l-button-subtle
 						text=[[localize('docReader')]]
 						aria-label$="[[localize('docReader')]]"
@@ -252,7 +252,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 					>
 					</d2l-button-subtle>
 				</template>
-				<template is="dom-if" if="{{!_showDocReaderContent}}">
+				<template is="dom-if" if="[[!_showDocReaderContent]]">
 					<d2l-sequences-content-router
 						class="viewer"
 						on-sequences-return-mixin-click-back="_onClickBack"
@@ -264,10 +264,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 					>
 					</d2l-sequences-content-router>
 				</template>
-				<template is="dom-if" if="{{_showDocReaderContent}}">
+				<template is="dom-if" if="[[_showDocReaderContent]]">
 					<iframe
 						class="viewer"
-						src="{{_docReaderHref}}"
+						src="[[_docReaderHref]]"
 					>
 					</iframe>
 				</template>
