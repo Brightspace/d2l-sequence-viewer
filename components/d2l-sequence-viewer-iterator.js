@@ -75,6 +75,9 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 			multiPageHasPrev: {
 				type: Boolean
 			},
+			augmentedReleaseCondition: {
+				type: Boolean
+			},
 			_setUpMultiPageTopicListener: Function
 		};
 	}
@@ -123,7 +126,8 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 			return 'iterateToPrevious';
 		}
 	}
-	_onClick() {
+
+	async _onClick() {
 		if (this._isMultiPageNavigation()) {
 			const multiPageEvent = new CustomEvent('d2l-sequence-viewer-multipage-navigation', {
 				detail: this._getMultiPageAction()
@@ -133,10 +137,60 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 		}
 
 		if (this.link && this.link.href) {
-			this.currentActivity = this.link.href;
+			if (!this.augmentedReleaseCondition) {
+				this.currentActivity = this.link.href;
+				this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
+			} else {
+				// go fetch the current activity again first
+				const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.currentActivity, this.token, true);
+				await this._setCurrentActivity(currentActivityRefetch);
+			}
+
 			this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
+
 		}
 	}
+
+	async _setCurrentActivity(currentActivityRefetch) {
+		if (!currentActivityRefetch || !currentActivityRefetch.entity || !currentActivityRefetch.entity.properties) {
+			return;
+		}
+
+		const currentActivityParentHref = this._getUpHref(currentActivityRefetch.entity);
+		const actualNextActivityHref = this._getNextActivityHref(currentActivityRefetch.entity);
+		const actualPreviousActivityHref = this._getPreviousActivityHref(currentActivityRefetch.entity);
+
+		if (this.next && actualNextActivityHref) {
+			await this._fetchParentIfNeeded(currentActivityParentHref, this.link.href, actualNextActivityHref);
+			this.currentActivity = actualNextActivityHref;
+		}
+		else if (this.previous && actualPreviousActivityHref) {
+			await this._fetchParentIfNeeded(currentActivityParentHref, this.link.href, actualPreviousActivityHref);
+			this.currentActivity = actualPreviousActivityHref;
+		}
+	}
+
+	async _fetchParentIfNeeded(parentHref, expectedActivityTarget, actualActivityTarget) {
+		if (actualActivityTarget !== expectedActivityTarget && parentHref) {
+			await window.D2L.Siren.EntityStore.fetch(parentHref, this.token, true);
+		}
+	}
+
+	_getUpHref(entity) {
+		const upLink = entity && entity.getLinkByRel('up') || '';
+		return upLink.href || null;
+	}
+
+	_getNextActivityHref(entity) {
+		const nextActivityLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
+		return nextActivityLink.href || null;
+	}
+
+	_getPreviousActivityHref(entity) {
+		const previousActivityLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
+		return previousActivityLink.href || null;
+	}
+
 	_setLink(entity) {
 
 		if (!entity) {
