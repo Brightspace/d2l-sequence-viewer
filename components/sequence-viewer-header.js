@@ -129,9 +129,9 @@ PolymerElement) {
 				</div>
 				<div id="header-right">
 					<template is="dom-if" if="[[!isSingleTopicView]]">
-						<d2l-sequence-viewer-iterator class="iterator-icon prev-button" current-activity="{{href}}" href="[[previousActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous="" on-click="_onPreviousPress"></d2l-sequence-viewer-iterator>
+						<d2l-sequence-viewer-iterator class="iterator-icon prev-button" current-activity="{{href}}" href="[[previousActivityHref]]" augmented-release-condition="[[augmentedReleaseCondition]]" token="[[token]]" icon="d2l-tier3:chevron-left-circle" previous="" on-click="_onPreviousPress"></d2l-sequence-viewer-iterator>
 						<d2l-icon class="flyout-divider" icon="d2l-tier2:divider-big"></d2l-icon>
-						<d2l-sequence-viewer-iterator class="iterator-icon next-button" current-activity="{{href}}" href="[[nextActivityHref]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next="" on-click="_onNextPress"></d2l-sequence-viewer-iterator>
+						<d2l-sequence-viewer-iterator class="iterator-icon next-button" current-activity="{{href}}" href="[[nextActivityHref]]" augmented-release-condition="[[augmentedReleaseCondition]]" token="[[token]]" icon="d2l-tier3:chevron-right-circle" next="" on-click="_onNextPress"></d2l-sequence-viewer-iterator>
 					</template>
 				</div>
 			</div>
@@ -174,6 +174,10 @@ PolymerElement) {
 				type: Boolean,
 				value: true,
 				reflectToAttribute: true
+			},
+			augmentedReleaseCondition: {
+				type: Boolean,
+				computed: '_getAugmentedReleaseConditionStatus(entity)'
 			}
 		};
 	}
@@ -189,6 +193,10 @@ PolymerElement) {
 		this.fire('iron-announce', {
 			text: this.currentContentName
 		});
+	}
+
+	_getAugmentedReleaseConditionStatus(entity) {
+		return !!(entity && entity.hasClass('release-condition-fix'));
 	}
 
 	_getNextActivityHref(entity) {
